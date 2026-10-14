@@ -23,6 +23,7 @@
     --texto: #fbf7ff;
     --texto-suave: #e0d2f5;
     --verde: #9fe3b8;
+    --lila-claro: #e4d4ff;
     --f-display: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
     --f-lirica: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
     color-scheme: dark;
@@ -52,8 +53,8 @@
     pointer-events: none;
   }
   .titulo-app {
-    position: absolute; left: 42%; top: 47%;
-    width: clamp(230px, 40%, 540px);
+    position: absolute; left: 50%; top: 46%;
+    width: clamp(190px, 27%, 400px);
     transform: translate(-50%, -50%);
     z-index: 2;
     filter: drop-shadow(0 0 18px rgba(255,255,255,0.55));
@@ -66,6 +67,14 @@
     height: clamp(26px, 3.4vw, 40px); width: auto;
     z-index: 3; opacity: 0.95;
   }
+  .reversos-cabecera {
+    position: absolute; z-index: 2;
+    left: max(10px, env(safe-area-inset-left, 0px)); top: 50%;
+    width: clamp(110px, 16vw, 230px); height: auto;
+    transform: translateY(-58%) rotate(-7deg);
+    filter: drop-shadow(0 10px 18px rgba(10,2,24,0.55));
+    opacity: 0.96;
+  }
   @keyframes aparece { from { opacity: 0; transform: translate(-50%, -46%); } to { opacity: 1; transform: translate(-50%, -50%); } }
 
   /* ================= CATÁLOGO ================= */
@@ -77,15 +86,15 @@
       var(--morado);
     padding-left: max(16px, env(safe-area-inset-left, 0px));
     padding-right: max(16px, env(safe-area-inset-right, 0px));
-    padding-block: 6px 56px;
+    padding-block: clamp(34px, 5vw, 58px) 56px;
     min-height: 50vh;
   }
-  .catalogo-interior { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 42px; }
+  .catalogo-interior { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 38px; }
 
   .fila-cabecera { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
   .fila-titulo {
     margin: 0; font-size: clamp(19px, 2.3vw, 25px); font-weight: 800; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--texto); text-wrap: balance;
+    text-transform: uppercase; color: var(--lila-claro); text-wrap: balance;
     display: flex; align-items: baseline; gap: 12px;
   }
   .fila-titulo small { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--lila); }
@@ -125,7 +134,7 @@
     display: flex; flex-direction: column; gap: 10px;
   }
   .tarjeta-media {
-    position: relative; width: 100%; aspect-ratio: 2 / 3; max-width: 100%;
+    position: relative; width: 100%; aspect-ratio: 2 / 3; max-width: 100%; box-sizing: border-box;
     border-radius: 12px; overflow: hidden;
     border: 2px solid rgba(244,212,124,0.35);
     box-shadow: 0 12px 26px rgba(10, 2, 24, 0.55);
@@ -160,6 +169,45 @@
   .sello-coleccion { background: rgba(60, 40, 6, 0.82); color: var(--oro); }
   .sello-muestra { background: rgba(29, 8, 56, 0.85); color: var(--lila); }
   .sello-pronto { background: rgba(29, 8, 56, 0.85); color: var(--texto-suave); }
+
+  .divisoria {
+    height: 1px; width: 100%; border: 0; margin: 0;
+    background: linear-gradient(90deg, rgba(190,140,255,0) 0%, rgba(190,140,255,0.75) 50%, rgba(190,140,255,0) 100%);
+    box-shadow: 0 0 12px rgba(190,140,255,0.35);
+  }
+
+  .sello-conseguir {
+    background: linear-gradient(135deg, #f7e2a0, var(--oro)); color: #2a1405; text-decoration: none;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.35); transition: filter .2s;
+  }
+  .sello-conseguir:hover { filter: brightness(1.08); }
+
+  .hueco {
+    flex: 0 0 auto; width: clamp(150px, 15vw, 182px); scroll-snap-align: start;
+    display: flex; flex-direction: column; gap: 10px; text-align: center;
+  }
+  .hueco-media {
+    position: relative; width: 100%; aspect-ratio: 2 / 3; max-width: 100%; box-sizing: border-box;
+    border-radius: 12px; border: 2px dashed rgba(205,176,255,0.5);
+    background:
+      radial-gradient(circle at 50% 30%, rgba(205,176,255,0.14), transparent 60%),
+      rgba(29, 8, 56, 0.55);
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 9px;
+    padding: 38px 10px 14px;
+  }
+  .hueco-candado { flex-shrink: 0; width: 34px; height: 34px; fill: var(--lila); opacity: .9; margin-bottom: auto; margin-top: 8px; }
+  .hueco-nombre { font-family: var(--f-lirica); font-size: 19px; font-weight: 600; line-height: 1.1; color: var(--texto); }
+  .hueco-texto { font-size: 12.5px; line-height: 1.4; color: var(--texto-suave); }
+  .btn-activar {
+    background: linear-gradient(135deg, #fff0b0 0%, #ffd94d 45%, #e6a800 100%); color: #2a1405;
+    border: none; border-radius: 999px; padding: 9px 20px; font-size: 13.5px; font-weight: 800; letter-spacing: .1em;
+    cursor: pointer; box-shadow: 0 5px 14px rgba(230,168,0,0.4); transition: transform .2s, filter .2s;
+  }
+  .btn-activar:hover { transform: translateY(-2px); filter: brightness(1.06); }
+  .hueco .tarjeta-nombre { opacity: .75; }
+
+  .recien { animation: brilla 2.2s ease-out 1; }
+  @keyframes brilla { 0% { box-shadow: 0 0 0 0 rgba(244,212,124,.9); } 60% { box-shadow: 0 0 0 14px rgba(244,212,124,0); } 100% { box-shadow: 0 12px 26px rgba(10,2,24,.55); } }
 
   .coleccion-vacia {
     display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
@@ -281,8 +329,9 @@
   }
 
   @media (max-width: 600px) {
-    .titulo-app { width: 66%; }
+    .titulo-app { width: 52%; top: 42%; }
     .flecha { display: none; }
+    .reversos-cabecera { width: 25vw; left: 8px; top: 76%; }
     .oracle-instruction { font-size: 17px; }
     .logo-footer { width: 100px; bottom: 18px; left: 18px; }
   }
@@ -297,6 +346,7 @@
 <div id="vista-catalogo">
   <header class="cabecera">
     <img src="img/logo-dharma.png" alt="Dharma Eterno" class="logo-marca">
+    <img src="img/reversos.webp" alt="" class="reversos-cabecera">
     <img src="img/titulo.png" alt="Oráculos del Dharma" class="titulo-app">
   </header>
 
@@ -314,17 +364,17 @@
         <div class="carrusel" id="fila-todos"></div>
       </section>
 
+      <hr class="divisoria">
+
       <section aria-labelledby="t-coleccion">
         <div class="fila-cabecera">
           <h2 class="fila-titulo" id="t-coleccion">Tu colección <small id="cuenta-coleccion"></small></h2>
           <div class="fila-controles">
-            <button class="btn-licencia" id="btn-abrir-licencia">
-              <svg viewBox="0 0 24 24"><path d="M12.65 10A6 6 0 1 0 12.65 14H17v4h4v-4h2v-4H12.65zM7 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
-              Activar licencia
-            </button>
+            <button class="flecha" data-fila="fila-coleccion" data-dir="-1" aria-label="Anteriores"><svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+            <button class="flecha" data-fila="fila-coleccion" data-dir="1" aria-label="Siguientes"><svg viewBox="0 0 24 24"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
           </div>
         </div>
-        <div id="zona-coleccion"></div>
+        <div class="carrusel" id="fila-coleccion"></div>
       </section>
 
       <footer class="pie">
@@ -381,7 +431,8 @@
    CONFIGURACIÓN — lo único que tendrás que tocar al añadir oráculos
    ===================================================================== */
 
-// Mientras pruebas: acepta la licencia de prueba PRUEBA-ATMAN sin servidor.
+// Mientras pruebas: acepta licencias de prueba sin servidor, con el formato
+// PRUEBA-<oráculo> (PRUEBA-RUMI, PRUEBA-ZEN, PRUEBA-KABBALAH…).
 // Ponlo en false cuando conectes Payhip de verdad.
 const MODO_PRUEBA = true;
 
@@ -439,18 +490,19 @@ const ORACULOS = [
   {
     id: 'atman', nombre: 'Atman', subtitulo: 'Oráculo de Luz', estado: 'disponible',
     abiertoParaTodos: true,   // ← de momento se usa entero. Ponlo en false para que quede capado hasta que lo compren.
-    base: 'oraculos/atman/', portada: 'dorso.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
+    base: 'oraculos/atman/', portada: '01.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
     payhip: 'https://payhip.com/',  // ← pon aquí el enlace del producto en Payhip
     cartas: CARTAS_ATMAN
   },
-  { id: 'rumi',      nombre: 'Rumi',                   subtitulo: 'Oráculo',  estado: 'proximamente', tono: '#5a2a7e' },
-  { id: 'kabbalah',  nombre: 'Kabbalah',               subtitulo: 'Oráculo',  estado: 'proximamente', tono: '#2f2a7a' },
-  { id: 'zen',       nombre: 'Zen',                    subtitulo: 'Oráculo',  estado: 'proximamente', tono: '#3c3a5e' },
-  { id: 'amistad',   nombre: 'El Tarot de la Amistad', subtitulo: 'Tarot',    estado: 'proximamente', tono: '#6a2463' },
-  { id: 'corazon',   nombre: 'El Tarot del Corazón',   subtitulo: 'Tarot',    estado: 'proximamente', tono: '#7a1f4d' },
-  { id: 'papa',      nombre: 'El Oráculo El Papa',     subtitulo: 'Oráculo',  estado: 'proximamente', tono: '#4a2a6e' },
-  { id: 'panesa',    nombre: 'El Tarot de la Panesa',  subtitulo: 'Tarot',    estado: 'proximamente', tono: '#53306f' },
-  { id: 'fortuna',   nombre: 'El Tarot de la Fortuna', subtitulo: 'Tarot',    estado: 'proximamente', tono: '#6b4a1f' }
+  // Oráculos aún vacíos: de momento muestran cartas de Atman para ver cómo queda.
+  { id: 'rumi',     nombre: 'Rumi',                   subtitulo: 'Oráculo', estado: 'proximamente', muestra: 'oraculos/atman/03.webp', payhip: 'https://payhip.com/' },
+  { id: 'kabbalah', nombre: 'Kabbalah',               subtitulo: 'Oráculo', estado: 'proximamente', muestra: 'oraculos/atman/08.webp', payhip: 'https://payhip.com/' },
+  { id: 'zen',      nombre: 'Zen',                    subtitulo: 'Oráculo', estado: 'proximamente', muestra: 'oraculos/atman/10.webp', payhip: 'https://payhip.com/' },
+  { id: 'amistad',  nombre: 'El Tarot de la Amistad', subtitulo: 'Tarot',   estado: 'proximamente', muestra: 'oraculos/atman/21.webp', payhip: 'https://payhip.com/' },
+  { id: 'corazon',  nombre: 'El Tarot del Corazón',   subtitulo: 'Tarot',   estado: 'proximamente', muestra: 'oraculos/atman/38.webp', payhip: 'https://payhip.com/' },
+  { id: 'papa',     nombre: 'El Oráculo El Papa',     subtitulo: 'Oráculo', estado: 'proximamente', muestra: 'oraculos/atman/17.webp', payhip: 'https://payhip.com/' },
+  { id: 'panesa',   nombre: 'El Tarot de la Panesa',  subtitulo: 'Tarot',   estado: 'proximamente', muestra: 'oraculos/atman/30.webp', payhip: 'https://payhip.com/' },
+  { id: 'fortuna',  nombre: 'El Tarot de la Fortuna', subtitulo: 'Tarot',   estado: 'proximamente', muestra: 'oraculos/atman/35.webp', payhip: 'https://payhip.com/' }
 ];
 
 /* =====================================================================
@@ -476,42 +528,60 @@ const ICONO_CANDADO = '<svg viewBox="0 0 24 24"><path d="M18 8h-1V6A5 5 0 0 0 7 
 const ICONO_OK = '<svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
 const LOTO = '<svg viewBox="0 0 48 48"><path d="M24 8c4 5 6 10 6 15s-2 9-6 13c-4-4-6-8-6-13s2-10 6-15z"/><path d="M24 36c-6-1-12-5-15-12 6-1 11 1 15 5"/><path d="M24 36c6-1 12-5 15-12-6-1-11 1-15 5"/><path d="M10 40h28"/></svg>';
 
+const imagenDe = o => o.base ? o.base + o.portada : o.muestra;
+const abierto = o => !!o.abiertoParaTodos || loTiene(o.id);
+
 function sello(o, enColeccion) {
-  if (o.estado === 'proximamente') return '<span class="sello sello-pronto">Próximamente</span>';
-  if (enColeccion || loTiene(o.id)) return `<span class="sello sello-coleccion">${ICONO_OK} Tuyo</span>`;
+  if (o.estado === 'proximamente' && !loTiene(o.id)) return '<span class="sello sello-pronto">Próximamente</span>';
+  if (loTiene(o.id)) return `<span class="sello sello-coleccion">${ICONO_OK} Tuyo</span>`;
   if (o.abiertoParaTodos) return '<span class="sello sello-abierto">Abierto</span>';
   return `<span class="sello sello-muestra">${ICONO_CANDADO} Muestra</span>`;
 }
 
 function tarjetaHTML(o, enColeccion) {
-  const media = o.estado === 'disponible'
-    ? `<img src="${o.base}${o.portada}" alt="" draggable="false" loading="lazy">`
-    : `<div class="portada-vacia" style="--tono:${o.tono}">${LOTO}<span>${o.nombre}</span></div>`;
   return `<button class="tarjeta" data-id="${o.id}">
-      <div class="tarjeta-media">${sello(o, enColeccion)}${media}</div>
+      <div class="tarjeta-media">${sello(o, enColeccion)}<img src="${imagenDe(o)}" alt="" draggable="false" loading="lazy"></div>
       <div class="tarjeta-nombre">${o.nombre}</div>
       <div class="tarjeta-sub">${o.subtitulo}</div>
     </button>`;
 }
 
-function pintar() {
+// Hueco vacío de "Tu colección": candado, nombre, explicación y botón ACTIVAR
+function huecoHTML(o) {
+  return `<div class="hueco" data-id="${o.id}">
+      <div class="hueco-media">
+        <a class="sello sello-conseguir" href="${o.payhip || '#'}" target="_blank" rel="noopener">Conseguir</a>
+        ${ICONO_CANDADO.replace('<svg', '<svg class="hueco-candado"')}
+        <div class="hueco-nombre">${o.nombre}</div>
+        <div class="hueco-texto">Tras la compra recibirás tu licencia. Pincha en el botón para</div>
+        <button class="btn-activar" data-accion="licencia">ACTIVAR</button>
+      </div>
+      <div class="tarjeta-sub">${o.subtitulo}</div>
+    </div>`;
+}
+
+// Los abiertos van primero (en el orden en que se activaron) y detrás los huecos vacíos.
+function ordenColeccion() {
+  const fecha = o => o.abiertoParaTodos && !loTiene(o.id) ? 0 : (coleccion[o.id]?.desde || 0);
+  const mios = ORACULOS.filter(abierto).sort((x, y) => fecha(x) - fecha(y));
+  const vacios = ORACULOS.filter(o => !abierto(o));
+  return { mios, vacios };
+}
+
+function pintar(recienId) {
   document.getElementById('fila-todos').innerHTML = ORACULOS.map(o => tarjetaHTML(o, false)).join('');
 
-  const mios = ORACULOS.filter(o => loTiene(o.id));
-  const zona = document.getElementById('zona-coleccion');
-  document.getElementById('cuenta-coleccion').textContent = mios.length ? `${mios.length} ${mios.length === 1 ? 'oráculo' : 'oráculos'}` : '';
-  if (mios.length) {
-    zona.innerHTML = `<div class="carrusel" id="fila-coleccion">${mios.map(o => tarjetaHTML(o, true)).join('')}</div>`;
-    activarArrastre(document.getElementById('fila-coleccion'));
-  } else {
-    zona.innerHTML = `<div class="coleccion-vacia">
-        <div class="hueco">${ICONO_CANDADO}</div>
-        <div class="texto">
-          <p><strong>Aquí aparecerán los oráculos que compres.</strong> Al comprar en Payhip recibes por email una licencia. Pégala una sola vez y el oráculo quedará abierto en tu colección para siempre en este dispositivo.</p>
-          ${MODO_PRUEBA ? '<p class="pista-prueba">Para probarlo ahora, activa la licencia <code>PRUEBA-ATMAN</code>.</p>' : ''}
-          <button class="btn-licencia" data-accion="licencia">Activar mi licencia</button>
-        </div>
-      </div>`;
+  const { mios, vacios } = ordenColeccion();
+  document.getElementById('cuenta-coleccion').textContent = `${mios.length} de ${ORACULOS.length}`;
+  const fila = document.getElementById('fila-coleccion');
+  fila.innerHTML = mios.map(o => tarjetaHTML(o, true)).join('') + vacios.map(huecoHTML).join('');
+
+  if (recienId) {
+    const t = fila.querySelector(`.tarjeta[data-id="${recienId}"]`);
+    if (t) {
+      t.querySelector('.tarjeta-media').classList.add('recien');
+      setTimeout(() => fila.scrollTo({ left: Math.max(0, t.offsetLeft - 24), behavior: 'smooth' }), 350);
+    }
   }
   actualizarFlechas();
 }
@@ -545,12 +615,11 @@ document.querySelectorAll('.flecha').forEach(b => b.addEventListener('click', ()
 window.addEventListener('resize', actualizarFlechas);
 
 document.addEventListener('click', e => {
+  if (e.target.closest('[data-accion="licencia"]')) { abrirVentanaLicencia(); return; }
   const t = e.target.closest('.tarjeta');
   if (t) { pulsarOraculo(t.dataset.id); return; }
-  if (e.target.closest('[data-accion="licencia"]')) abrirVentanaLicencia();
   if (e.target.closest('[data-accion="cerrar"]')) cerrarVentana();
 });
-document.getElementById('btn-abrir-licencia').addEventListener('click', () => abrirVentanaLicencia());
 
 function pulsarOraculo(id) {
   const o = oraculo(id);
@@ -601,7 +670,7 @@ function abrirVentanaLicencia(textoArriba) {
     btn.disabled = false; btn.textContent = 'Activar';
     if (r.ok) {
       cerrarVentana();
-      pintar();
+      pintar(r.oraculo);
       avisar(`${oraculo(r.oraculo).nombre} ya está en tu colección`);
       document.getElementById('t-coleccion').scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else {
@@ -617,10 +686,13 @@ async function activarLicencia(texto) {
   const licencia = (texto || '').trim().toUpperCase();
   if (!licencia) return { ok: false, error: 'Escribe o pega tu licencia.' };
 
-  if (MODO_PRUEBA && licencia === 'PRUEBA-ATMAN') {
-    coleccion[ 'atman' ] = { licencia, desde: Date.now(), comprobada: Date.now(), prueba: true };
+  if (MODO_PRUEBA && licencia.startsWith('PRUEBA-')) {
+    const id = licencia.slice(7).toLowerCase();
+    if (!oraculo(id)) return { ok: false, error: 'Esa licencia de prueba no corresponde a ningún oráculo.' };
+    if (loTiene(id)) return { ok: false, error: `${oraculo(id).nombre} ya estaba en tu colección.` };
+    coleccion[id] = { licencia, desde: Date.now(), comprobada: Date.now(), prueba: true };
     guardarColeccion(coleccion);
-    return { ok: true, oraculo: 'atman' };
+    return { ok: true, oraculo: id };
   }
 
   try {
@@ -630,6 +702,7 @@ async function activarLicencia(texto) {
     });
     const datos = await res.json();
     if (datos.ok && oraculo(datos.oraculo)) {
+      if (loTiene(datos.oraculo)) return { ok: false, error: `${oraculo(datos.oraculo).nombre} ya estaba en tu colección.` };
       coleccion[datos.oraculo] = { licencia, desde: Date.now(), comprobada: Date.now() };
       guardarColeccion(coleccion);
       return { ok: true, oraculo: datos.oraculo };
@@ -663,7 +736,7 @@ async function licenciaDesdeEnlace() {
   try { lic = new URLSearchParams(location.search).get('licencia'); } catch (e) {}
   if (!lic) return;
   const r = await activarLicencia(lic);
-  if (r.ok) { pintar(); avisar(`${oraculo(r.oraculo).nombre} ya está en tu colección`); }
+  if (r.ok) { pintar(r.oraculo); avisar(`${oraculo(r.oraculo).nombre} ya está en tu colección`); }
   else abrirVentanaLicencia(r.error);
   try { history.replaceState(null, '', location.pathname); } catch (e) {}
 }
@@ -925,6 +998,7 @@ window.addEventListener('resize', () => { if (actual) { trackX = positionForInde
    ===================================================================== */
 pintar();
 activarArrastre(document.getElementById('fila-todos'));
+activarArrastre(document.getElementById('fila-coleccion'));
 licenciaDesdeEnlace();
 recomprobarLicencias();
 </script>
