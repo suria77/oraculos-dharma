@@ -6,6 +6,13 @@
 <meta name="theme-color" content="#2c0f4e">
 <title>Oráculos del Dharma</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#2c0f4e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Oráculos">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap">
@@ -40,41 +47,18 @@
   button { font-family: inherit; }
   :focus-visible { outline: 2px solid var(--oro); outline-offset: 3px; }
 
-  /* ================= CABECERA CÓSMICA ================= */
+  /* ================= CABECERA (vídeo en bucle) ================= */
   .cabecera {
-    position: relative;
-    height: clamp(270px, 40vw, 470px);
-    background: var(--morado-hondo) url('img/cosmos.jpg') 42% 47% / cover no-repeat;
+    position: relative; width: 100%; aspect-ratio: 2.5 / 1; max-height: 560px;
+    background: var(--morado-hondo) url('img/cabecera-poster.jpg') center / cover no-repeat;
     overflow: hidden;
   }
+  .cabecera video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .cabecera::after {
-    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 16%;
     background: linear-gradient(to bottom, rgba(44,15,78,0) 0%, var(--morado) 100%);
     pointer-events: none;
   }
-  .titulo-app {
-    position: absolute; left: 50%; top: 46%;
-    width: clamp(190px, 27%, 400px);
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    filter: drop-shadow(0 0 18px rgba(255,255,255,0.55));
-    animation: aparece 1.4s ease-out both;
-  }
-  .logo-marca {
-    position: absolute;
-    top: calc(10px + env(safe-area-inset-top, 0px));
-    right: max(12px, env(safe-area-inset-right, 0px));
-    height: clamp(26px, 3.4vw, 40px); width: auto;
-    z-index: 3; opacity: 0.95;
-  }
-  .reversos-cabecera {
-    position: absolute; z-index: 2;
-    left: -3.5%; bottom: -15%;
-    width: clamp(200px, 27vw, 400px); height: auto;
-    transform: rotate(-8deg); transform-origin: left bottom;
-    filter: drop-shadow(0 10px 18px rgba(10,2,24,0.55));
-  }
-  @keyframes aparece { from { opacity: 0; transform: translate(-50%, -46%); } to { opacity: 1; transform: translate(-50%, -50%); } }
 
   /* ================= CATÁLOGO ================= */
   .catalogo {
@@ -248,6 +232,17 @@
   }
   .btn-volver:hover { background: var(--oro); color: var(--morado-hondo); }
   .lectura-nombre { font-family: var(--f-lirica); font-size: 24px; font-weight: 600; color: var(--texto); }
+  .btn-offline {
+    display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+    background: rgba(255,255,255,0.08); color: var(--texto); border: 1px solid rgba(205,176,255,0.5);
+    padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .03em;
+  }
+  .btn-offline svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .btn-offline:hover { border-color: var(--lila); background: rgba(205,176,255,0.15); }
+  .btn-offline.listo { color: var(--verde); border-color: rgba(159,227,184,0.5); cursor: default; }
+  .lectura-derecha { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .ventana .campo { display: flex; flex-direction: column; gap: 6px; }
+  .ventana input.correo { text-transform: none; letter-spacing: 0; }
   .estado-acceso { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 7px 12px; border-radius: 999px; }
   .estado-completo { background: rgba(20,60,40,.8); color: var(--verde); }
   .estado-muestra { background: rgba(205,176,255,.15); color: var(--lila); }
@@ -332,9 +327,7 @@
   }
 
   @media (max-width: 600px) {
-    .titulo-app { width: 52%; top: 42%; }
     .flecha { display: none; }
-    .reversos-cabecera { width: 40vw; left: -9vw; bottom: -17%; }
     .oracle-instruction { font-size: 17px; }
     .logo-footer { width: 100px; bottom: 18px; left: 18px; }
   }
@@ -348,9 +341,7 @@
 <!-- ======================= PANTALLA PRINCIPAL ======================= -->
 <div id="vista-catalogo">
   <header class="cabecera">
-    <img src="img/logo-dharma.png" alt="Dharma Eterno" class="logo-marca">
-    <img src="img/reversos.webp" alt="" class="reversos-cabecera">
-    <img src="img/titulo.png" alt="Oráculos del Dharma" class="titulo-app">
+    <video id="video-cabecera" muted loop playsinline preload="auto" poster="img/cabecera-poster.jpg" aria-label="Oráculos del Dharma. El destino en tus manos"></video>
   </header>
 
   <main class="catalogo">
@@ -393,7 +384,10 @@
   <div class="lectura-barra">
     <button class="btn-volver" id="btn-volver">← Volver a los oráculos</button>
     <span class="lectura-nombre" id="lectura-nombre"></span>
-    <span class="estado-acceso" id="estado-acceso"></span>
+    <div class="lectura-derecha">
+      <button class="btn-offline" id="btn-offline" hidden></button>
+      <span class="estado-acceso" id="estado-acceso"></span>
+    </div>
   </div>
 
   <div class="oracle-container" id="oracleContainer">
@@ -512,20 +506,124 @@ const ORACULOS = [
 ];
 
 /* =====================================================================
-   COLECCIÓN (licencias guardadas en el dispositivo)
+   COLECCIÓN — guardada por triplicado y firmada (sistema de Japa-Móvil, reforzado)
    ===================================================================== */
-const CLAVE_GUARDADO = 'oraculos-dharma-coleccion';
-function leerColeccion() {
-  try { return JSON.parse(localStorage.getItem(CLAVE_GUARDADO)) || {}; } catch (e) { return memoriaColeccion; }
+// Clave PÚBLICA para comprobar las firmas del servidor. La privada solo está en Cloudflare
+// (OD_CLAVE_FIRMA). Si alguien escribe a mano en la memoria del móvil, la firma no cuadra.
+const CLAVE_PUBLICA = {"kty":"EC","x":"NIS7U2dS4ZAkfwNLp7k44M0Jp89iuqCvBhJMz8PwloA","y":"eu_jFM5JIesnfLoMGzEteV-JKVW5ZOrNgfBhi4qyvag","crv":"P-256"};
+const K_COLECCION = 'od_coleccion', K_DISPOSITIVO = 'od_dispositivo', K_EMAIL = 'od_email';
+
+/* Almacenamiento triple y redundante: localStorage + cookie + IndexedDB.
+   iOS a veces borra uno de ellos; si queda alguno, se recupera y se vuelve a copiar en
+   los demás (se "autocura"). Además el servidor guarda una copia (cookie HttpOnly). */
+const Store = (function () {
+  const IDB = 'od_store', TABLA = 'kv', UN_ANO = 60 * 60 * 24 * 365;
+  function conTiempo(promesa, ms, porDefecto) {
+    return new Promise(res => {
+      let hecho = false;
+      const t = setTimeout(() => { if (!hecho) { hecho = true; res(porDefecto); } }, ms);
+      promesa.then(v => { if (!hecho) { hecho = true; clearTimeout(t); res(v); } },
+                   () => { if (!hecho) { hecho = true; clearTimeout(t); res(porDefecto); } });
+    });
+  }
+  function idbAbrir() {
+    return new Promise((res, rej) => {
+      try {
+        const r = indexedDB.open(IDB, 1);
+        r.onupgradeneeded = () => r.result.createObjectStore(TABLA);
+        r.onsuccess = () => res(r.result);
+        r.onerror = () => rej(r.error);
+      } catch (e) { rej(e); }
+    });
+  }
+  const idbGet = k => conTiempo(idbAbrir().then(db => new Promise(res => {
+    try { const r = db.transaction(TABLA, 'readonly').objectStore(TABLA).get(k); r.onsuccess = () => res(r.result || null); r.onerror = () => res(null); }
+    catch (e) { res(null); }
+  })), 1500, null);
+  const idbSet = (k, v) => conTiempo(idbAbrir().then(db => new Promise(res => {
+    try { const tx = db.transaction(TABLA, 'readwrite'); tx.objectStore(TABLA).put(v, k); tx.oncomplete = () => res(true); tx.onerror = () => res(false); }
+    catch (e) { res(false); }
+  })), 1500, false);
+  const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+  const ckGet = k => {
+    try { const m = document.cookie.match(new RegExp('(?:^|; )' + k + '=([^;]*)')); return m ? decodeURIComponent(m[1]) : null; }
+    catch (e) { return null; }
+  };
+  const ckSet = (k, v) => {
+    try { document.cookie = k + '=' + encodeURIComponent(v) + '; max-age=' + UN_ANO + '; path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : ''); }
+    catch (e) {}
+  };
+  function set(k, v) { lsSet(k, v); ckSet(k, v); return idbSet(k, v); }
+  // Devuelve lo que haya en los tres sitios (para poder juntarlo)
+  async function todos(k) { return [lsGet(k), ckGet(k), await idbGet(k)].filter(Boolean); }
+  async function get(k) {
+    const v = lsGet(k) || ckGet(k) || await idbGet(k);
+    if (v) set(k, v);
+    return v;
+  }
+  return { get, set, todos };
+})();
+
+function pedirPersistencia() {
+  try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (e) {}
 }
-let memoriaColeccion = {};
-function guardarColeccion(c) {
-  memoriaColeccion = c;
-  try { localStorage.setItem(CLAVE_GUARDADO, JSON.stringify(c)); } catch (e) {}
-}
-let coleccion = leerColeccion();
-const loTiene = id => !!coleccion[id];
+
+// Cada entrada: { l: licencia, f: firma, d: fecha de alta, c: última comprobación, p: prueba }
+let coleccion = {};
+let validas = new Set();       // oráculos cuya firma se ha comprobado en este dispositivo
+let dispositivo = '';
+
+const loTiene = id => validas.has(id);
 const oraculo = id => ORACULOS.find(o => o.id === id);
+
+// Junta lo encontrado en los tres sitios sin perder nada (prefiere lo firmado y lo más reciente)
+function juntar(...listas) {
+  const r = {};
+  for (const l of listas) for (const [id, e] of Object.entries(l || {})) {
+    if (!e || !e.l) continue;
+    const ya = r[id];
+    const mejor = !ya || (!ya.f && e.f) || ((e.c || 0) > (ya.c || 0) && (e.f || !ya.f));
+    if (mejor) r[id] = Object.assign({}, e, { d: Math.min(e.d || Date.now(), (ya && ya.d) || Infinity) });
+  }
+  return r;
+}
+async function leerColeccion() {
+  const crudos = await Store.todos(K_COLECCION);
+  return juntar(...crudos.map(t => { try { return JSON.parse(t); } catch (e) { return null; } }));
+}
+function guardarColeccion() { return Store.set(K_COLECCION, JSON.stringify(coleccion)); }
+
+async function obtenerDispositivo() {
+  const v = await Store.get(K_DISPOSITIVO);
+  if (v) return v;
+  const nuevo = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'd-' + Date.now() + '-' + Math.random().toString(36).slice(2, 12);
+  Store.set(K_DISPOSITIVO, nuevo);
+  return nuevo;
+}
+
+function b64urlABytes(s) {
+  s = s.replace(/-/g, '+').replace(/_/g, '/'); while (s.length % 4) s += '=';
+  const bin = atob(s); const b = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) b[i] = bin.charCodeAt(i);
+  return b;
+}
+let clavePub = null;
+async function firmaValida(id, e) {
+  if (e.p) return MODO_PRUEBA;
+  if (!e.f || !window.crypto || !crypto.subtle) return false;
+  try {
+    clavePub = clavePub || await crypto.subtle.importKey('jwk', CLAVE_PUBLICA, { name: 'ECDSA', namedCurve: 'P-256' }, false, ['verify']);
+    return await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, clavePub, b64urlABytes(e.f),
+      new TextEncoder().encode('od1|' + id + '|' + e.l + '|' + dispositivo));
+  } catch (err) { return false; }
+}
+// Lo que no tenga una firma válida no se abre, pero tampoco se borra (por si se recupera)
+async function verificarColeccion() {
+  const ok = new Set();
+  for (const [id, e] of Object.entries(coleccion)) if (oraculo(id) && await firmaValida(id, e)) ok.add(id);
+  validas = ok;
+}
 
 /* =====================================================================
    PINTAR CARRUSELES
@@ -567,7 +665,7 @@ function huecoHTML(o) {
 
 // Los abiertos van primero (en el orden en que se activaron) y detrás los huecos vacíos.
 function ordenColeccion() {
-  const fecha = o => o.abiertoParaTodos && !loTiene(o.id) ? 0 : (coleccion[o.id]?.desde || 0);
+  const fecha = o => o.abiertoParaTodos && !loTiene(o.id) ? 0 : (coleccion[o.id]?.d || 0);
   const mios = ORACULOS.filter(abierto).sort((x, y) => fecha(x) - fecha(y));
   const vacios = ORACULOS.filter(o => !abierto(o));
   return { mios, vacios };
@@ -655,96 +753,147 @@ function avisar(texto) {
 
 function abrirVentanaLicencia(textoArriba) {
   abrirVentana(`<h3 id="ventana-titulo">Activar licencia</h3>
-    <p>${textoArriba || 'Pega la licencia que recibiste por email al comprar tu oráculo en Payhip.'}</p>
-    <form id="form-licencia" style="display:flex;flex-direction:column;gap:10px">
-      <label for="campo-licencia">Tu licencia</label>
-      <input id="campo-licencia" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Ej.: WTKP4-66NL5-HMKQW-GFSCZ">
+    <p>${textoArriba || 'Escribe el correo con el que compraste y pega la licencia que te llegó por email.'}</p>
+    <form id="form-licencia" style="display:flex;flex-direction:column;gap:12px">
+      <div class="campo">
+        <label for="campo-email">Tu correo</label>
+        <input id="campo-email" class="correo" type="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="nombre@correo.com">
+      </div>
+      <div class="campo">
+        <label for="campo-licencia">Tu licencia</label>
+        <input id="campo-licencia" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Ej.: WTKP4-66NL5-HMKQW-GFSCZ">
+      </div>
       <div class="mensaje" id="mensaje-licencia" role="status"></div>
-      <div class="acciones">
+      <div class="acciones" id="acciones-licencia">
         <button type="submit" class="btn-licencia" id="btn-enviar-licencia">Activar</button>
         <button type="button" class="btn-secundario" data-accion="cerrar">Cancelar</button>
       </div>
     </form>`);
   const campo = document.getElementById('campo-licencia');
-  setTimeout(() => campo.focus(), 50);
-  document.getElementById('form-licencia').addEventListener('submit', async e => {
-    e.preventDefault();
+  const correo = document.getElementById('campo-email');
+  Store.get(K_EMAIL).then(v => { if (v && !correo.value) correo.value = v; setTimeout(() => (correo.value ? campo : correo).focus(), 50); });
+
+  async function enviar(liberar) {
     const msj = document.getElementById('mensaje-licencia');
     const btn = document.getElementById('btn-enviar-licencia');
+    const viejo = document.getElementById('btn-liberar'); if (viejo) viejo.remove();
     btn.disabled = true; btn.textContent = 'Comprobando…'; msj.className = 'mensaje'; msj.textContent = '';
-    const r = await activarLicencia(campo.value);
+    const r = await activarLicencia(correo.value, campo.value, liberar);
     btn.disabled = false; btn.textContent = 'Activar';
     if (r.ok) {
       cerrarVentana();
       pintar(r.oraculo);
       avisar(`${oraculo(r.oraculo).nombre} ya está en tu colección`);
       document.getElementById('t-coleccion').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } else {
-      msj.className = 'mensaje error'; msj.textContent = r.error;
+      return;
     }
-  });
+    msj.className = 'mensaje error'; msj.textContent = r.error;
+    if (r.necesitaLiberar) {
+      const b = document.createElement('button');
+      b.type = 'button'; b.id = 'btn-liberar'; b.className = 'btn-comprar';
+      b.textContent = 'Liberar el más antiguo y activar aquí';
+      b.addEventListener('click', () => enviar(true));
+      document.getElementById('acciones-licencia').prepend(b);
+    }
+  }
+  document.getElementById('form-licencia').addEventListener('submit', e => { e.preventDefault(); enviar(false); });
 }
 
 /* =====================================================================
    LICENCIAS
    ===================================================================== */
-async function activarLicencia(texto) {
+async function llamarServidor(cuerpo) {
+  const res = await fetch(API_LICENCIAS, {
+    method: 'POST', credentials: 'same-origin', cache: 'no-store',
+    headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cuerpo)
+  });
+  return res.json();
+}
+
+async function activarLicencia(email, texto, liberar) {
   const licencia = (texto || '').trim().toUpperCase();
-  if (!licencia) return { ok: false, error: 'Escribe o pega tu licencia.' };
+  email = (email || '').trim().toLowerCase();
+  if (!licencia) return { ok: false, error: 'Pega tu licencia.' };
+  if (!dispositivo) dispositivo = await obtenerDispositivo();
 
   if (MODO_PRUEBA && licencia.startsWith('PRUEBA-')) {
     const id = licencia.slice(7).toLowerCase();
     if (!oraculo(id)) return { ok: false, error: 'Esa licencia de prueba no corresponde a ningún oráculo.' };
     if (loTiene(id)) return { ok: false, error: `${oraculo(id).nombre} ya estaba en tu colección.` };
-    coleccion[id] = { licencia, desde: Date.now(), comprobada: Date.now(), prueba: true };
-    guardarColeccion(coleccion);
+    coleccion[id] = { l: licencia, d: Date.now(), c: Date.now(), p: 1 };
+    await guardarColeccion(); await verificarColeccion();
     return { ok: true, oraculo: id };
   }
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return { ok: false, error: 'Escribe el correo con el que hiciste la compra.' };
 
   try {
-    const res = await fetch(API_LICENCIAS, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ licencia })
-    });
-    const datos = await res.json();
-    if (datos.ok && oraculo(datos.oraculo)) {
-      if (loTiene(datos.oraculo)) return { ok: false, error: `${oraculo(datos.oraculo).nombre} ya estaba en tu colección.` };
-      coleccion[datos.oraculo] = { licencia, desde: Date.now(), comprobada: Date.now() };
-      guardarColeccion(coleccion);
-      return { ok: true, oraculo: datos.oraculo };
+    const d = await llamarServidor({ accion: 'activar', email, licencia, dispositivo, liberar: !!liberar });
+    if (d.ok && oraculo(d.oraculo)) {
+      const yaEstaba = loTiene(d.oraculo);
+      const previa = coleccion[d.oraculo];
+      coleccion[d.oraculo] = { l: d.licencia || licencia, f: d.firma, d: (previa && previa.d) || Date.now(), c: Date.now() };
+      Store.set(K_EMAIL, email);
+      await guardarColeccion(); await verificarColeccion();
+      pedirPersistencia();
+      if (!loTiene(d.oraculo)) return { ok: false, error: 'No se pudo confirmar la licencia en este dispositivo. Inténtalo de nuevo.' };
+      if (yaEstaba) return { ok: false, error: `${oraculo(d.oraculo).nombre} ya estaba en tu colección.` };
+      return { ok: true, oraculo: d.oraculo };
     }
-    return { ok: false, error: datos.error || 'No encontramos esa licencia. Revisa que esté completa, con sus guiones.' };
+    return { ok: false, error: d.error || 'No encontramos esa licencia. Revisa que esté completa, con sus guiones.', necesitaLiberar: !!d.necesitaLiberar };
   } catch (err) {
     return { ok: false, error: 'No se pudo comprobar la licencia ahora mismo. Revisa tu conexión a internet e inténtalo de nuevo.' };
   }
 }
 
-// Una vez por semana, en silencio, se comprueba que las licencias siguen activas
-// (Payhip las desactiva si hay un reembolso). Si no hay conexión, no se toca nada.
-async function recomprobarLicencias() {
-  const SEMANA = 7 * 24 * 3600 * 1000;
-  for (const [id, info] of Object.entries(coleccion)) {
-    if (info.prueba || Date.now() - (info.comprobada || 0) < SEMANA) continue;
-    try {
-      const res = await fetch(API_LICENCIAS, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ licencia: info.licencia }) });
-      const d = await res.json();
-      if (d.ok) { info.comprobada = Date.now(); }
-      else if (d.desactivada) { delete coleccion[id]; }
-      guardarColeccion(coleccion);
-    } catch (e) { /* sin conexión: se deja como está */ }
+// Último respaldo: si el móvil perdió su colección, el servidor la devuelve (cookie HttpOnly)
+async function recuperarDelServidor() {
+  if (!navigator.onLine) return;
+  const tiempo = new Promise(res => setTimeout(() => res(null), 4000));
+  const peticion = fetch('/api/sesion', { credentials: 'same-origin', cache: 'no-store' })
+    .then(r => r.ok ? r.json() : null).catch(() => null);
+  const d = await Promise.race([peticion, tiempo]);
+  if (!d || !d.ok || !Array.isArray(d.coleccion) || !d.coleccion.length) return;
+  // Si este móvil perdió también su identificador, se recupera el del servidor
+  if (d.dispositivo && d.dispositivo !== dispositivo && validas.size === 0) {
+    dispositivo = d.dispositivo; Store.set(K_DISPOSITIVO, dispositivo);
   }
-  pintar();
+  if (d.dispositivo !== dispositivo) return;
+  const antes = validas.size;
+  for (const x of d.coleccion) {
+    const e = coleccion[x.oraculo];
+    coleccion[x.oraculo] = { l: x.licencia, f: x.firma, d: (e && e.d) || Date.now(), c: Date.now() };
+  }
+  if (d.email) Store.set(K_EMAIL, d.email);
+  await guardarColeccion(); await verificarColeccion();
+  if (validas.size !== antes) { pintar(); avisar('Hemos recuperado tu colección'); }
 }
 
-// Enlace mágico: si la app se abre con ?licencia=XXXX se activa sola
+// Una vez por semana, en silencio, se comprueba que las licencias siguen activas
+// (reembolso en Payhip o dispositivo liberado). Sin conexión no se toca nada.
+async function recomprobarLicencias() {
+  const SEMANA = 7 * 24 * 3600 * 1000;
+  if (!navigator.onLine) return;
+  let cambios = false;
+  for (const [id, e] of Object.entries(coleccion)) {
+    if (e.p || Date.now() - (e.c || 0) < SEMANA) continue;
+    try {
+      const d = await llamarServidor({ accion: 'comprobar', licencia: e.l, dispositivo });
+      if (d.ok && d.oraculo === id) { e.c = Date.now(); if (d.firma) e.f = d.firma; cambios = true; }
+      else if (d.desactivada) { delete coleccion[id]; cambios = true; }
+    } catch (err) { /* sin conexión: se deja como está */ }
+  }
+  if (cambios) { await guardarColeccion(); await verificarColeccion(); pintar(); }
+}
+
+// Enlace mágico: si la app se abre con ?licencia=XXXX (y opcionalmente &email=…) se activa sola
 async function licenciaDesdeEnlace() {
-  let lic = null;
-  try { lic = new URLSearchParams(location.search).get('licencia'); } catch (e) {}
+  let lic = null, em = '';
+  try { const q = new URLSearchParams(location.search); lic = q.get('licencia'); em = q.get('email') || ''; } catch (e) {}
   if (!lic) return;
-  const r = await activarLicencia(lic);
-  if (r.ok) { pintar(r.oraculo); avisar(`${oraculo(r.oraculo).nombre} ya está en tu colección`); }
-  else abrirVentanaLicencia(r.error);
   try { history.replaceState(null, '', location.pathname); } catch (e) {}
+  const r = await activarLicencia(em || await Store.get(K_EMAIL), lic);
+  if (r.ok) { pintar(r.oraculo); avisar(`${oraculo(r.oraculo).nombre} ya está en tu colección`); }
+  else { abrirVentanaLicencia(r.error); document.getElementById('campo-licencia').value = lic; }
 }
 
 /* =====================================================================
@@ -780,7 +929,41 @@ function abrirLectura(o) {
   document.getElementById('vista-lectura').hidden = false;
   window.scrollTo(0, 0);
   buildCarousel();
+  if (window.ODOffline) window.ODOffline.guardarCartas(o.id);   // las cartas se guardan solas
+  pintarBotonOffline();
 }
+
+/* --- Guardar el oráculo entero (cartas + audios) para usarlo sin conexión --- */
+const ICONO_BAJAR = '<svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10.5l4 4 4-4"/><path d="M5 19h14"/></svg>';
+let descargando = false;
+async function pintarBotonOffline() {
+  const b = document.getElementById('btn-offline');
+  const off = window.ODOffline;
+  if (!off || !actual || acceso !== 'completo') { b.hidden = true; return; }
+  if (descargando) return;
+  const st = await off.estado(actual.id);
+  if (!st.images.total && !st.audio.total) { b.hidden = true; return; }
+  b.hidden = false;
+  if (st.completo) { b.className = 'btn-offline listo'; b.textContent = '✓ Disponible sin conexión'; return; }
+  const mb = Math.max(1, Math.round(st.bytesFaltan / 1048576));
+  b.className = 'btn-offline';
+  b.innerHTML = `${ICONO_BAJAR} Guardar sin conexión · ${mb} MB`;
+}
+document.getElementById('btn-offline').addEventListener('click', async () => {
+  const off = window.ODOffline, b = document.getElementById('btn-offline');
+  if (!off || !actual || b.classList.contains('listo')) return;
+  if (descargando) { off.parar(); return; }
+  descargando = true;
+  b.textContent = 'Guardando… 0 %';
+  const r = await off.descargar(actual.id, pct => { b.textContent = `Guardando… ${pct} % · tocar para parar`; });
+  descargando = false;
+  if (r.sinRed) avisar('Necesitas conexión para guardarlo.');
+  else if (r.sinEspacio) avisar('No hay espacio suficiente en el dispositivo.');
+  else if (r.parado) avisar('Descarga detenida. Puedes seguir cuando quieras.');
+  else if (r.fallos) avisar('Algunos archivos no se guardaron. Inténtalo de nuevo con conexión.');
+  else avisar(`${actual.nombre} ya funciona sin conexión`);
+  pintarBotonOffline();
+});
 
 function pintarEstadoAcceso() {
   const e = document.getElementById('estado-acceso');
@@ -1002,11 +1185,44 @@ window.addEventListener('resize', () => { if (actual) { trackX = positionForInde
 /* =====================================================================
    ARRANQUE
    ===================================================================== */
-pintar();
+// Vídeo de cabecera: versión ligera en móvil; imagen fija si el sistema pide menos movimiento
+(function () {
+  const v = document.getElementById('video-cabecera');
+  if (!v) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const base = window.innerWidth <= 700 ? 'video/cabecera-movil' : 'video/cabecera';
+  // MP4 para iPhone, iPad, Android y Chrome; WebM de respaldo para navegadores sin H.264
+  v.innerHTML = `<source src="${base}.mp4" type="video/mp4"><source src="${base}.webm" type="video/webm">`;
+  v.muted = true;
+  v.load();
+  const p = v.play(); if (p && p.catch) p.catch(() => {});
+})();
+
 activarArrastre(document.getElementById('fila-todos'));
 activarArrastre(document.getElementById('fila-coleccion'));
-licenciaDesdeEnlace();
-recomprobarLicencias();
+pintar();   // al instante se pinta lo que está abierto para todos
+
+(async function arrancar() {
+  dispositivo = await obtenerDispositivo();
+  coleccion = await leerColeccion();
+  if (Object.keys(coleccion).length) guardarColeccion();   // autocura: se copia en los tres sitios
+  await verificarColeccion();
+  pintar();
+  if (validas.size) pedirPersistencia();
+  await licenciaDesdeEnlace();
+  recuperarDelServidor();
+  recomprobarLicencias();
+})();
+</script>
+<script src="offline-files.js"></script>
+<script src="offline.js"></script>
+<script>
+/* Permite abrir la app sin conexión o si la red está bloqueada (ver sw.js) */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    try { navigator.serviceWorker.register('sw.js').catch(function () {}); } catch (e) {}
+  });
+}
 </script>
 
 </body>
