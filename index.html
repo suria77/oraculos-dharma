@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2c0f4e">
+<title>Oráculos del Dharma</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap">
+<style>
+  html,body{margin:0}
+
+  /* Diseño: cabecera cósmica a sangre con el título sobre el resplandor; debajo, banda morada con dos carruseles tipo Netflix. */
+  :root {
+    --morado: #2c0f4e;
+    --morado-hondo: #1d0838;
+    --morado-panel: #3d1868;
+    --lila: #cdb0ff;
+    --oro: #f4d47c;
+    --oro-hondo: #c99a2e;
+    --texto: #fbf7ff;
+    --texto-suave: #e0d2f5;
+    --verde: #9fe3b8;
+    --f-display: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --f-lirica: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    color-scheme: dark;
+  }
+  html, body { background: var(--morado); }
+  body {
+    color: var(--texto);
+    font-family: var(--f-display);
+    font-size: 16px;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  [hidden] { display: none !important; }
+  button { font-family: inherit; }
+  :focus-visible { outline: 2px solid var(--oro); outline-offset: 3px; }
+
+  /* ================= CABECERA CÓSMICA ================= */
+  .cabecera {
+    position: relative;
+    height: clamp(270px, 40vw, 470px);
+    background: var(--morado-hondo) url('img/cosmos.jpg') 42% 47% / cover no-repeat;
+    overflow: hidden;
+  }
+  .cabecera::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
+    background: linear-gradient(to bottom, rgba(44,15,78,0) 0%, var(--morado) 100%);
+    pointer-events: none;
+  }
+  .titulo-app {
+    position: absolute; left: 42%; top: 47%;
+    width: clamp(230px, 40%, 540px);
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    filter: drop-shadow(0 0 18px rgba(255,255,255,0.55));
+    animation: aparece 1.4s ease-out both;
+  }
+  .logo-marca {
+    position: absolute;
+    top: calc(10px + env(safe-area-inset-top, 0px));
+    right: max(12px, env(safe-area-inset-right, 0px));
+    height: clamp(26px, 3.4vw, 40px); width: auto;
+    z-index: 3; opacity: 0.95;
+  }
+  @keyframes aparece { from { opacity: 0; transform: translate(-50%, -46%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+
+  /* ================= CATÁLOGO ================= */
+  .catalogo {
+    position: relative;
+    background:
+      radial-gradient(1200px 500px at 15% 0%, rgba(150, 90, 230, 0.22), transparent 70%),
+      radial-gradient(900px 600px at 100% 100%, rgba(120, 40, 160, 0.25), transparent 70%),
+      var(--morado);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 6px 56px;
+    min-height: 50vh;
+  }
+  .catalogo-interior { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 42px; }
+
+  .fila-cabecera { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .fila-titulo {
+    margin: 0; font-size: clamp(19px, 2.3vw, 25px); font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--texto); text-wrap: balance;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .fila-titulo small { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--lila); }
+  .fila-controles { display: flex; gap: 8px; align-items: center; }
+
+  .flecha {
+    width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(244,212,124,0.45);
+    background: rgba(29,8,56,0.6); color: var(--oro); cursor: pointer; display: grid; place-items: center;
+    transition: background .2s, transform .2s;
+  }
+  .flecha:hover { background: var(--oro); color: var(--morado-hondo); }
+  .flecha svg { width: 20px; height: 20px; fill: currentColor; }
+  .flecha:disabled { opacity: .3; cursor: default; background: rgba(29,8,56,0.6); color: var(--oro); }
+
+  .btn-licencia {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, #f7e2a0 0%, var(--oro) 45%, var(--oro-hondo) 100%);
+    color: #2a1405; border: none; border-radius: 999px; padding: 10px 18px;
+    font-size: 14px; font-weight: 800; letter-spacing: 0.04em; cursor: pointer;
+    box-shadow: 0 6px 18px rgba(201,154,46,0.35); transition: transform .2s, filter .2s;
+  }
+  .btn-licencia:hover { transform: translateY(-2px); filter: brightness(1.05); }
+  .btn-licencia svg { width: 17px; height: 17px; fill: currentColor; }
+
+  .carrusel {
+    display: flex; gap: 18px; overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x proximity; scroll-behavior: smooth;
+    padding: 10px 4px 18px; margin: 0 -4px;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch; cursor: grab;
+  }
+  .carrusel::-webkit-scrollbar { display: none; }
+  .carrusel.arrastrando { cursor: grabbing; scroll-behavior: auto; scroll-snap-type: none; }
+
+  .tarjeta {
+    flex: 0 0 auto; width: clamp(140px, 15vw, 182px); scroll-snap-align: start;
+    background: none; border: none; padding: 0; color: inherit; cursor: pointer; text-align: center;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .tarjeta-media {
+    position: relative; width: 100%; aspect-ratio: 2 / 3; max-width: 100%;
+    border-radius: 12px; overflow: hidden;
+    border: 2px solid rgba(244,212,124,0.35);
+    box-shadow: 0 12px 26px rgba(10, 2, 24, 0.55);
+    transition: transform .3s cubic-bezier(.25,1,.5,1), border-color .3s, box-shadow .3s;
+    background: var(--morado-hondo);
+  }
+  .tarjeta:hover .tarjeta-media, .tarjeta:focus-visible .tarjeta-media { transform: translateY(-6px) scale(1.03); border-color: var(--oro); box-shadow: 0 18px 34px rgba(10,2,24,0.7); }
+  .tarjeta-media img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+  .tarjeta-nombre { font-size: 15px; font-weight: 700; letter-spacing: 0.04em; line-height: 1.3; color: var(--texto); }
+  .tarjeta-sub { font-family: var(--f-lirica); font-style: italic; font-size: 16px; color: var(--texto-suave); margin-top: -6px; }
+
+  /* Portadas de los oráculos aún vacíos */
+  .portada-vacia {
+    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    padding: 16px; text-align: center;
+    background:
+      radial-gradient(circle at 50% 38%, rgba(244,212,124,0.22), transparent 55%),
+      linear-gradient(160deg, var(--tono, #4b1d7a), var(--morado-hondo));
+  }
+  .portada-vacia::before { content: ''; position: absolute; inset: 8px; border: 1px solid rgba(244,212,124,0.45); border-radius: 8px; }
+  .portada-vacia svg { width: 44px; height: 44px; fill: none; stroke: var(--oro); stroke-width: 1.2; }
+  .portada-vacia span { font-family: var(--f-lirica); font-size: 19px; line-height: 1.15; color: var(--texto); font-weight: 600; }
+
+  .sello {
+    position: absolute; left: 8px; top: 8px; z-index: 2;
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 5px 9px; border-radius: 999px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  }
+  .sello svg { width: 12px; height: 12px; fill: currentColor; }
+  .sello-abierto { background: rgba(20, 60, 40, 0.8); color: var(--verde); }
+  .sello-coleccion { background: rgba(60, 40, 6, 0.82); color: var(--oro); }
+  .sello-muestra { background: rgba(29, 8, 56, 0.85); color: var(--lila); }
+  .sello-pronto { background: rgba(29, 8, 56, 0.85); color: var(--texto-suave); }
+
+  .coleccion-vacia {
+    display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+    padding: 24px; border-radius: 16px;
+    border: 1.5px dashed rgba(244,212,124,0.45);
+    background: rgba(29, 8, 56, 0.45);
+  }
+  .coleccion-vacia .hueco { width: 96px; aspect-ratio: 2/3; border-radius: 10px; border: 1.5px dashed rgba(205,176,255,0.6); display: grid; place-items: center; flex: 0 0 auto; }
+  .coleccion-vacia .hueco svg { width: 30px; height: 30px; fill: var(--lila); }
+  .coleccion-vacia .texto { flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+  .coleccion-vacia p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--texto-suave); max-width: 60ch; }
+  .coleccion-vacia strong { color: var(--texto); }
+  .pista-prueba { font-size: 14px !important; color: var(--lila) !important; }
+  .pista-prueba code { background: rgba(244,212,124,0.15); color: var(--oro); padding: 2px 7px; border-radius: 6px; font-weight: 700; }
+
+  .pie { text-align: center; color: var(--texto-suave); font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .pie img { height: 34px; width: auto; opacity: .85; }
+
+  /* ================= LECTURA (ORÁCULO ABIERTO) ================= */
+  .lectura {
+    min-height: 100vh; background: var(--morado-hondo);
+    padding-left: max(12px, env(safe-area-inset-left, 0px));
+    padding-right: max(12px, env(safe-area-inset-right, 0px));
+    padding-block: 0 24px;
+  }
+  .lectura-barra {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    max-width: 1200px; margin: 0 auto; padding: 12px 0;
+    background: var(--morado-hondo);
+  }
+  .btn-volver {
+    background: rgba(255,255,255,0.08); color: var(--oro); border: 1px solid rgba(244,212,124,0.4);
+    padding: 10px 18px; border-radius: 999px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all .2s;
+  }
+  .btn-volver:hover { background: var(--oro); color: var(--morado-hondo); }
+  .lectura-nombre { font-family: var(--f-lirica); font-size: 24px; font-weight: 600; color: var(--texto); }
+  .estado-acceso { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 7px 12px; border-radius: 999px; }
+  .estado-completo { background: rgba(20,60,40,.8); color: var(--verde); }
+  .estado-muestra { background: rgba(205,176,255,.15); color: var(--lila); }
+
+  /* --- Mesa del oráculo (código de Atman) --- */
+  .oracle-container { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 82vh; background-color: #12061c; background-size: cover; background-position: center; background-repeat: no-repeat; color: #f4eefa; padding: 20px 12px 90px; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); overflow: hidden; user-select: none; -webkit-user-select: none; max-width: 1200px; margin: 0 auto; }
+  .logo-footer { position: absolute; bottom: 24px; left: 24px; width: 130px; height: auto; opacity: 0.75; pointer-events: none; }
+  .oracle-instruction { font-size: 21px; font-weight: 800; color: #fcf6ba; margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; text-align: center; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8); transition: opacity 0.5s ease; }
+  .oracle-layout { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; max-width: 950px; gap: 20px; }
+  .carousel-window { width: 100%; max-width: 500px; height: 480px; overflow: hidden; position: relative; touch-action: pan-y; }
+  .carousel-track { display: flex; position: absolute; left: 0; top: 30px; will-change: transform; }
+  .card-wrapper { width: 260px; height: 390px; margin: 0 20px; flex-shrink: 0; transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+  .card-wrapper.active-card { perspective: 1000px; }
+  .card-3d { width: 100%; height: 100%; position: relative; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .card-wrapper.active-card .card-3d { transform-style: preserve-3d; }
+  .card-3d.flipped { transform: rotateY(180deg); }
+  .card-face { position: absolute; width: 100%; height: 100%; border-radius: 16px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7); border: 2px solid rgba(212, 175, 55, 0.4); overflow: hidden; background-color: #0d0818; }
+  .card-wrapper.active-card .card-face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .card-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card-wrapper.active-card .card-front { transform: rotateY(180deg); }
+  .card-wrapper:not(.active-card) .card-front { display: none; }
+  .oracle-container.revealed .card-wrapper:not(.active-card) { opacity: 0; transform: scale(0.8); pointer-events: none; }
+  .oracle-container.revealed .card-wrapper.active-card { transform: scale(1.12); }
+  .oracle-text-panel { width: 100%; max-width: 460px; padding: 26px; border-radius: 14px; background-color: rgba(13, 8, 24, 0.95); border: 1px solid rgba(252, 246, 186, 0.35); opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; text-align: center; box-sizing: border-box; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+  .oracle-text-panel.visible { opacity: 1; transform: translateY(0); }
+  .oracle-title { font-size: 19px; color: #fcf6ba; margin-bottom: 14px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; text-wrap: balance; }
+  .oracle-description { font-size: 16px; color: #e6def2; line-height: 1.7; margin-bottom: 22px; text-align: left; }
+  .audio-player { display: flex; align-items: center; gap: 14px; }
+  .audio-btn { flex-shrink: 0; width: 54px; height: 54px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #ffd94d 0%, #fff6b0 30%, #ffcb1f 60%, #e6a800 100%); box-shadow: 0 4px 16px rgba(255, 200, 0, 0.55), 0 0 0 3px rgba(255, 217, 77, 0.2); transition: transform 0.15s ease; padding: 0; }
+  .audio-btn svg { width: 20px; height: 20px; fill: #1a1206; }
+  .audio-btn .icon-play { margin-left: 3px; }
+  .audio-btn:hover { transform: scale(1.08); }
+  .audio-progress-wrap { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .audio-progress { -webkit-appearance: none; appearance: none; width: 100%; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.2); outline: none; cursor: pointer; margin: 0; }
+  .audio-progress::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: #ffd94d; box-shadow: 0 1px 4px rgba(0,0,0,0.6); cursor: pointer; }
+  .audio-time { font-size: 13px; color: #f4eefa; text-align: left; opacity: 0.85; font-variant-numeric: tabular-nums; }
+  .aviso-muestra { margin-top: 14px; font-size: 14px; color: var(--lila); }
+  .oracle-btn { background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%); color: #0b0713; border: none; padding: 16px 42px; font-size: 18px; font-weight: 800; border-radius: 30px; cursor: pointer; letter-spacing: 1.5px; box-shadow: 0 6px 20px rgba(170, 119, 28, 0.4); transition: all 0.3s ease; text-transform: uppercase; margin-top: 22px; position: relative; z-index: 5; }
+  .oracle-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+  @media (min-width: 768px) {
+    .oracle-layout { flex-direction: row; gap: 15px; }
+    .oracle-text-panel { transform: translateX(15px); }
+    .oracle-text-panel.visible { transform: translateX(0); }
+  }
+
+  /* ================= VENTANAS (MODAL) ================= */
+  .velo {
+    position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center;
+    padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+    background: rgba(18, 5, 34, 0.78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  }
+  .ventana {
+    width: 100%; max-width: 440px; border-radius: 18px; padding: 28px 26px;
+    background: linear-gradient(170deg, #45197a 0%, var(--morado-hondo) 100%);
+    border: 1px solid rgba(244,212,124,0.45); box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    display: flex; flex-direction: column; gap: 14px; text-align: center;
+    animation: sube .35s cubic-bezier(.175,.885,.32,1.275);
+  }
+  @keyframes sube { from { transform: scale(.9); opacity: 0; } to { transform: none; opacity: 1; } }
+  .ventana h3 { margin: 0; font-size: 21px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--oro); text-wrap: balance; }
+  .ventana p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--texto-suave); }
+  .ventana label { font-size: 14px; font-weight: 700; color: var(--texto); text-align: left; }
+  .ventana input {
+    width: 100%; box-sizing: border-box; padding: 14px 16px; border-radius: 12px; font-size: 17px; font-weight: 600; letter-spacing: .06em;
+    border: 1.5px solid rgba(244,212,124,0.5); background: rgba(255,255,255,0.96); color: #24103d; font-family: inherit; text-transform: uppercase;
+  }
+  .ventana input::placeholder { color: #8a7aa3; text-transform: none; letter-spacing: 0; font-weight: 500; }
+  .ventana .acciones { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .ventana .btn-licencia { justify-content: center; padding: 14px 18px; font-size: 15px; }
+  .btn-secundario { background: transparent; color: var(--texto-suave); border: 1px solid rgba(205,176,255,0.45); border-radius: 999px; padding: 12px 18px; font-size: 15px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; justify-content: center; }
+  .btn-secundario:hover { color: var(--texto); border-color: var(--lila); }
+  .btn-comprar { background: #ead7ff; color: #3a0f6b; border: none; border-radius: 999px; padding: 14px 18px; font-size: 15px; font-weight: 800; cursor: pointer; text-decoration: none; display: inline-flex; justify-content: center; }
+  .btn-comprar:hover { filter: brightness(1.05); }
+  .mensaje { font-size: 15px; font-weight: 600; min-height: 1.2em; }
+  .mensaje.error { color: #ffb4c4; }
+  .mensaje.ok { color: var(--verde); }
+
+  .aviso-flotante {
+    position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+    z-index: 1100; background: var(--oro); color: #2a1405; font-weight: 800; font-size: 15px;
+    padding: 12px 20px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.45); max-width: calc(100% - 32px); text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .titulo-app { width: 66%; }
+    .flecha { display: none; }
+    .oracle-instruction { font-size: 17px; }
+    .logo-footer { width: 100px; bottom: 18px; left: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+
+</head>
+<body>
+<!-- ======================= PANTALLA PRINCIPAL ======================= -->
+<div id="vista-catalogo">
+  <header class="cabecera">
+    <img src="img/logo-dharma.png" alt="Dharma Eterno" class="logo-marca">
+    <img src="img/titulo.png" alt="Oráculos del Dharma" class="titulo-app">
+  </header>
+
+  <main class="catalogo">
+    <div class="catalogo-interior">
+
+      <section aria-labelledby="t-todos">
+        <div class="fila-cabecera">
+          <h2 class="fila-titulo" id="t-todos">Todos los oráculos</h2>
+          <div class="fila-controles">
+            <button class="flecha" data-fila="fila-todos" data-dir="-1" aria-label="Anteriores"><svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+            <button class="flecha" data-fila="fila-todos" data-dir="1" aria-label="Siguientes"><svg viewBox="0 0 24 24"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+          </div>
+        </div>
+        <div class="carrusel" id="fila-todos"></div>
+      </section>
+
+      <section aria-labelledby="t-coleccion">
+        <div class="fila-cabecera">
+          <h2 class="fila-titulo" id="t-coleccion">Tu colección <small id="cuenta-coleccion"></small></h2>
+          <div class="fila-controles">
+            <button class="btn-licencia" id="btn-abrir-licencia">
+              <svg viewBox="0 0 24 24"><path d="M12.65 10A6 6 0 1 0 12.65 14H17v4h4v-4h2v-4H12.65zM7 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+              Activar licencia
+            </button>
+          </div>
+        </div>
+        <div id="zona-coleccion"></div>
+      </section>
+
+      <footer class="pie">
+        <img src="img/logo-dharma.png" alt="Dharma Eterno">
+        <span>Tus oráculos se guardan en este dispositivo. Si cambias de móvil o tablet, vuelve a pegar tu licencia.</span>
+      </footer>
+    </div>
+  </main>
+</div>
+
+<!-- ======================= PANTALLA DE LECTURA ======================= -->
+<div id="vista-lectura" class="lectura" hidden>
+  <div class="lectura-barra">
+    <button class="btn-volver" id="btn-volver">← Volver a los oráculos</button>
+    <span class="lectura-nombre" id="lectura-nombre"></span>
+    <span class="estado-acceso" id="estado-acceso"></span>
+  </div>
+
+  <div class="oracle-container" id="oracleContainer">
+    <img src="img/logo-dharma.png" class="logo-footer" alt="">
+    <div class="oracle-instruction" id="mainInstruction">Desliza para obtener una carta</div>
+    <div class="oracle-layout">
+      <div class="carousel-window" id="carouselWindow">
+        <div class="carousel-track" id="carouselTrack"></div>
+      </div>
+      <div class="oracle-text-panel" id="textPanel" hidden>
+        <div class="oracle-title" id="cardTitle"></div>
+        <div class="oracle-description" id="cardDesc"></div>
+        <div class="audio-player">
+          <button class="audio-btn" id="audioBtn" aria-label="Reproducir audio">
+            <svg class="icon-play" id="iconPlay" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"></polygon></svg>
+            <svg class="icon-pause" id="iconPause" viewBox="0 0 24 24" style="display:none;"><rect x="5" y="4" width="5" height="16"></rect><rect x="14" y="4" width="5" height="16"></rect></svg>
+          </button>
+          <div class="audio-progress-wrap">
+            <input type="range" class="audio-progress" id="audioProgress" min="0" max="100" value="0" step="0.1" aria-label="Progreso del audio">
+            <div class="audio-time" id="audioTime">0:00 / 0:00</div>
+          </div>
+        </div>
+        <div class="aviso-muestra" id="avisoMuestra" hidden></div>
+      </div>
+    </div>
+    <button class="oracle-btn" id="actionBtn">Consulta el oráculo</button>
+  </div>
+</div>
+
+<!-- ======================= VENTANA EMERGENTE ======================= -->
+<div class="velo" id="velo" hidden>
+  <div class="ventana" role="dialog" aria-modal="true" aria-labelledby="ventana-titulo" id="ventana"></div>
+</div>
+<div class="aviso-flotante" id="avisoFlotante" hidden></div>
+
+<script>
+/* =====================================================================
+   CONFIGURACIÓN — lo único que tendrás que tocar al añadir oráculos
+   ===================================================================== */
+
+// Mientras pruebas: acepta la licencia de prueba PRUEBA-ATMAN sin servidor.
+// Ponlo en false cuando conectes Payhip de verdad.
+const MODO_PRUEBA = true;
+
+// Dirección de la función que comprueba las licencias con Payhip (Cloudflare Pages).
+const API_LICENCIAS = '/api/activar';
+
+// Límites de la versión capada (lo que ve quien aún no ha comprado)
+const MUESTRA_CARTAS = 3;        // cartas que puede sacar
+const MUESTRA_AUDIO_SEG = 20;    // segundos de audio por carta
+
+const CARTAS_ATMAN = [
+    { title: "SOY EL ARQUITECTO DE MI REALIDAD", audio: "01.mp3", img: "01.webp", desc: "Cada pensamiento, cada palabra y cada decisión son un ladrillo con el que construyes tu vida. Hoy recuerda que no estás a merced de las circunstancias: dentro de ti existe la sabiduría y la fuerza para crear un camino lleno de propósito. Confía en tu capacidad para elegir el amor, la paz y la luz en cada paso.<br><br>Durante el día, vuelve a esta afirmación siempre que la recuerdes. Repítela con calma y deja que sus palabras echen raíces en tu corazón. Poco a poco, tu forma de mirar la vida comenzará a reflejar la verdad que has elegido vivir." },
+    { title: "CREO MI REALIDAD Y MI REALIDAD ES EL AMOR", audio: "02.mp3", img: "02.webp", desc: "El amor es una fuerza creadora que transforma todo lo que toca. Cuando eliges mirar con el corazón, tu mundo comienza a reflejar esa misma belleza. Permite que cada encuentro, cada palabra y cada acción nazcan del amor, y descubrirás que la vida siempre responde en el mismo lenguaje.<br><br>Durante el día, vuelve a esta afirmación siempre que la recuerdes. Repítela con calma y deja que sus palabras echen raíces en tu corazón. Poco a poco, tu forma de mirar la vida comenzará a reflejar la verdad que has elegido vivir." },
+    { title: "RESPIRO, SUELTO Y CONFÍO", audio: "03.mp3", img: "03.webp", desc: "No necesitas cargar con aquello que ya cumplió su propósito. Con cada respiración puedes liberar el peso del miedo, la duda y el control. Confía en que la vida sostiene tus pasos incluso cuando aún no puedes ver el camino completo. Hoy regálate la paz de dejar que todo florezca a su debido tiempo.<br><br>Durante el día, vuelve a esta afirmación siempre que la recuerdes. Repítela con calma y deja que sus palabras echen raíces en tu corazón. Poco a poco, tu forma de mirar la vida comenzará a reflejar la verdad que has elegido vivir." },
+    { title: "MI POTENCIAL ES ILIMITADO", audio: "04.mp3", img: "04.webp", desc: "Dentro de ti habita una fuente infinita de creatividad, amor y sabiduría que espera ser expresada. No permitas que las dudas definan quién eres. Cada día es una nueva oportunidad para descubrir una versión más luminosa de ti mismo. Avanza con confianza, porque el mayor límite desaparece cuando recuerdas tu verdadera esencia.<br><br>Durante el día, vuelve a esta afirmación siempre que la recuerdes. Repítela con calma y deja que sus palabras echen raíces en tu corazón. Poco a poco, tu forma de mirar la vida comenzará a reflejar la verdad que has elegido vivir." },
+    { title: "CADA DÍA ES UNA NUEVA OPORTUNIDAD DE APERTURA Y PROGRESO", audio: "05.mp3", img: "05.webp", desc: "El amanecer de hoy no es solo un cambio en el reloj, sino un lienzo en blanco para tu mente y tu espíritu. Al abrirte a lo nuevo, permites que la vida te sorprenda con aprendizajes y caminos que antes no podías ver. El progreso no siempre es un gran salto; a veces es la sutil disposición a dar un paso más con el corazón abierto.<br><br>Lleva este pensamiento contigo a lo largo de las horas. Mantenlo presente en tus pausas cotidianas y nota cómo, al abrir tu mente, tu entorno responde con nuevas y mejores perspectivas." },
+    { title: "TODO LO QUE SUCEDE ES PARA MI EVOLUCIÓN", audio: "06.mp3", img: "06.webp", desc: "Incluso las tormentas y los desvíos inesperados tienen un propósito en tu historia. La vida no conspira en tu contra, sino que te moldea para que despiertes tu verdadera fortaleza. Mira cada situación, ya sea cómoda o desafiante, como una maestra silenciosa que te invita a crecer. Cuando dejas de resistirte, transformas los obstáculos en peldaños hacia tu madurez espiritual.<br><br>Respira hondo y recuerda estas palabras ante cualquier imprevisto de hoy. Al abrazar la experiencia sin juzgarla, verás cómo el caos se transforma en sabiduría." },
+    { title: "SUSTITUYO LA QUEJA POR LA GRATITUD", audio: "07.mp3", img: "07.webp", desc: "La queja nubla tu mirada y te encadena a lo que te falta, mientras que la gratitud enciende una luz sobre toda la abundancia que ya te rodea. Al cambiar el foco de atención, transformas tu energía interior y sintonizas con la belleza de las pequeñas cosas. Agradecer no significa ignorar las dificultades, sino elegir valorar la vida por encima de ellas, abriendo la puerta a más bendiciones.<br><br>Haz de esta idea tu brújula para las próximas horas. Cada vez que sientas el impulso de protestar, busca un motivo para dar las gracias y observa cómo cambia tu vibración." },
+    { title: "ELIJO SER LA PAZ QUE BUSCO EN EL MUNDO", audio: "08.mp3", img: "08.webp", desc: "La serenidad no se encuentra allá afuera, ni depende de que el entorno sea perfecto; es un refugio que construyes dentro de ti. Cuando decides calmar tu propia tormenta mental, te conviertes en un faro de tranquilidad para los demás. Tu paz interior es un regalo que te haces a ti mismo y, a la vez, tu mayor contribución para sanar el mundo que te rodea.<br><br>Regresa a este centro de calma siempre que el ruido exterior intente arrastrarte. Repítelo en silencio y permite que tu propia quietud guíe tus acciones de hoy." },
+    { title: "NO CONTROLO LO QUE PASA, PERO SÍ CÓMO RESPONDO A ELLO", audio: "09.mp3", img: "09.webp", desc: "El exterior es impredecible y a menudo caótico, pero tu mundo interno te pertenece por completo. Tu verdadero poder no radica en cambiar los acontecimientos, sino en la pausa consciente que tomas antes de reaccionar. Al elegir la madurez, la compasión y la templanza en tus respuestas, dejas de ser una víctima de las circunstancias para convertirte en el dueño de tu propio destino.<br><br>Usa esta afirmación como un escudo mental. Antes de reaccionar en piloto automático, tómate un segundo para elegir la respuesta que mejor refleje tu sabiduría." },
+    { title: "MIRO MIS PENSAMIENTOS PASAR, NO ME APEGO A NINGUNO", audio: "10.mp3", img: "10.webp", desc: "Tú no eres la tormenta de tu mente, sino el cielo inmenso que la observa. Los pensamientos van y vienen como nubes en el viento; no necesitas retenerlos, juzgarlos ni luchar contra ellos. Al mirarlos pasar desde la distancia del observador, recuperas tu libertad. En ese espacio de desapego y silencio, descubres la quietud inalterable de tu ser.<br><br>Convierte este texto en tu cable a tierra. Cada vez que tu mente se sature, visualiza tus ideas marchándose en calma y recupera el control de tu presente." },
+    { title: "VIVO PLENAMENTE EN EL PRESENTE; EL PASADO YA CUMPLIÓ SU FUNCIÓN", audio: "11.mp3", img: "11.webp", desc: "Cada instante es una nueva oportunidad para comenzar de nuevo. El pasado te ofreció experiencias, aprendizajes y crecimiento, pero ya no necesita definir quién eres hoy. Cuando sueltas el peso de lo que fue, descubres la inmensa libertad de habitar este momento, el único lugar donde realmente existe la vida.<br><br>Convierte esta frase en tu refugio diario. Siempre que tu mente viaje hacia lo que ya pasó, regresa con suavidad al presente y recuerda que aquí es donde nace tu verdadero poder." },
+    { title: "ESTOY AQUÍ PARA EXPRESAR MIS DONES AL MUNDO", audio: "12.mp3", img: "12.webp", desc: "Dentro de ti existen talentos, cualidades y una luz única que nadie más puede ofrecer de la misma manera. No viniste a compararte ni a imitar a otros, sino a compartir aquello que solo tú puedes entregar. Cuando expresas tu esencia con autenticidad, enriqueces tu vida y también la de quienes te rodean.<br><br>Haz de esta afirmación tu guía. Antes de comenzar el día, recuerda que cada pequeño gesto inspirado desde el corazón ya está transformando el mundo." },
+    { title: "CADA PUERTA QUE SE CIERRA ME ACERCA HACIA MI VERDADERO DESTINO", audio: "13.mp3", img: "13.webp", desc: "Lo que parece una pérdida muchas veces es una redirección. La vida elimina caminos que ya no corresponden con tu crecimiento para abrir otros más alineados con quien estás destinado a ser. Aunque hoy no comprendas el motivo, cada final prepara un nuevo comienzo.<br><br>Cuando algo no salga como esperabas, repite esta frase con confianza. Permite que la incertidumbre se transforme en la certeza de que la vida siempre trabaja a tu favor." },
+    { title: "MI RETO DE HOY ES SUPERAR MI VERSIÓN DE AYER", audio: "14.mp3", img: "14.webp", desc: "La verdadera competencia nunca está fuera de ti. Cada día es una oportunidad para dar un pequeño paso más, aprender algo nuevo o actuar con un poco más de amor, paciencia y valentía. El crecimiento constante convierte los pequeños avances en grandes transformaciones.<br><br>Haz de esta frase tu inspiración diaria. No busques ser perfecto; busca ser un poco mejor que ayer, y el futuro cambiará por sí solo." },
+    { title: "EL MIEDO ME MUESTRA DÓNDE ESTÁ MI SIGUIENTE NIVEL DE SUPERACIÓN", audio: "15.mp3", img: "15.webp", desc: "El miedo no siempre aparece para detenerte; muchas veces señala el lugar exacto donde comienza tu expansión. Detrás de aquello que hoy te intimida suelen encontrarse las experiencias que más fortalecerán tu confianza y tu libertad. Cada paso que das a pesar del miedo amplía los límites de tu vida.<br><br>Cada vez que sientas temor, respira profundamente y recuerda que, al otro lado de ese desafío, puede estar la mejor versión de ti." },
+    { title: "NO CAIGO, SOLO GANO IMPULSO PARA VOLVER A LEVANTARME", audio: "16.mp3", img: "16.webp", desc: "Los tropiezos no son el final del camino, sino parte natural del aprendizaje. Cada dificultad fortalece tu carácter, amplía tu experiencia y despierta recursos que quizás aún no conocías. Lo importante no es evitar las caídas, sino descubrir la fuerza que nace al levantarte una vez más.<br><br>Cuando enfrentes un fracaso, recuerda esta frase. Permite que cada obstáculo se convierta en el impulso que te acerque aún más a tus sueños." },
+    { title: "BENDIGO EL PROCESO, AUNQUE HOY NO ENTIENDA EL DESTINO", audio: "17.mp3", img: "17.webp", desc: "No todo necesita ser comprendido de inmediato. Hay etapas cuyo sentido solo se revela con el paso del tiempo. Confiar en el proceso es reconocer que la vida posee una sabiduría más amplia que nuestra visión del momento presente.<br><br>Cuando aparezca la incertidumbre, entrega el control y agradece el camino. La confianza abre puertas que la preocupación nunca podrá abrir." },
+    { title: "SOY MÁS FUERTE QUE LAS CIRCUNSTANCIAS QUE ME RODEAN", audio: "18.mp3", img: "18.webp", desc: "Las circunstancias cambian constantemente, pero tu fortaleza interior permanece. No eres definido por los problemas que enfrentas, sino por la actitud con la que decides responder a ellos. En tu interior existe una fuerza mucho mayor que cualquier desafío externo.<br><br>Haz de esta frase un ancla en los momentos difíciles. Recuerda que ninguna tormenta puede apagar la luz de quien ha descubierto su fortaleza interior." },
+    { title: "LA APERTURA Y LA SENSIBILIDAD SON MI MAYOR FORTALEZA, NO UNA DEBILIDAD", audio: "19.mp3", img: "19.webp", desc: "Abrir el corazón requiere mucho más valor que levantar muros. La sensibilidad te permite comprender, amar y conectar profundamente con la vida y con los demás. Aquello que algunos consideran fragilidad puede convertirse en tu mayor fuente de sabiduría y compasión.<br><br>Siempre que dudes de tu sensibilidad, recuerda que un corazón abierto tiene la capacidad de transformar mucho más que uno protegido por el miedo." },
+    { title: "ME DOY A MÍ MISMO EL AMOR, RESPETO Y ATENCIÓN QUE MEREZCO", audio: "20.mp3", img: "20.webp", desc: "La relación más importante de tu vida es la que construyes contigo mismo. Cuando te cuidas, te escuchas y te tratas con amabilidad, todo lo demás comienza a ordenarse de forma natural. El amor propio no es egoísmo, sino la base desde la cual puedes compartir lo mejor de ti.<br><br>Convierte esta frase en un compromiso diario. Dedícate el mismo cariño, paciencia y comprensión que ofrecerías a alguien que amas profundamente." },
+    { title: "ATRAIGO RELACIONES QUE REFLEJAN EL AMOR Y LA PAZ QUE BUSCO DENTRO", audio: "21.mp3", img: "21.webp", desc: "Las relaciones son un reflejo del estado interior desde el que vivimos. Cuando cultivas amor, respeto y serenidad en tu propio corazón, comienzas a conectar con personas que vibran en esa misma frecuencia. Lo que construyes dentro termina manifestándose fuera.<br><br>Cada día fortalece primero tu paz interior. Desde ese lugar, permitirás que lleguen personas que sumen luz a tu camino." },
+    { title: "SUELTO LA NECESIDAD DE COMPLACER A OTROS PARA SINTONIZAR CONMIGO", audio: "22.mp3", img: "22.webp", desc: "No naciste para cumplir las expectativas de los demás, sino para vivir en coherencia con tu verdad. Buscar aprobación constante te aleja de tu esencia, mientras que escucharte con honestidad te devuelve la paz. Tu autenticidad siempre será más valiosa que cualquier aceptación externa.<br><br>Cada vez que dudes entre agradar o ser fiel a ti mismo, elige tu verdad. Allí comienza la verdadera libertad." },
+    { title: "ACEPTO A LOS DEMÁS TAL COMO SON Y ME LIBERO DE LA CARGA DE CAMBIARLOS", audio: "23.mp3", img: "23.webp", desc: "Cada persona recorre un camino diferente y aprende a su propio ritmo. Cuando dejas de intentar controlar o transformar a los demás, recuperas una enorme cantidad de energía para dedicarla a tu propio crecimiento. La aceptación trae paz donde la resistencia solo genera sufrimiento.<br><br>Cuando alguien actúe de forma distinta a tus expectativas, recuerda esta frase y permite que el respeto sustituya al juicio." },
+    { title: "MI VALOR NO DEPENDE DE LA VALIDACIÓN DE NADIE, SOLO DE DAR LO MEJOR DE MÍ MISMO", audio: "24.mp3", img: "24.webp", desc: "Tu valor no aumenta con los elogios ni disminuye con las críticas. Eres valioso por quien eres, no por la opinión de los demás. Cuando haces las cosas con honestidad y entregas lo mejor de ti, puedes caminar con serenidad sin depender del reconocimiento externo.<br><br>Haz de esta afirmación tu recordatorio diario. Que tu mayor satisfacción sea actuar en coherencia con tus propios valores." },
+    { title: "MI CUERPO ES UN TEMPLO SAGRADO; LO CUIDO, LO ESCUCHO Y LO RESPETO", audio: "25.mp3", img: "25.webp", desc: "Tu cuerpo es el hogar desde el que experimentas la vida. Cada respiración, cada latido y cada movimiento sostienen silenciosamente tu existencia. Tratarlo con respeto, descanso y gratitud es una forma de honrar el milagro de estar vivo.<br><br>Dedica unos instantes cada día a escuchar lo que tu cuerpo necesita. Agradecerlo y cuidarlo es también una forma de cuidar tu alma." },
+    { title: "CADA CÉLULA DE MI CUERPO VIBRA EN SALUD, ENERGÍA Y VITALIDAD", audio: "26.mp3", img: "26.webp", desc: "Tu mente y tu cuerpo mantienen un diálogo constante. Los pensamientos de bienestar, esperanza y confianza fortalecen tu actitud hacia la vida y favorecen un estado de mayor equilibrio. Cuando eliges enfocarte en la salud, despiertas una energía renovadora que impregna todo tu ser.<br><br>Repite esta frase con calma mientras respiras profundamente. Imagina cómo cada célula se llena de luz, fuerza y vitalidad." },
+    { title: "MI FELICIDAD NACE DE MI FORMA DE MIRAR LA VIDA", audio: "27.mp3", img: "27.webp", desc: "La felicidad no siempre depende de lo que ocurre, sino de la manera en que eliges contemplarlo. Una misma realidad puede vivirse desde la queja o desde el agradecimiento, desde el miedo o desde la confianza. Cuando transformas tu mirada, el mundo comienza a transformarse contigo.<br><br>Haz de esta afirmación un recordatorio diario. Busca la belleza en los pequeños instantes y descubrirás que la alegría siempre encuentra un camino hacia ti." },
+    { title: "AVANZO CON DECISIÓN SIN NECESIDAD DE TENER TODAS LAS RESPUESTAS", audio: "28.mp3", img: "28.webp", desc: "La vida nunca revela el camino completo antes de empezar a caminar. Muchas respuestas aparecen solo después de dar el primer paso. La confianza nace de la acción, no de la certeza absoluta.<br><br>Cuando aparezca la duda, recuerda que no necesitas conocer todo el recorrido para comenzar. Basta con confiar en el siguiente paso." },
+    { title: "CUANTO MÁS SUELTO, MÁS ESPACIO HAGO PARA LO NUEVO", audio: "29.mp3", img: "29.webp", desc: "Aferrarte a lo que ya terminó ocupa el lugar de aquello que está por llegar. Soltar no significa perder, sino permitir que la vida siga fluyendo y te sorprenda con nuevas oportunidades, personas y experiencias.<br><br>Convierte esta frase en un pequeño ritual. Cada vez que dejes ir algo que ya no te pertenece, imagina que estás abriendo la puerta a nuevas bendiciones." },
+    { title: "CONFÍO EN EL RITMO PERFECTO DE LA VIDA", audio: "30.mp3", img: "30.webp", desc: "Cada flor florece en su momento y cada fruto madura cuando llega su tiempo. La vida no se retrasa ni se adelanta; simplemente sigue un orden que muchas veces solo comprendemos al mirar atrás. Aprender a confiar también es aprender a vivir con serenidad.<br><br>Cuando la impaciencia aparezca, respira profundamente y recuerda que todo llega exactamente cuando estás preparado para recibirlo." },
+    { title: "TODO LO QUE DOY DESDE EL CORAZÓN REGRESA MULTIPLICADO", audio: "31.mp3", img: "31.webp", desc: "Cada gesto de amor, generosidad o comprensión deja una huella invisible que termina regresando de formas inesperadas. Lo que nace del corazón nunca se pierde; se expande, inspira y vuelve enriquecido por la propia vida.<br><br>Procura que tus acciones nazcan siempre del amor. El universo encuentra infinitas maneras de devolver aquello que entregas con sinceridad." },
+    { title: "MI PAZ NO DEPENDE DE LAS CIRCUNSTANCIAS EXTERNAS", audio: "32.mp3", img: "32.webp", desc: "El mundo cambia constantemente, pero dentro de ti existe un espacio que permanece sereno. Cuando descubres esa paz interior, dejas de entregar tu bienestar a lo que ocurre fuera y recuperas el verdadero equilibrio.<br><br>Siempre que el entorno se agite, vuelve a tu interior. Allí encontrarás un refugio que ninguna circunstancia puede alterar." },
+    { title: "MI PRESENTE ES EL LUGAR DONDE OCURRE LA TRANSFORMACIÓN", audio: "33.mp3", img: "33.webp", desc: "El pasado ya no puede cambiarse y el futuro aún no ha llegado. Solo este instante contiene el poder de transformar tu vida. Cada decisión consciente que tomas hoy construye el camino que recorrerás mañana.<br><br>Cada vez que tu mente se pierda en el ayer o en el mañana, regresa al presente. Aquí comienza el cambio que estás buscando." },
+    { title: "LA GRATITUD TRANSFORMA LO COTIDIANO EN EXTRAORDINARIO", audio: "34.mp3", img: "34.webp", desc: "Cuando agradeces, descubres la riqueza escondida en aquello que antes parecía común. La gratitud cambia la forma en que percibes la vida y convierte los pequeños momentos en auténticos regalos.<br><br>Haz una pausa cada día para agradecer lo que ya tienes. Poco a poco descubrirás que la abundancia siempre estuvo presente." },
+    { title: "LA ABUNDANCIA COMIENZA CUANDO RECONOZCO TODO LO QUE YA TENGO", audio: "35.mp3", img: "35.webp", desc: "La verdadera prosperidad no nace de acumular más, sino de valorar profundamente lo que ya forma parte de tu vida. Cuando aprecias lo que tienes, tu corazón deja de sentir escasez y comienza a vivir desde la plenitud.<br><br>Convierte el agradecimiento en un hábito diario. Cuanto más reconozcas la abundancia presente, más motivos encontrarás para seguir agradeciendo." },
+    { title: "LA PACIENCIA TAMBIÉN ES UNA FORMA DE CONFIANZA", audio: "36.mp3", img: "36.webp", desc: "No todo sucede al ritmo que desea la mente. Algunas semillas necesitan tiempo antes de brotar, y apresurar el proceso no acelera su crecimiento. La paciencia es la serenidad de quien sabe que todo llegará en el momento oportuno.<br><br>Cuando quieras correr más deprisa que la vida, recuerda que confiar también significa saber esperar." },
+    { title: "EL PERDÓN ME LIBERA PARA VIVIR EN MI MAYOR POTENCIAL", audio: "37.mp3", img: "37.webp", desc: "Guardar resentimiento es cargar un peso que solo limita tu propio camino. Perdonar no significa justificar el pasado, sino elegir que ese dolor deje de gobernar tu presente. Al soltarlo, recuperas una energía inmensa para vivir plenamente.<br><br>Cada vez que perdones, recuerda que el mayor beneficiado eres tú. La libertad comienza donde termina el resentimiento." },
+    { title: "ELIJO VIVIR DESDE EL CORAZÓN Y NO DESDE EL MIEDO", audio: "38.mp3", img: "38.webp", desc: "El miedo reduce tus posibilidades; el corazón las expande. Cuando tus decisiones nacen del amor, aparece una fuerza tranquila que te guía hacia aquello que realmente está en armonía contigo.<br><br>Antes de decidir, pregúntate qué elegirías si el miedo no estuviera presente. Permite que sea tu corazón quien marque el rumbo." },
+    { title: "HOY LIBERO AQUELLO QUE YA NO PERTENECE A MI CAMINO", audio: "39.mp3", img: "39.webp", desc: "Hay pensamientos, hábitos, emociones y relaciones que ya han cumplido su propósito. Aferrarte a ellos solo dificulta tu crecimiento. Soltar es un acto de amor hacia la persona en la que te estás convirtiendo.<br><br>Haz de esta afirmación un gesto consciente. Imagina que dejas atrás todo aquello que pesa sobre tu corazón y avanza con mayor ligereza." },
+    { title: "LA ALEGRÍA ES UNA DECISIÓN QUE PUEDO RENOVAR CADA DÍA", audio: "40.mp3", img: "40.webp", desc: "La alegría no depende únicamente de las circunstancias, sino de la disposición con la que eliges vivir cada jornada. Incluso en los días más difíciles siempre existe un motivo para agradecer, sonreír o volver a empezar.<br><br>Comienza cada mañana recordando esta verdad. Hoy tienes una nueva oportunidad para elegir la alegría y compartir su luz con el mundo." }
+  ];
+
+const ORACULOS = [
+  {
+    id: 'atman', nombre: 'Atman', subtitulo: 'Oráculo de Luz', estado: 'disponible',
+    abiertoParaTodos: true,   // ← de momento se usa entero. Ponlo en false para que quede capado hasta que lo compren.
+    base: 'oraculos/atman/', portada: 'dorso.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
+    payhip: 'https://payhip.com/',  // ← pon aquí el enlace del producto en Payhip
+    cartas: CARTAS_ATMAN
+  },
+  { id: 'rumi',      nombre: 'Rumi',                   subtitulo: 'Oráculo',  estado: 'proximamente', tono: '#5a2a7e' },
+  { id: 'kabbalah',  nombre: 'Kabbalah',               subtitulo: 'Oráculo',  estado: 'proximamente', tono: '#2f2a7a' },
+  { id: 'zen',       nombre: 'Zen',                    subtitulo: 'Oráculo',  estado: 'proximamente', tono: '#3c3a5e' },
+  { id: 'amistad',   nombre: 'El Tarot de la Amistad', subtitulo: 'Tarot',    estado: 'proximamente', tono: '#6a2463' },
+  { id: 'corazon',   nombre: 'El Tarot del Corazón',   subtitulo: 'Tarot',    estado: 'proximamente', tono: '#7a1f4d' },
+  { id: 'papa',      nombre: 'El Oráculo El Papa',     subtitulo: 'Oráculo',  estado: 'proximamente', tono: '#4a2a6e' },
+  { id: 'panesa',    nombre: 'El Tarot de la Panesa',  subtitulo: 'Tarot',    estado: 'proximamente', tono: '#53306f' },
+  { id: 'fortuna',   nombre: 'El Tarot de la Fortuna', subtitulo: 'Tarot',    estado: 'proximamente', tono: '#6b4a1f' }
+];
+
+/* =====================================================================
+   COLECCIÓN (licencias guardadas en el dispositivo)
+   ===================================================================== */
+const CLAVE_GUARDADO = 'oraculos-dharma-coleccion';
+function leerColeccion() {
+  try { return JSON.parse(localStorage.getItem(CLAVE_GUARDADO)) || {}; } catch (e) { return memoriaColeccion; }
+}
+let memoriaColeccion = {};
+function guardarColeccion(c) {
+  memoriaColeccion = c;
+  try { localStorage.setItem(CLAVE_GUARDADO, JSON.stringify(c)); } catch (e) {}
+}
+let coleccion = leerColeccion();
+const loTiene = id => !!coleccion[id];
+const oraculo = id => ORACULOS.find(o => o.id === id);
+
+/* =====================================================================
+   PINTAR CARRUSELES
+   ===================================================================== */
+const ICONO_CANDADO = '<svg viewBox="0 0 24 24"><path d="M18 8h-1V6A5 5 0 0 0 7 6v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zM9 6a3 3 0 0 1 6 0v2H9V6z"/></svg>';
+const ICONO_OK = '<svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
+const LOTO = '<svg viewBox="0 0 48 48"><path d="M24 8c4 5 6 10 6 15s-2 9-6 13c-4-4-6-8-6-13s2-10 6-15z"/><path d="M24 36c-6-1-12-5-15-12 6-1 11 1 15 5"/><path d="M24 36c6-1 12-5 15-12-6-1-11 1-15 5"/><path d="M10 40h28"/></svg>';
+
+function sello(o, enColeccion) {
+  if (o.estado === 'proximamente') return '<span class="sello sello-pronto">Próximamente</span>';
+  if (enColeccion || loTiene(o.id)) return `<span class="sello sello-coleccion">${ICONO_OK} Tuyo</span>`;
+  if (o.abiertoParaTodos) return '<span class="sello sello-abierto">Abierto</span>';
+  return `<span class="sello sello-muestra">${ICONO_CANDADO} Muestra</span>`;
+}
+
+function tarjetaHTML(o, enColeccion) {
+  const media = o.estado === 'disponible'
+    ? `<img src="${o.base}${o.portada}" alt="" draggable="false" loading="lazy">`
+    : `<div class="portada-vacia" style="--tono:${o.tono}">${LOTO}<span>${o.nombre}</span></div>`;
+  return `<button class="tarjeta" data-id="${o.id}">
+      <div class="tarjeta-media">${sello(o, enColeccion)}${media}</div>
+      <div class="tarjeta-nombre">${o.nombre}</div>
+      <div class="tarjeta-sub">${o.subtitulo}</div>
+    </button>`;
+}
+
+function pintar() {
+  document.getElementById('fila-todos').innerHTML = ORACULOS.map(o => tarjetaHTML(o, false)).join('');
+
+  const mios = ORACULOS.filter(o => loTiene(o.id));
+  const zona = document.getElementById('zona-coleccion');
+  document.getElementById('cuenta-coleccion').textContent = mios.length ? `${mios.length} ${mios.length === 1 ? 'oráculo' : 'oráculos'}` : '';
+  if (mios.length) {
+    zona.innerHTML = `<div class="carrusel" id="fila-coleccion">${mios.map(o => tarjetaHTML(o, true)).join('')}</div>`;
+    activarArrastre(document.getElementById('fila-coleccion'));
+  } else {
+    zona.innerHTML = `<div class="coleccion-vacia">
+        <div class="hueco">${ICONO_CANDADO}</div>
+        <div class="texto">
+          <p><strong>Aquí aparecerán los oráculos que compres.</strong> Al comprar en Payhip recibes por email una licencia. Pégala una sola vez y el oráculo quedará abierto en tu colección para siempre en este dispositivo.</p>
+          ${MODO_PRUEBA ? '<p class="pista-prueba">Para probarlo ahora, activa la licencia <code>PRUEBA-ATMAN</code>.</p>' : ''}
+          <button class="btn-licencia" data-accion="licencia">Activar mi licencia</button>
+        </div>
+      </div>`;
+  }
+  actualizarFlechas();
+}
+
+/* Arrastre con ratón (en táctil el desplazamiento es nativo, con inercia) */
+function activarArrastre(fila) {
+  let abajo = false, x0 = 0, s0 = 0, movido = false;
+  fila.addEventListener('mousedown', e => { abajo = true; movido = false; x0 = e.clientX; s0 = fila.scrollLeft; });
+  window.addEventListener('mousemove', e => {
+    if (!abajo) return;
+    const d = e.clientX - x0;
+    if (Math.abs(d) > 5) { movido = true; fila.classList.add('arrastrando'); }
+    fila.scrollLeft = s0 - d;
+  });
+  window.addEventListener('mouseup', () => { if (!abajo) return; abajo = false; fila.classList.remove('arrastrando'); });
+  fila.addEventListener('click', e => { if (movido) { e.stopPropagation(); e.preventDefault(); movido = false; } }, true);
+  fila.addEventListener('scroll', actualizarFlechas, { passive: true });
+}
+function actualizarFlechas() {
+  document.querySelectorAll('.flecha').forEach(b => {
+    const f = document.getElementById(b.dataset.fila);
+    if (!f) return;
+    const max = f.scrollWidth - f.clientWidth - 2;
+    b.disabled = b.dataset.dir === '-1' ? f.scrollLeft <= 2 : f.scrollLeft >= max;
+  });
+}
+document.querySelectorAll('.flecha').forEach(b => b.addEventListener('click', () => {
+  const f = document.getElementById(b.dataset.fila);
+  f.scrollBy({ left: Number(b.dataset.dir) * f.clientWidth * 0.8, behavior: 'smooth' });
+}));
+window.addEventListener('resize', actualizarFlechas);
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('.tarjeta');
+  if (t) { pulsarOraculo(t.dataset.id); return; }
+  if (e.target.closest('[data-accion="licencia"]')) abrirVentanaLicencia();
+  if (e.target.closest('[data-accion="cerrar"]')) cerrarVentana();
+});
+document.getElementById('btn-abrir-licencia').addEventListener('click', () => abrirVentanaLicencia());
+
+function pulsarOraculo(id) {
+  const o = oraculo(id);
+  if (o.estado === 'proximamente') {
+    abrirVentana(`<h3 id="ventana-titulo">${o.nombre}</h3>
+      <p>Este oráculo está en preparación. Muy pronto podrás consultarlo aquí.</p>
+      <div class="acciones"><button class="btn-secundario" data-accion="cerrar">Entendido</button></div>`);
+    return;
+  }
+  abrirLectura(o);
+}
+
+/* =====================================================================
+   VENTANAS
+   ===================================================================== */
+const velo = document.getElementById('velo');
+function abrirVentana(html) { document.getElementById('ventana').innerHTML = html; velo.hidden = false; }
+function cerrarVentana() { velo.hidden = true; }
+velo.addEventListener('click', e => { if (e.target === velo) cerrarVentana(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarVentana(); });
+
+function avisar(texto) {
+  const a = document.getElementById('avisoFlotante');
+  a.textContent = texto; a.hidden = false;
+  clearTimeout(avisar.t); avisar.t = setTimeout(() => a.hidden = true, 3200);
+}
+
+function abrirVentanaLicencia(textoArriba) {
+  abrirVentana(`<h3 id="ventana-titulo">Activar licencia</h3>
+    <p>${textoArriba || 'Pega la licencia que recibiste por email al comprar tu oráculo en Payhip.'}</p>
+    <form id="form-licencia" style="display:flex;flex-direction:column;gap:10px">
+      <label for="campo-licencia">Tu licencia</label>
+      <input id="campo-licencia" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Ej.: WTKP4-66NL5-HMKQW-GFSCZ">
+      <div class="mensaje" id="mensaje-licencia" role="status"></div>
+      <div class="acciones">
+        <button type="submit" class="btn-licencia" id="btn-enviar-licencia">Activar</button>
+        <button type="button" class="btn-secundario" data-accion="cerrar">Cancelar</button>
+      </div>
+    </form>`);
+  const campo = document.getElementById('campo-licencia');
+  setTimeout(() => campo.focus(), 50);
+  document.getElementById('form-licencia').addEventListener('submit', async e => {
+    e.preventDefault();
+    const msj = document.getElementById('mensaje-licencia');
+    const btn = document.getElementById('btn-enviar-licencia');
+    btn.disabled = true; btn.textContent = 'Comprobando…'; msj.className = 'mensaje'; msj.textContent = '';
+    const r = await activarLicencia(campo.value);
+    btn.disabled = false; btn.textContent = 'Activar';
+    if (r.ok) {
+      cerrarVentana();
+      pintar();
+      avisar(`${oraculo(r.oraculo).nombre} ya está en tu colección`);
+      document.getElementById('t-coleccion').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      msj.className = 'mensaje error'; msj.textContent = r.error;
+    }
+  });
+}
+
+/* =====================================================================
+   LICENCIAS
+   ===================================================================== */
+async function activarLicencia(texto) {
+  const licencia = (texto || '').trim().toUpperCase();
+  if (!licencia) return { ok: false, error: 'Escribe o pega tu licencia.' };
+
+  if (MODO_PRUEBA && licencia === 'PRUEBA-ATMAN') {
+    coleccion[ 'atman' ] = { licencia, desde: Date.now(), comprobada: Date.now(), prueba: true };
+    guardarColeccion(coleccion);
+    return { ok: true, oraculo: 'atman' };
+  }
+
+  try {
+    const res = await fetch(API_LICENCIAS, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ licencia })
+    });
+    const datos = await res.json();
+    if (datos.ok && oraculo(datos.oraculo)) {
+      coleccion[datos.oraculo] = { licencia, desde: Date.now(), comprobada: Date.now() };
+      guardarColeccion(coleccion);
+      return { ok: true, oraculo: datos.oraculo };
+    }
+    return { ok: false, error: datos.error || 'No encontramos esa licencia. Revisa que esté completa, con sus guiones.' };
+  } catch (err) {
+    return { ok: false, error: 'No se pudo comprobar la licencia ahora mismo. Revisa tu conexión a internet e inténtalo de nuevo.' };
+  }
+}
+
+// Una vez por semana, en silencio, se comprueba que las licencias siguen activas
+// (Payhip las desactiva si hay un reembolso). Si no hay conexión, no se toca nada.
+async function recomprobarLicencias() {
+  const SEMANA = 7 * 24 * 3600 * 1000;
+  for (const [id, info] of Object.entries(coleccion)) {
+    if (info.prueba || Date.now() - (info.comprobada || 0) < SEMANA) continue;
+    try {
+      const res = await fetch(API_LICENCIAS, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ licencia: info.licencia }) });
+      const d = await res.json();
+      if (d.ok) { info.comprobada = Date.now(); }
+      else if (d.desactivada) { delete coleccion[id]; }
+      guardarColeccion(coleccion);
+    } catch (e) { /* sin conexión: se deja como está */ }
+  }
+  pintar();
+}
+
+// Enlace mágico: si la app se abre con ?licencia=XXXX se activa sola
+async function licenciaDesdeEnlace() {
+  let lic = null;
+  try { lic = new URLSearchParams(location.search).get('licencia'); } catch (e) {}
+  if (!lic) return;
+  const r = await activarLicencia(lic);
+  if (r.ok) { pintar(); avisar(`${oraculo(r.oraculo).nombre} ya está en tu colección`); }
+  else abrirVentanaLicencia(r.error);
+  try { history.replaceState(null, '', location.pathname); } catch (e) {}
+}
+
+/* =====================================================================
+   LECTURA — motor del oráculo (código de Atman, generalizado)
+   ===================================================================== */
+let actual = null;          // oráculo abierto
+let cartas = [];            // cartas barajadas
+let acceso = 'completo';    // 'completo' | 'muestra'
+const sacadas = {};         // cartas sacadas en modo muestra, por oráculo
+
+const track = document.getElementById('carouselTrack');
+const windowEl = document.getElementById('carouselWindow');
+const cardWidth = 300;
+let totalCards = 0, currentIndex = 0, isFlipped = false, trackX = 0;
+let magicSound = new Audio();
+
+function abrirLectura(o) {
+  actual = o;
+  acceso = (loTiene(o.id) || o.abiertoParaTodos) ? 'completo' : 'muestra';
+  sacadas[o.id] = sacadas[o.id] || 0;
+
+  document.getElementById('lectura-nombre').textContent = `${o.nombre} · ${o.subtitulo}`;
+  pintarEstadoAcceso();
+  document.getElementById('oracleContainer').style.backgroundImage = `url('${o.base}${o.fondo}')`;
+  magicSound = new Audio(o.base + o.sonido);
+
+  cartas = o.cartas.slice();
+  totalCards = cartas.length;
+  shuffleCards(cartas);
+  reiniciarMesa();
+
+  document.getElementById('vista-catalogo').hidden = true;
+  document.getElementById('vista-lectura').hidden = false;
+  window.scrollTo(0, 0);
+  buildCarousel();
+}
+
+function pintarEstadoAcceso() {
+  const e = document.getElementById('estado-acceso');
+  if (acceso === 'completo') { e.className = 'estado-acceso estado-completo'; e.textContent = 'Oráculo completo'; }
+  else {
+    const quedan = Math.max(0, MUESTRA_CARTAS - sacadas[actual.id]);
+    e.className = 'estado-acceso estado-muestra';
+    e.textContent = `Muestra · ${quedan} ${quedan === 1 ? 'carta' : 'cartas'}`;
+  }
+}
+
+function reiniciarMesa() {
+  audioEl.pause();
+  isFlipped = false;
+  document.getElementById('oracleContainer').classList.remove('revealed');
+  const p = document.getElementById('textPanel'); p.classList.remove('visible'); p.hidden = true;
+  document.getElementById('actionBtn').innerText = 'Consulta el oráculo';
+  document.getElementById('mainInstruction').style.opacity = '1';
+}
+
+document.getElementById('btn-volver').addEventListener('click', () => {
+  reiniciarMesa(); cancelAnimationFrame(rafId);
+  document.getElementById('vista-lectura').hidden = true;
+  document.getElementById('vista-catalogo').hidden = false;
+  pintar();
+});
+
+function ventanaComprar(motivo) {
+  const o = actual;
+  abrirVentana(`<h3 id="ventana-titulo">Abre ${o.nombre} completo</h3>
+    <p>${motivo} Con el oráculo completo tendrás todas las cartas y todos los audios, siempre que quieras.</p>
+    <div class="acciones">
+      <a class="btn-comprar" href="${o.payhip}" target="_blank" rel="noopener">Comprar en Payhip</a>
+      <button class="btn-licencia" data-accion="licencia">Ya lo compré: activar licencia</button>
+      <button class="btn-secundario" data-accion="cerrar">Seguir mirando</button>
+    </div>`);
+}
+
+function shuffleCards(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } }
+function centerOffset() { return (windowEl.offsetWidth / 2) - (cardWidth / 2); }
+function positionForIndex(i) { return centerOffset() - i * cardWidth; }
+function indexForPosition(x) { return (centerOffset() - x) / cardWidth; }
+
+function buildCarousel() {
+  track.innerHTML = '';
+  let g = 0;
+  const base = actual.base, dorso = actual.base + actual.dorso;
+  for (let s = 0; s < 3; s++) {
+    cartas.forEach((c, idx) => {
+      const w = document.createElement('div');
+      w.className = 'card-wrapper';
+      w.id = `wrapper-${g}`;
+      w.setAttribute('data-original-index', idx);
+      w.innerHTML = `<div class="card-3d" id="card-${g}"><div class="card-face card-back"><img src="${dorso}" draggable="false" alt=""></div><div class="card-face card-front"><img src="${base}${c.img}" draggable="false" alt=""></div></div>`;
+      track.appendChild(w);
+      g++;
+    });
+  }
+  currentIndex = totalCards + Math.floor(Math.random() * totalCards);
+  trackX = positionForIndex(currentIndex);
+  const act = document.getElementById(`wrapper-${currentIndex}`);
+  if (act) act.classList.add('active-card');
+  applyTrackPosition(false);
+}
+
+function applyTrackPosition(animate) {
+  track.style.transition = animate ? 'transform 0.4s cubic-bezier(0.215, 0.610, 0.355, 1)' : 'none';
+  track.style.transform = `translateX(${trackX}px)`;
+  const idx = Math.round(indexForPosition(trackX));
+  if (idx !== currentIndex) {
+    currentIndex = idx;
+    document.querySelectorAll('.card-wrapper.active-card').forEach(w => w.classList.remove('active-card'));
+    const act = document.getElementById(`wrapper-${currentIndex}`);
+    if (act) act.classList.add('active-card');
+  }
+}
+function updateTrackPosition(anim = true) { trackX = positionForIndex(currentIndex); applyTrackPosition(anim); }
+function wrapIfNeeded() {
+  const idxFloat = indexForPosition(trackX);
+  const period = totalCards * cardWidth;
+  if (idxFloat < totalCards * 0.5) trackX -= period;
+  else if (idxFloat > totalCards * 2.5) trackX += period;
+}
+
+/* --- Audio --- */
+const audioEl = new Audio();
+const progressEl = document.getElementById('audioProgress');
+const timeEl = document.getElementById('audioTime');
+let isSeeking = false;
+const limiteAudio = () => (acceso === 'muestra' && audioEl.duration > MUESTRA_AUDIO_SEG) ? MUESTRA_AUDIO_SEG : audioEl.duration;
+
+function formatTime(sec) {
+  if (!isFinite(sec) || isNaN(sec) || sec < 0) return '0:00';
+  return `${Math.floor(sec / 60)}:${Math.floor(sec % 60).toString().padStart(2, '0')}`;
+}
+function paintProgress(pct) { progressEl.style.background = `linear-gradient(to right, #ffd94d ${pct}%, rgba(255,255,255,0.2) ${pct}%)`; }
+function showPlayIcon() { document.getElementById('iconPlay').style.display = 'block'; document.getElementById('iconPause').style.display = 'none'; }
+function showPauseIcon() { document.getElementById('iconPlay').style.display = 'none'; document.getElementById('iconPause').style.display = 'block'; }
+
+audioEl.addEventListener('loadedmetadata', () => { progressEl.max = limiteAudio() || 100; timeEl.textContent = `0:00 / ${formatTime(limiteAudio())}`; });
+audioEl.addEventListener('timeupdate', () => {
+  if (isSeeking) return;
+  if (acceso === 'muestra' && audioEl.currentTime >= MUESTRA_AUDIO_SEG) {
+    audioEl.pause(); audioEl.currentTime = 0; showPlayIcon(); paintProgress(0);
+    ventanaComprar(`Has escuchado los primeros ${MUESTRA_AUDIO_SEG} segundos de este audio.`);
+    return;
+  }
+  const lim = limiteAudio();
+  progressEl.value = audioEl.currentTime;
+  paintProgress(lim ? (audioEl.currentTime / lim) * 100 : 0);
+  timeEl.textContent = `${formatTime(audioEl.currentTime)} / ${formatTime(lim)}`;
+});
+audioEl.addEventListener('ended', () => { showPlayIcon(); progressEl.value = 0; paintProgress(0); });
+progressEl.addEventListener('input', () => {
+  isSeeking = true;
+  const lim = limiteAudio();
+  paintProgress(lim ? (progressEl.value / lim) * 100 : 0);
+  timeEl.textContent = `${formatTime(progressEl.value)} / ${formatTime(lim)}`;
+});
+progressEl.addEventListener('change', () => { if (audioEl.src) audioEl.currentTime = progressEl.value; isSeeking = false; });
+
+function setupAudioButton(cardData) {
+  audioEl.pause(); audioEl.src = actual.base + cardData.audio;
+  showPlayIcon(); progressEl.value = 0; progressEl.max = 100; paintProgress(0); timeEl.textContent = '0:00 / 0:00';
+}
+document.getElementById('audioBtn').addEventListener('click', () => {
+  if (!audioEl.src) return;
+  if (audioEl.paused) { audioEl.play().catch(() => {}); showPauseIcon(); } else { audioEl.pause(); showPlayIcon(); }
+});
+
+/* --- Consultar --- */
+document.getElementById('actionBtn').addEventListener('click', consultOracle);
+function consultOracle() {
+  const container = document.getElementById('oracleContainer');
+  const btn = document.getElementById('actionBtn');
+  const textPanel = document.getElementById('textPanel');
+  const activeCard = document.getElementById(`card-${currentIndex}`);
+
+  if (isFlipped) {
+    audioEl.pause();
+    textPanel.classList.remove('visible');
+    setTimeout(() => { textPanel.hidden = true; activeCard.classList.remove('flipped'); container.classList.remove('revealed'); document.getElementById('mainInstruction').style.opacity = '1'; updateTrackPosition(true); }, 200);
+    btn.innerText = 'Consulta el oráculo';
+    isFlipped = false;
+    return;
+  }
+
+  if (acceso === 'muestra' && sacadas[actual.id] >= MUESTRA_CARTAS) {
+    ventanaComprar(`Ya has sacado las ${MUESTRA_CARTAS} cartas de muestra.`);
+    return;
+  }
+
+  if (activeCard) {
+    magicSound.currentTime = 0;
+    magicSound.play().catch(() => {});
+    const originalIndex = document.getElementById(`wrapper-${currentIndex}`).getAttribute('data-original-index');
+    const cardData = cartas[originalIndex];
+    if (acceso === 'muestra') { sacadas[actual.id]++; pintarEstadoAcceso(); }
+    document.getElementById('cardTitle').innerHTML = cardData.title;
+    document.getElementById('cardDesc').innerHTML = cardData.desc;
+    const aviso = document.getElementById('avisoMuestra');
+    aviso.hidden = acceso !== 'muestra';
+    aviso.textContent = `En la muestra, el audio se escucha ${MUESTRA_AUDIO_SEG} segundos.`;
+    setupAudioButton(cardData);
+    container.classList.add('revealed');
+    activeCard.classList.add('flipped');
+    isFlipped = true;
+    btn.innerText = 'Elegir otra carta';
+    document.getElementById('mainInstruction').style.opacity = '0';
+    textPanel.hidden = false;
+    setTimeout(() => textPanel.classList.add('visible'), 300);
+  }
+}
+
+/* --- Arrastre e inercia de la mesa --- */
+let isDragging = false, dragMoved = false, startX = 0, startTrackX = 0, lastX = 0, lastTime = 0, velocity = 0, rafId = null;
+function clientX(e) { return e.type.includes('touch') ? ((e.touches && e.touches.length) ? e.touches[0].clientX : e.changedTouches[0].clientX) : e.clientX; }
+windowEl.addEventListener('touchstart', dragStart, { passive: true });
+windowEl.addEventListener('touchend', dragEnd);
+windowEl.addEventListener('touchmove', dragMove, { passive: false });
+windowEl.addEventListener('mousedown', dragStart);
+windowEl.addEventListener('mouseup', dragEnd);
+windowEl.addEventListener('mouseleave', dragEnd);
+windowEl.addEventListener('mousemove', dragMove);
+function dragStart(e) {
+  if (isFlipped) return;
+  cancelAnimationFrame(rafId);
+  isDragging = true; dragMoved = false; startX = clientX(e); lastX = startX; lastTime = Date.now(); velocity = 0; startTrackX = trackX; track.style.transition = 'none';
+}
+function dragMove(e) {
+  if (!isDragging) return;
+  const x = clientX(e); const diff = x - startX;
+  if (Math.abs(diff) > 8) { dragMoved = true; if (e.cancelable) e.preventDefault(); }
+  const now = Date.now(); const dt = now - lastTime;
+  if (dt > 0) velocity = (x - lastX) / dt;
+  lastX = x; lastTime = now; trackX = startTrackX + diff; applyTrackPosition(false);
+}
+function dragEnd() {
+  if (!isDragging) return;
+  isDragging = false;
+  if (!dragMoved) { snapToNearest(); return; }
+  velocity = Math.max(-2.2, Math.min(2.2, velocity));
+  startMomentum();
+}
+function startMomentum() {
+  let lastTs = null;
+  function step(ts) {
+    if (!lastTs) lastTs = ts;
+    const dt = Math.min(ts - lastTs, 48); lastTs = ts;
+    trackX += velocity * dt; velocity *= Math.pow(0.945, dt / 16.67);
+    wrapIfNeeded(); applyTrackPosition(false);
+    if (Math.abs(velocity) > 0.015) rafId = requestAnimationFrame(step); else snapToNearest();
+  }
+  rafId = requestAnimationFrame(step);
+}
+function snapToNearest() { currentIndex = Math.round(indexForPosition(trackX)); trackX = positionForIndex(currentIndex); applyTrackPosition(true); }
+window.addEventListener('resize', () => { if (actual) { trackX = positionForIndex(currentIndex); applyTrackPosition(false); } });
+
+/* =====================================================================
+   ARRANQUE
+   ===================================================================== */
+pintar();
+activarArrastre(document.getElementById('fila-todos'));
+licenciaDesdeEnlace();
+recomprobarLicencias();
+</script>
+
+</body>
+</html>
