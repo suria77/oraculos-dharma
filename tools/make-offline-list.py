@@ -14,7 +14,7 @@ import json, os
 from urllib.parse import quote
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-VERSION = 'v7'          # súbelo (v2, v3...) para obligar a todos los móviles a bajar la interfaz de nuevo
+VERSION = 'v8'          # súbelo (v2, v3...) para obligar a todos los móviles a bajar la interfaz de nuevo
 IMG_EXT = {'.png', '.webp', '.jpg', '.jpeg', '.svg', '.gif', '.ico', '.avif'}
 FONT_EXT = {'.ttf', '.otf', '.woff', '.woff2'}
 AUDIO_EXT = {'.mp3', '.m4a', '.wav', '.ogg', '.aac'}
