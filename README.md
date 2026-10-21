@@ -7,7 +7,7 @@ conectado a este repositorio.
 
 | Nombre | Qué es |
 |---|---|
-| `PAYHIP_SECRET_ATMAN`, `PAYHIP_SECRET_RUMI`… | Product secret key de cada oráculo en Payhip. Lo que va detrás de `PAYHIP_SECRET_` es el `id` del oráculo en `index.html`. |
+| `PAYHIP_SECRET_ATMAN`, `PAYHIP_SECRET_RUMI`, `PAYHIP_SECRET_GURU`, `PAYHIP_SECRET_DIOSES_INDIA` | Product secret key de cada oráculo en Payhip. Lo que va detrás de `PAYHIP_SECRET_` es el `id` del oráculo en `index.html` (los guiones se escriben como `_`). |
 | `OD_CLAVE_FIRMA` | Clave privada para firmar las licencias (tipo *Secret*). Nunca se sube al repositorio. |
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Las mismas de Japa-Móvil (límite de 2 dispositivos y sesión de respaldo). |
 

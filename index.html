@@ -148,10 +148,10 @@
   .portada-vacia span { font-family: var(--f-lirica); font-size: 19px; line-height: 1.15; color: var(--texto); font-weight: 600; }
 
   .sello {
-    position: absolute; left: 8px; top: 8px; z-index: 2;
+    position: absolute; left: 0; top: 0; z-index: 2;
     display: inline-flex; align-items: center; gap: 5px;
     font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 5px 9px; border-radius: 999px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    padding: 6px 11px 6px 10px; border-radius: 9px 0 12px 0; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   }
   .sello svg { width: 12px; height: 12px; fill: currentColor; }
   .sello-abierto { background: rgba(20, 60, 40, 0.8); color: var(--verde); }
@@ -308,7 +308,7 @@
   .audio-time { font-size: 13px; color: #f4eefa; text-align: left; opacity: 0.85; font-variant-numeric: tabular-nums; }
   .aviso-muestra { margin-top: 14px; font-size: 14px; color: var(--lila); }
   /* Botón dorado con marco (imagen). En 'Elegir otra carta' se usa el marco sin texto y el texto va encima. */
-  .oracle-btn { width: var(--boton-ancho, 280px); aspect-ratio: 720 / 340; height: auto; padding: 0 0 1%; margin-top: 6px; border: none; border-radius: 0; cursor: pointer;
+  .oracle-btn { width: var(--boton-ancho, 280px); aspect-ratio: 720 / 317; height: auto; padding: 0 0 1%; margin-top: 6px; border: none; border-radius: 0; cursor: pointer;
     background: url('img/boton-consulta.webp') center / contain no-repeat; color: transparent; text-transform: uppercase;
     font: 700 calc(var(--boton-ancho, 280px) * 0.06) / 1 'Cormorant Garamond', Georgia, 'Times New Roman', serif; letter-spacing: .02em;
     filter: drop-shadow(0 6px 14px rgba(0,0,0,.45)); transition: transform .25s ease, filter .25s ease; position: relative; z-index: 5; -webkit-tap-highlight-color: transparent; }
@@ -360,6 +360,55 @@
   }
 
 
+
+  /* ================= PÁGINA DE MUESTRA ================= */
+  .muestra-escena { position: relative; min-height: calc(100vh - 58px); min-height: calc(100dvh - 58px - env(safe-area-inset-top, 0px)); box-sizing: border-box;
+    background-color: var(--fondo-color, #12061c); padding: 20px max(14px, env(safe-area-inset-right, 0px)) 48px max(14px, env(safe-area-inset-left, 0px)); overflow: hidden; }
+  .muestra-escena::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: var(--fondo-alto, 100%); background-image: var(--fondo-img);
+    background-size: cover; background-position: center calc(-1 * var(--fondo-sube, 0px)); background-repeat: no-repeat; pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); mask-image: linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); }
+  .muestra-rejilla { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; display: grid; gap: 22px; grid-template-columns: 1fr; }
+  .muestra-panel { background: rgba(13, 8, 24, 0.9); border: 1px solid rgba(252, 246, 186, 0.35); border-radius: 18px; padding: 26px 24px; box-shadow: 0 14px 34px rgba(0,0,0,.45); color: #f1e9fb; }
+  .muestra-etiqueta { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #2a1405; background: linear-gradient(135deg, #f7e2a0, #d9a93a); padding: 5px 12px; border-radius: 999px; }
+  .muestra-titulo { margin: 14px 0 6px; font: 600 clamp(32px, 5vw, 44px)/1.05 var(--f-lirica); color: #fcf6ba; }
+  .muestra-lema { margin: 0 0 16px; font: italic 500 21px/1.35 var(--f-lirica); color: #e9dcff; }
+  .muestra-texto p { margin: 0 0 12px; font-size: 16.5px; line-height: 1.7; color: #e6def2; }
+  .muestra-chips { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .muestra-chips li { font-size: 13.5px; font-weight: 700; color: #fcf6ba; border: 1px solid rgba(244,212,124,.45); background: rgba(244,212,124,.08); padding: 7px 12px; border-radius: 999px; }
+  .muestra-cartas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .muestra-carta { background: rgba(13, 8, 24, 0.9); border: 1px solid rgba(252, 246, 186, 0.35); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 14px 34px rgba(0,0,0,.45); }
+  .muestra-carta img { width: 100%; height: auto; border-radius: 12px; border: 2px solid rgba(212,175,55,.5); box-shadow: 0 10px 24px rgba(0,0,0,.55); display: block; }
+  .muestra-carta h3 { margin: 4px 0 0; font-size: 15px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #fcf6ba; text-align: center; text-wrap: balance; }
+  .muestra-carta .sub { margin: -4px 0 0; font: italic 500 17px/1.3 var(--f-lirica); color: #e9dcff; text-align: center; text-wrap: balance; }
+  .mini-player { display: flex; align-items: center; gap: 10px; margin-top: auto; }
+  .mini-player button { flex: 0 0 auto; width: 46px; height: 46px; border-radius: 50%; border: none; cursor: pointer; display: grid; place-items: center;
+    background: linear-gradient(135deg, #ffd94d 0%, #fff6b0 30%, #ffcb1f 60%, #e6a800 100%); box-shadow: 0 4px 14px rgba(255,200,0,.45); }
+  .mini-player svg { width: 17px; height: 17px; fill: #1a1206; }
+  .mini-player .barra { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+  .mini-player .pista { height: 5px; border-radius: 3px; background: rgba(255,255,255,.2); overflow: hidden; cursor: pointer; }
+  .mini-player .pista i { display: block; height: 100%; width: 0; background: #ffd94d; }
+  .mini-player .tiempo { font-size: 12.5px; color: #f4eefa; opacity: .85; font-variant-numeric: tabular-nums; }
+  .muestra-cta { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .muestra-cta h2 { margin: 0; font: 600 30px/1.1 var(--f-lirica); color: #fcf6ba; }
+  .muestra-cta > p { margin: 0; font-size: 16px; line-height: 1.6; color: #e6def2; max-width: 46ch; }
+  .muestra-comprar { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 12px 34px; border-radius: 999px; text-decoration: none;
+    font: 800 18px var(--f-display); letter-spacing: .06em; text-transform: uppercase; color: #fff; background: linear-gradient(135deg, #ff4d5e, #d0142c); box-shadow: 0 8px 22px rgba(208,20,44,.45); transition: transform .2s, filter .2s; }
+  .muestra-comprar:hover { transform: translateY(-2px); filter: brightness(1.08); }
+  .muestra-ya { background: transparent; border: 1px solid rgba(244,212,124,.6); color: #fcf6ba; border-radius: 999px; padding: 11px 20px; font: 700 15px var(--f-display); cursor: pointer; }
+  .muestra-ya:hover { background: rgba(244,212,124,.12); }
+  .muestra-nota { font-size: 13.5px !important; color: #cdbfe0 !important; }
+  @media (min-width: 900px) {
+    .muestra-rejilla { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: start; }
+    .muestra-intro { grid-column: 1; grid-row: 1; }
+    .muestra-cta { grid-column: 1; grid-row: 2; }
+    .muestra-cartas { grid-column: 2; grid-row: 1 / span 2; }
+  }
+  @media (max-width: 420px) {
+    .muestra-cartas { gap: 10px; }
+    .muestra-carta { padding: 10px; }
+    .muestra-carta .sub { font-size: 15px; }
+    .mini-player button { width: 40px; height: 40px; }
+  }
   /* ================= TUTORIAL Y COMPARTIR (ventanas claras) ================= */
   .ayuda-velo { position: fixed; inset: 0; z-index: 1200; display: flex; align-items: center; justify-content: center;
     padding: max(14px, env(safe-area-inset-top, 0px)) 14px max(14px, env(safe-area-inset-bottom, 0px));
@@ -493,6 +542,35 @@
   </div>
 </div>
 
+<!-- ======================= PÁGINA DE MUESTRA (oráculos aún no comprados) ======================= -->
+<div id="vista-muestra" class="lectura" hidden>
+  <div class="lectura-barra">
+    <button class="btn-volver" id="muestra-volver">← Volver</button>
+    <button class="btn-offline" id="muestra-activar" type="button">Ya lo compré: activar</button>
+  </div>
+  <div class="muestra-escena" id="muestraEscena">
+    <div class="muestra-rejilla">
+      <section class="muestra-panel muestra-intro">
+        <span class="muestra-etiqueta">Muestra gratuita</span>
+        <h1 class="muestra-titulo" id="muestraTitulo"></h1>
+        <p class="muestra-lema" id="muestraLema"></p>
+        <div class="muestra-texto" id="muestraTexto"></div>
+        <ul class="muestra-chips">
+          <li>40 cartas ilustradas</li><li>40 audios narrados</li><li>Funciona sin conexión</li><li>Tuyo para siempre</li>
+        </ul>
+      </section>
+      <div class="muestra-cartas" id="muestraCartas"></div>
+      <section class="muestra-panel muestra-cta">
+        <h2>Llévate el oráculo completo</h2>
+        <p>Las 40 cartas con sus audios, en tu móvil o tablet, para consultarlas siempre que lo necesites.</p>
+        <a class="muestra-comprar" id="muestraComprar" href="#" target="_blank" rel="noopener">Comprar&nbsp;·&nbsp;<span id="muestraPrecio"></span></a>
+        <button type="button" class="muestra-ya" data-accion="licencia">Ya lo compré: activar licencia</button>
+        <p class="muestra-nota">Tras la compra recibirás tu licencia por correo. Pulsa «Activar», escribe tu correo y pega la licencia: el oráculo quedará abierto en «Tu colección».</p>
+      </section>
+    </div>
+  </div>
+</div>
+
 <!-- ======================= VENTANA EMERGENTE ======================= -->
 <div class="velo" id="velo" hidden>
   <div class="ventana" role="dialog" aria-modal="true" aria-labelledby="ventana-titulo" id="ventana"></div>
@@ -507,7 +585,7 @@
 // Mientras pruebas: acepta licencias de prueba sin servidor, con el formato
 // PRUEBA-<oráculo> (PRUEBA-RUMI, PRUEBA-ZEN, PRUEBA-KABBALAH…).
 // Ponlo en false cuando conectes Payhip de verdad.
-const MODO_PRUEBA = true;
+const MODO_PRUEBA = false;
 
 // Dirección de la función que comprueba las licencias con Payhip (Cloudflare Pages).
 const API_LICENCIAS = '/api/activar';
@@ -702,30 +780,44 @@ const ORACULOS = [
     payhip: 'https://payhip.com/b/duJaS',
     cartas: CARTAS_ATMAN
   },
-  // Barajas nuevas: de momento abiertas para ver cómo quedan.
-  // Para bloquearlas (que pasen a "Tu colección" como compra), poner abiertoParaTodos: false y su enlace de Payhip.
+  // Barajas de pago: se ven como MUESTRA (página con 2 cartas de ejemplo) hasta que se activa la licencia.
   {
     id: 'rumi', nombre: 'El Oráculo de Rumi', subtitulo: 'Poesía mística sufí', estado: 'disponible',
-    abiertoParaTodos: true,
+    abiertoParaTodos: false,
     base: 'oraculos/rumi/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo-3.webp', sonido: 'sonido-giro.mp3',
     colorFondo: '#c7bca8', colorBarra: '#d4ccbb', fondoClaro: true, zonaTitulo: 0.285, proporcion: 3 / 4,
-    payhip: 'https://payhip.com/',
+    payhip: 'https://payhip.com/b/lXgpS', muestras: ['01', '27'],
+    presentacion: {
+      lema: '40 versos del gran poeta sufí para escuchar con el corazón',
+      texto: ['Rumi escribió sobre el amor, el anhelo y el regreso a casa como pocos lo han hecho. Este oráculo convierte su sabiduría en 40 cartas: cada una lleva uno de sus versos, lo que quiso transmitir con él y una forma sencilla de llevarlo a tu vida.',
+              'Piensa en tu pregunta, saca una carta y deja que su voz te acompañe durante el día. Aquí tienes dos cartas para que lo escuches antes de llevártelo.']
+    },
     cartas: CARTAS_RUMI
   },
   {
     id: 'guru', nombre: 'El Oráculo Gurú', subtitulo: 'Sabios y maestros', estado: 'disponible',
-    abiertoParaTodos: true,
+    abiertoParaTodos: false,
     base: 'oraculos/guru/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo-2.webp', sonido: 'sonido-giro.mp3',
     colorFondo: '#722859', colorBarra: '#6d2554', proporcion: 2 / 3,
-    payhip: 'https://payhip.com/',
+    payhip: 'https://payhip.com/b/hzDlq', muestras: ['buda', 'ramana-maharshi'],
+    presentacion: {
+      lema: '40 grandes maestros de Oriente y Occidente responden a tu pregunta',
+      texto: ['Buda, Ramana Maharshi, Lao Tse, Santa Teresa, Rumi, Platón… Este oráculo reúne a 40 sabios de todas las tradiciones. Cada carta muestra su retrato, una palabra clave y una de sus frases más poderosas.',
+              'Al sacarla escucharás quién fue, qué quiso decir y cómo llevar su enseñanza a tu día. Aquí tienes dos cartas para que sientas cómo te hablan a través de los siglos.']
+    },
     cartas: CARTAS_GURU
   },
   {
     id: 'dioses-india', nombre: 'Dioses de la India', subtitulo: 'El susurro de los Vedas', estado: 'disponible',
-    abiertoParaTodos: true,
+    abiertoParaTodos: false,
     base: 'oraculos/dioses-india/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
     colorFondo: '#2e0406', colorBarra: '#39060a', proporcion: 3 / 4, zonaTitulo: 0.222,
-    payhip: 'https://payhip.com/',
+    payhip: 'https://payhip.com/b/MOAE9', muestras: ['ganesha', 'lakshmi'],
+    presentacion: {
+      lema: '40 deidades de la India con un mensaje para tu momento presente',
+      texto: ['Ganesha abre los caminos, Shiva transforma en silencio, Lakshmi trae la abundancia, Durga protege… Cada carta te acerca a una deidad de la tradición hindú, con sus atributos de siempre y un mensaje breve y claro.',
+              'Qué te pide hoy la vida y qué paso puedes dar: eso es lo que escucharás en cada carta. Aquí tienes dos para que conozcas el oráculo antes de llevártelo.']
+    },
     cartas: CARTAS_INDIA
   }
 ];
@@ -958,6 +1050,7 @@ function pulsarOraculo(id) {
       <div class="acciones"><button class="btn-secundario" data-accion="cerrar">Entendido</button></div>`);
     return;
   }
+  if (!abierto(o)) { abrirMuestra(o); return; }
   abrirLectura(o);
 }
 
@@ -1007,6 +1100,7 @@ function abrirVentanaLicencia(textoArriba) {
     btn.disabled = false; btn.textContent = 'Activar';
     if (r.ok) {
       cerrarVentana();
+      if (!document.getElementById('vista-muestra').hidden) cerrarMuestra();
       pintar(r.oraculo);
       avisar(`${oraculo(r.oraculo).nombre} ya está en tu colección`);
       document.getElementById('t-coleccion').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1219,7 +1313,7 @@ function ajustarFondo() {
   const BASE = Math.min(300, W - 70);              // ancho máximo de la carta
   const botonAncho = Math.round(Math.min(300, W * 0.62, Math.max(200, H * 0.27)));
   c.style.setProperty('--boton-ancho', botonAncho + 'px');
-  const libre = H - arriba - 30 - Math.round(botonAncho * 340 / 720) - 40;   // menos instrucción y botón
+  const libre = H - arriba - 30 - Math.round(botonAncho * 317 / 720) - 40;   // menos instrucción y botón
   const k = Math.max(0.5, Math.min(1, libre / (BASE / prop + 66)));
   const ancho = Math.round(BASE * k), alto = Math.round(ancho / prop);
   cardWidth = ancho + 40;
@@ -1450,6 +1544,91 @@ function startMomentum() {
 function snapToNearest() { currentIndex = Math.round(indexForPosition(trackX)); trackX = positionForIndex(currentIndex); applyTrackPosition(true); }
 window.addEventListener('resize', () => { if (actual) { ajustarFondo(); trackX = positionForIndex(currentIndex); applyTrackPosition(false); } });
 
+
+
+/* =====================================================================
+   PÁGINA DE MUESTRA: presentación + 2 cartas con su audio + compra
+   ===================================================================== */
+const audioMuestra = new Audio();
+let botonSonando = null;
+const ICO_PLAY = '<svg viewBox="0 0 24 24"><polygon points="7,4 20,12 7,20"/></svg>';
+const ICO_PAUSA = '<svg viewBox="0 0 24 24"><rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/></svg>';
+function pararMuestra() {
+  audioMuestra.pause();
+  document.querySelectorAll('.mini-player').forEach(p => { p.querySelector('button').innerHTML = ICO_PLAY; p.querySelector('.pista i').style.width = '0'; });
+  botonSonando = null;
+}
+audioMuestra.addEventListener('timeupdate', () => {
+  if (!botonSonando) return;
+  const p = botonSonando.closest('.mini-player'), d = audioMuestra.duration || 0;
+  p.querySelector('.pista i').style.width = (d ? audioMuestra.currentTime / d * 100 : 0) + '%';
+  p.querySelector('.tiempo').textContent = `${formatTime(audioMuestra.currentTime)} / ${formatTime(d)}`;
+});
+audioMuestra.addEventListener('ended', pararMuestra);
+
+function ajustarFondoMuestra(o) {
+  const c = document.getElementById('muestraEscena');
+  const W = c.clientWidth, H = window.innerHeight - 58;
+  const lado = Math.round(Math.max(W, H));
+  const sube = W > H ? Math.round(lado * 0.03) : 0;
+  c.style.setProperty('--fondo-alto', lado + 'px');
+  c.style.setProperty('--fondo-sube', sube + 'px');
+  c.style.paddingTop = (Math.round(lado * (o.zonaTitulo || 0.235)) - sube + 8) + 'px';
+}
+
+function abrirMuestra(o) {
+  actual = o;
+  const vista = document.getElementById('vista-muestra'), esc = document.getElementById('muestraEscena');
+  vista.style.setProperty('--fondo-color', o.colorFondo || '#12061c');
+  vista.style.setProperty('--barra-color', o.colorBarra || o.colorFondo || '#12061c');
+  vista.classList.toggle('fondo-claro', !!o.fondoClaro);
+  esc.style.setProperty('--fondo-img', `url('${o.base}${o.fondo}')`);
+  const pr = o.presentacion || {};
+  document.getElementById('muestraTitulo').textContent = o.nombre;
+  document.getElementById('muestraLema').textContent = pr.lema || o.subtitulo || '';
+  document.getElementById('muestraTexto').innerHTML = (pr.texto || []).map(t => `<p>${t}</p>`).join('');
+  document.getElementById('muestraComprar').href = o.payhip || '#';
+  document.getElementById('muestraPrecio').textContent = o.precio || PRECIO_ORACULO;
+  const cartasM = (o.muestras || []).map(id => o.cartas.find(c => c.img === id + '.webp' || c.img === id + '-2.webp')).filter(Boolean).slice(0, 2);
+  document.getElementById('muestraCartas').innerHTML = cartasM.map(c => `
+    <article class="muestra-carta">
+      <img src="${o.base}${c.img}" alt="${c.title}" loading="lazy">
+      <h3>${c.title}</h3>
+      ${c.cita ? `<p class="sub">«${c.cita}»</p>` : c.sub ? `<p class="sub">${c.sub}</p>` : ''}
+      <div class="mini-player">
+        <button type="button" data-audio="${o.base}${c.audio}" aria-label="Escuchar la carta ${c.title}">${ICO_PLAY}</button>
+        <div class="barra"><div class="pista"><i></i></div><span class="tiempo">Escuchar</span></div>
+      </div>
+    </article>`).join('');
+  pararMuestra();
+  document.getElementById('vista-catalogo').hidden = true;
+  vista.hidden = false;
+  document.title = `${o.nombre} · Oráculos del Dharma`;
+  window.scrollTo(0, 0);
+  ajustarFondoMuestra(o);
+}
+function cerrarMuestra() {
+  pararMuestra();
+  document.getElementById('vista-muestra').hidden = true;
+  document.getElementById('vista-catalogo').hidden = false;
+  document.title = 'Oráculos del Dharma';
+}
+document.getElementById('muestraCartas').addEventListener('click', e => {
+  const pista = e.target.closest('.pista');
+  if (pista && botonSonando && pista.closest('.mini-player') === botonSonando.closest('.mini-player') && audioMuestra.duration) {
+    const r = pista.getBoundingClientRect(); audioMuestra.currentTime = (e.clientX - r.left) / r.width * audioMuestra.duration; return;
+  }
+  const b = e.target.closest('button[data-audio]'); if (!b) return;
+  if (botonSonando === b) {
+    if (audioMuestra.paused) { audioMuestra.play().catch(() => {}); b.innerHTML = ICO_PAUSA; } else { audioMuestra.pause(); b.innerHTML = ICO_PLAY; }
+    return;
+  }
+  pararMuestra();
+  botonSonando = b; audioMuestra.src = b.dataset.audio; audioMuestra.play().catch(() => {}); b.innerHTML = ICO_PAUSA;
+});
+document.getElementById('muestra-volver').addEventListener('click', () => { cerrarMuestra(); pintar(); });
+document.getElementById('muestra-activar').addEventListener('click', () => abrirVentanaLicencia());
+window.addEventListener('resize', () => { if (!document.getElementById('vista-muestra').hidden && actual) ajustarFondoMuestra(actual); });
 
 /* =====================================================================
    TUTORIAL Y COMPARTIR (botones del pie, como en Japa-Móvil)

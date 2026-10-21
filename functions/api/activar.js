@@ -75,7 +75,7 @@ async function firmar(env, oraculo, licencia, dispositivo) {
 function productos(env) {
   return Object.keys(env)
     .filter((k) => k.startsWith('PAYHIP_SECRET_') && env[k])
-    .map((k) => ({ id: k.slice('PAYHIP_SECRET_'.length).toLowerCase(), secreto: env[k] }));
+    .map((k) => ({ id: k.slice('PAYHIP_SECRET_'.length).toLowerCase().replace(/_/g, '-'), secreto: env[k] }));   // PAYHIP_SECRET_DIOSES_INDIA → dioses-india
 }
 
 // Busca la licencia en cada producto de Payhip hasta encontrar el suyo
