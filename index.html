@@ -129,7 +129,9 @@
     background: var(--morado-hondo);
   }
   .tarjeta:hover .tarjeta-media, .tarjeta:focus-visible .tarjeta-media { transform: translateY(-6px) scale(1.03); border-color: var(--oro); box-shadow: 0 18px 34px rgba(10,2,24,0.7); }
-  .tarjeta-media img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+  .tarjeta-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+  @supports not (aspect-ratio: 3 / 4) { .tarjeta-media { height: 0; padding-bottom: 133.333%; } }
+  .tarjeta-sub { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tarjeta-nombre { font-size: 15px; font-weight: 700; letter-spacing: 0.04em; line-height: 1.3; color: var(--texto); }
   .tarjeta-sub { font-family: var(--f-lirica); font-style: italic; font-size: 16px; color: var(--texto-suave); margin-top: -6px; }
 
@@ -177,9 +179,7 @@
   .hueco-media {
     position: relative; width: 100%; aspect-ratio: 3 / 4; max-width: 100%; box-sizing: border-box;
     border-radius: 12px; border: 2px dashed rgba(205,176,255,0.5);
-    background:
-      radial-gradient(circle at 50% 35%, rgba(205,176,255,0.14), transparent 60%),
-      rgba(29, 8, 56, 0.55);
+    background: #160624;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
     padding: 16px 12px;
   }
@@ -223,28 +223,25 @@
   .pie img { height: 34px; width: auto; opacity: .85; }
 
   /* ================= LECTURA (ORÁCULO ABIERTO) ================= */
-  .lectura {
-    min-height: 100vh; background: var(--morado-hondo);
-    padding-left: max(12px, env(safe-area-inset-left, 0px));
-    padding-right: max(12px, env(safe-area-inset-right, 0px));
-    padding-block: 0 24px;
-  }
+  /* Lectura a pantalla completa: arriba solo una línea con dos botones, del color del terciopelo */
+  .lectura { min-height: 100vh; min-height: 100dvh; background: var(--fondo-color, var(--morado-hondo)); padding: 0; }
   .lectura-barra {
-    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
-    display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
-    max-width: 1200px; margin: 0 auto; padding: 12px 0;
-    background: var(--morado-hondo);
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: nowrap;
+    height: 58px; box-sizing: content-box;
+    padding: env(safe-area-inset-top, 0px) max(12px, env(safe-area-inset-right, 0px)) 0 max(12px, env(safe-area-inset-left, 0px));
+    background: var(--barra-color, var(--morado-hondo));
   }
+  .lectura-barra > * { flex: 0 0 auto; white-space: nowrap; }
   .btn-volver {
     background: rgba(255,255,255,0.08); color: var(--oro); border: 1px solid rgba(244,212,124,0.4);
-    padding: 10px 18px; border-radius: 999px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all .2s;
+    padding: 9px 16px; border-radius: 999px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all .2s; background-color: rgba(10,4,20,0.35); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
   }
   .btn-volver:hover { background: var(--oro); color: var(--morado-hondo); }
-  .lectura-nombre { font-family: var(--f-lirica); font-size: 24px; font-weight: 600; color: var(--texto); }
   .btn-offline {
     display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
-    background: rgba(255,255,255,0.08); color: var(--texto); border: 1px solid rgba(205,176,255,0.5);
-    padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .03em;
+    background: rgba(10,4,20,0.35); color: var(--texto); border: 1px solid rgba(255,255,255,0.45);
+    padding: 9px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .03em;
   }
   .btn-offline svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .btn-offline:hover { border-color: var(--lila); background: rgba(205,176,255,0.15); }
@@ -253,24 +250,23 @@
   .ventana .campo { display: flex; flex-direction: column; gap: 6px; }
   .ventana input.correo { text-transform: none; letter-spacing: 0; }
   .estado-acceso { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 7px 12px; border-radius: 999px; }
-  .estado-completo { background: rgba(20,60,40,.8); color: var(--verde); }
-  .estado-muestra { background: rgba(205,176,255,.15); color: var(--lila); }
+  .estado-muestra { background: rgba(10,4,20,.45); color: #fff; border: 1px solid rgba(255,255,255,.45); }
 
   /* --- Mesa del oráculo (código de Atman) --- */
   /* Fondo cuadrado con el título arriba: se dibuja en ::before, siempre anclado arriba y centrado,
      a un tamaño fijo (el mayor entre el ancho y la altura de pantalla) para que el título se vea entero
      en vertical y en horizontal. Debajo se funde con el color del terciopelo. */
-  .oracle-container { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 82vh; background-color: var(--fondo-color, #12061c); color: #f4eefa; padding: 20px 12px 80px; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.6); overflow: hidden; user-select: none; -webkit-user-select: none; max-width: 1200px; margin: 0 auto; }
-  .oracle-container::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: var(--fondo-alto, 100%); background-image: var(--fondo-img); background-size: cover; background-position: center top; background-repeat: no-repeat; -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%); mask-image: linear-gradient(to bottom, #000 80%, transparent 100%); pointer-events: none; z-index: 0; }
+  .oracle-container { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: calc(100vh - 58px); min-height: calc(100dvh - 58px - env(safe-area-inset-top, 0px)); box-sizing: border-box; background-color: var(--fondo-color, #12061c); color: #f4eefa; padding: 20px 12px 80px; overflow: hidden; user-select: none; -webkit-user-select: none; margin: 0; }
+  .oracle-container::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: var(--fondo-alto, 100%); background-image: var(--fondo-img); background-size: cover; background-position: center top; background-repeat: no-repeat; -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); mask-image: linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); pointer-events: none; z-index: 0; }
   /* En horizontal el cuadrado no ocupa todo el ancho: sus lados se funden con el color del terciopelo */
-  .oracle-container.apaisado::before { left: 50%; right: auto; width: var(--fondo-alto); margin-left: calc(var(--fondo-alto) / -2); background-size: cover; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fundido, 14%), #000 calc(100% - var(--fundido, 14%)), transparent 100%), linear-gradient(to bottom, #000 80%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 var(--fundido, 14%), #000 calc(100% - var(--fundido, 14%)), transparent 100%), linear-gradient(to bottom, #000 80%, transparent 100%); mask-composite: intersect; }
+  .oracle-container.apaisado::before { left: 50%; right: auto; width: var(--fondo-alto); margin-left: calc(var(--fondo-alto) / -2); background-size: cover; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fundido, 14%), #000 calc(100% - var(--fundido, 14%)), transparent 100%), linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 var(--fundido, 14%), #000 calc(100% - var(--fundido, 14%)), transparent 100%), linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); mask-composite: intersect; }
   .oracle-instruction, .oracle-layout { position: relative; z-index: 1; }
   .logo-footer { position: absolute; bottom: 24px; left: 24px; width: 130px; height: auto; opacity: 0.75; pointer-events: none; z-index: 1; }
-  .oracle-instruction { font-size: 21px; font-weight: 800; color: #fcf6ba; margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; text-align: center; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8); transition: opacity 0.5s ease; }
+  .oracle-instruction { font-size: 21px; font-weight: 800; color: #fcf6ba; margin-bottom: 8px; letter-spacing: 2px; text-transform: uppercase; text-align: center; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8); transition: opacity 0.5s ease; }
   .oracle-layout { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; max-width: 950px; gap: 20px; }
   .carousel-window { width: 100%; max-width: 500px; height: var(--ventana-alto, 480px); overflow: hidden; position: relative; touch-action: pan-y; }
   .carousel-track { display: flex; position: absolute; left: 0; top: 30px; will-change: transform; }
-  .card-wrapper { width: 260px; height: var(--carta-alto, 390px); margin: 0 20px; flex-shrink: 0; transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+  .card-wrapper { width: var(--carta-ancho, 260px); height: var(--carta-alto, 390px); margin: 0 20px; flex-shrink: 0; transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
   .card-wrapper.active-card { perspective: 1000px; }
   .card-3d { width: 100%; height: 100%; position: relative; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
   .card-wrapper.active-card .card-3d { transform-style: preserve-3d; }
@@ -400,11 +396,10 @@
 <!-- ======================= PANTALLA DE LECTURA ======================= -->
 <div id="vista-lectura" class="lectura" hidden>
   <div class="lectura-barra">
-    <button class="btn-volver" id="btn-volver">← Volver a los oráculos</button>
-    <span class="lectura-nombre" id="lectura-nombre"></span>
+    <button class="btn-volver" id="btn-volver">← Volver</button>
     <div class="lectura-derecha">
       <button class="btn-offline" id="btn-offline" hidden></button>
-      <span class="estado-acceso" id="estado-acceso"></span>
+      <span class="estado-acceso" id="estado-acceso" hidden></span>
     </div>
   </div>
 
@@ -641,7 +636,7 @@ const ORACULOS = [
     id: 'atman', nombre: 'Atman', subtitulo: 'Oráculo de Luz', estado: 'disponible',
     abiertoParaTodos: true,   // ← baraja gratis: abierta para todos
     base: 'oraculos/atman/', portada: '01.webp', dorso: 'dorso.webp', fondo: 'fondo-2.webp', sonido: 'sonido-giro.mp3',
-    colorFondo: '#130414', proporcion: 2 / 3,
+    colorFondo: '#130414', colorBarra: '#1a081c', proporcion: 2 / 3, gratis: true,
     payhip: 'https://payhip.com/b/duJaS',
     cartas: CARTAS_ATMAN
   },
@@ -650,16 +645,16 @@ const ORACULOS = [
   {
     id: 'rumi', nombre: 'El Oráculo de Rumi', subtitulo: 'Poesía mística sufí', estado: 'disponible',
     abiertoParaTodos: true,
-    base: 'oraculos/rumi/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
-    colorFondo: '#021243', proporcion: 3 / 4,
+    base: 'oraculos/rumi/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo-2.webp', sonido: 'sonido-giro.mp3',
+    colorFondo: '#0580ae', colorBarra: '#0aabcf', proporcion: 3 / 4,
     payhip: 'https://payhip.com/',
     cartas: CARTAS_RUMI
   },
   {
     id: 'guru', nombre: 'El Oráculo Gurú', subtitulo: 'Sabios y maestros', estado: 'disponible',
     abiertoParaTodos: true,
-    base: 'oraculos/guru/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
-    colorFondo: '#14050f', proporcion: 2 / 3,
+    base: 'oraculos/guru/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo-2.webp', sonido: 'sonido-giro.mp3',
+    colorFondo: '#722859', colorBarra: '#6d2554', proporcion: 2 / 3,
     payhip: 'https://payhip.com/',
     cartas: CARTAS_GURU
   },
@@ -667,7 +662,7 @@ const ORACULOS = [
     id: 'dioses-india', nombre: 'Dioses de la India', subtitulo: 'El susurro de los Vedas', estado: 'disponible',
     abiertoParaTodos: true,
     base: 'oraculos/dioses-india/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
-    colorFondo: '#2e0406', proporcion: 3 / 4,
+    colorFondo: '#2e0406', colorBarra: '#39060a', proporcion: 3 / 4,
     payhip: 'https://payhip.com/',
     cartas: CARTAS_INDIA
   }
@@ -833,9 +828,10 @@ function huecoHTML(o) {
 
 // Los abiertos van primero (en el orden en que se activaron) y detrás los huecos vacíos.
 function ordenColeccion() {
-  const fecha = o => o.abiertoParaTodos && !loTiene(o.id) ? 0 : (coleccion[o.id]?.d || 0);
-  const mios = ORACULOS.filter(abierto).sort((x, y) => fecha(x) - fecha(y));
-  const vacios = ORACULOS.filter(o => !abierto(o));
+  // La gratis (Atman) no entra aquí. Lo comprado sale como baraja; lo demás, como hueco con COMPRAR y ACTIVAR.
+  const fecha = o => coleccion[o.id]?.d || 0;
+  const mios = ORACULOS.filter(o => loTiene(o.id)).sort((x, y) => fecha(x) - fecha(y));
+  const vacios = ORACULOS.filter(o => !o.gratis && !loTiene(o.id));
   return { mios, vacios };
 }
 
@@ -844,7 +840,7 @@ function pintar(recienId) {
   document.getElementById('fila-todos').innerHTML = ORACULOS.filter(o => !loTiene(o.id)).map(o => tarjetaHTML(o, false)).join('');
 
   const { mios, vacios } = ordenColeccion();
-  document.getElementById('cuenta-coleccion').textContent = `${mios.length} de ${ORACULOS.length}`;
+  document.getElementById('cuenta-coleccion').textContent = `${mios.length} de ${ORACULOS.filter(o => !o.gratis).length}`;
   const fila = document.getElementById('fila-coleccion');
   fila.innerHTML = mios.map(o => tarjetaHTML(o, true)).join('') + vacios.map(huecoHTML).join('');
 
@@ -1074,7 +1070,7 @@ const sacadas = {};         // cartas sacadas en modo muestra, por oráculo
 
 const track = document.getElementById('carouselTrack');
 const windowEl = document.getElementById('carouselWindow');
-const cardWidth = 300;
+let cardWidth = 300;   // ancho de carta + márgenes (se ajusta si la pantalla es baja)
 let totalCards = 0, currentIndex = 0, isFlipped = false, trackX = 0;
 let magicSound = new Audio();
 
@@ -1083,14 +1079,13 @@ function abrirLectura(o) {
   acceso = (loTiene(o.id) || o.abiertoParaTodos) ? 'completo' : 'muestra';
   sacadas[o.id] = sacadas[o.id] || 0;
 
-  document.getElementById('lectura-nombre').textContent = `${o.nombre} · ${o.subtitulo}`;
+  document.title = `${o.nombre} · Oráculos del Dharma`;
   pintarEstadoAcceso();
   const cont = document.getElementById('oracleContainer');
+  const vista = document.getElementById('vista-lectura');
   cont.style.setProperty('--fondo-img', `url('${o.base}${o.fondo}')`);
-  cont.style.setProperty('--fondo-color', o.colorFondo || '#12061c');
-  const alto = Math.round(260 / (o.proporcion || 2 / 3));
-  cont.style.setProperty('--carta-alto', alto + 'px');
-  cont.style.setProperty('--ventana-alto', Math.round(alto * 1.12 + 50) + 'px');
+  vista.style.setProperty('--fondo-color', o.colorFondo || '#12061c');
+  vista.style.setProperty('--barra-color', o.colorBarra || o.colorFondo || '#12061c');
   magicSound = new Audio(o.base + o.sonido);
 
   cartas = o.cartas.slice();
@@ -1142,22 +1137,35 @@ document.getElementById('btn-offline').addEventListener('click', async () => {
 // El título del fondo ocupa el 22 % superior de la imagen cuadrada: se deja ese hueco libre arriba
 function ajustarFondo() {
   const c = document.getElementById('oracleContainer');
-  const W = c.clientWidth, H = window.innerHeight;
+  const W = c.clientWidth, H = window.innerHeight - 58;
   // Vertical: el cuadrado llena el alto (los lados se recortan, el título queda centrado).
   // Horizontal: el cuadrado se ajusta a la altura de la pantalla y se centra; los lados se funden.
-  const apaisado = W > H;
-  const lado = Math.round(apaisado ? Math.min(W, Math.max(H * 0.95, 420)) : Math.max(W, H * 0.82));
+  // Siempre a pantalla completa (el cuadrado cubre todo el ancho). Solo en pantallas muy bajas
+  // (móvil tumbado) se ajusta a la altura y los lados se funden, para que quepan las cartas.
+  const apaisado = W > H && H < 600;
+  const lado = Math.round(apaisado ? Math.min(W, Math.max(H * 0.95, 360)) : Math.max(W, H));
   c.classList.toggle('apaisado', apaisado && lado < W);
   c.style.setProperty('--fundido', Math.round(lado * 0.16) + 'px');
   c.style.setProperty('--fondo-alto', lado + 'px');
-  c.style.paddingTop = Math.round(lado * 0.225 + 4) + 'px';
+  const arriba = Math.round(lado * 0.235 + 4);
+  c.style.paddingTop = arriba + 'px';
+  // Tamaño de las cartas: si la pantalla es baja, se encogen para que el botón quede a la vista
+  const prop = (actual && actual.proporcion) || 2 / 3;
+  const libre = H - arriba - 40 - 100;            // menos instrucción y botón
+  const k = Math.max(0.68, Math.min(1, libre / (260 / prop * 1.12 + 36)));
+  const ancho = Math.round(260 * k), alto = Math.round(ancho / prop);
+  cardWidth = ancho + 40;
+  c.style.setProperty('--carta-ancho', ancho + 'px');
+  c.style.setProperty('--carta-alto', alto + 'px');
+  c.style.setProperty('--ventana-alto', Math.round(alto * 1.12 + 36) + 'px');
 }
 
 function pintarEstadoAcceso() {
   const e = document.getElementById('estado-acceso');
-  if (acceso === 'completo') { e.className = 'estado-acceso estado-completo'; e.textContent = 'Oráculo completo'; }
+  if (acceso === 'completo') { e.hidden = true; e.textContent = ''; }
   else {
     const quedan = Math.max(0, MUESTRA_CARTAS - sacadas[actual.id]);
+    e.hidden = false;
     e.className = 'estado-acceso estado-muestra';
     e.textContent = `Muestra · ${quedan} ${quedan === 1 ? 'carta' : 'cartas'}`;
   }

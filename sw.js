@@ -34,6 +34,9 @@ self.addEventListener('activate', function (e) {
     return Promise.all(keys.map(function (k) {
       /* Solo se borran versiones antiguas de la interfaz; cartas y audios se conservan */
       if (k.indexOf('od-shell-') === 0 && k !== SHELL) return caches.delete(k);
+      /* Si cambian los audios (p. ej. volumen igualado), se sube la versión de media y se borran los viejos */
+      if (k.indexOf('od-media-') === 0 && k !== MEDIA) return caches.delete(k);
+      if (k.indexOf('od-assets-') === 0 && k !== ASSETS) return caches.delete(k);
     }));
   }).then(function () { return self.clients.claim(); }));
 });

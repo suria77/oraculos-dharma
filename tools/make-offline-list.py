@@ -14,7 +14,7 @@ import json, os
 from urllib.parse import quote
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-VERSION = 'v2'          # súbelo (v2, v3...) para obligar a todos los móviles a bajar la interfaz de nuevo
+VERSION = 'v3'          # súbelo (v2, v3...) para obligar a todos los móviles a bajar la interfaz de nuevo
 IMG_EXT = {'.png', '.webp', '.jpg', '.jpeg', '.svg', '.gif', '.ico', '.avif'}
 FONT_EXT = {'.ttf', '.otf', '.woff', '.woff2'}
 AUDIO_EXT = {'.mp3', '.m4a', '.wav', '.ogg', '.aac'}
@@ -53,7 +53,7 @@ for oid in sorted(os.listdir(base)) if os.path.isdir(base) else []:
 
 cfg = {
     'version': VERSION,
-    'caches': {'shell': 'od-shell-' + VERSION, 'assets': 'od-assets-v1', 'media': 'od-media-v1'},
+    'caches': {'shell': 'od-shell-' + VERSION, 'assets': 'od-assets-v1', 'media': 'od-media-v2'},
     'core': core, 'coreSz': core_sz, 'oraculos': oraculos,
 }
 with open(os.path.join(ROOT, 'offline-files.js'), 'w', encoding='utf-8') as f:
