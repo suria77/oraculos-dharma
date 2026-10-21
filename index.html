@@ -16,7 +16,7 @@
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap">
 <style>
   html,body{margin:0}
 
@@ -268,7 +268,7 @@
      a un tamaño fijo (el mayor entre el ancho y la altura de pantalla) para que el título se vea entero
      en vertical y en horizontal. Debajo se funde con el color del terciopelo. */
   .oracle-container { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: calc(100vh - 58px); min-height: calc(100dvh - 58px - env(safe-area-inset-top, 0px)); box-sizing: border-box; background-color: var(--fondo-color, #12061c); color: #f4eefa; padding: 20px 12px 80px; overflow: hidden; user-select: none; -webkit-user-select: none; margin: 0; }
-  .oracle-container::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: var(--fondo-alto, 100%); background-image: var(--fondo-img); background-size: cover; background-position: center top; background-repeat: no-repeat; -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); mask-image: linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); pointer-events: none; z-index: 0; }
+  .oracle-container::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: var(--fondo-alto, 100%); background-image: var(--fondo-img); background-size: cover; background-position: center calc(-1 * var(--fondo-sube, 0px)); background-repeat: no-repeat; -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); mask-image: linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); pointer-events: none; z-index: 0; }
   /* En horizontal el cuadrado no ocupa todo el ancho: sus lados se funden con el color del terciopelo */
   .oracle-container.apaisado::before { left: 50%; right: auto; width: var(--fondo-alto); margin-left: calc(var(--fondo-alto) / -2); background-size: cover; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fundido, 14%), #000 calc(100% - var(--fundido, 14%)), transparent 100%), linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 var(--fundido, 14%), #000 calc(100% - var(--fundido, 14%)), transparent 100%), linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); mask-composite: intersect; }
   .oracle-instruction, .oracle-layout { position: relative; z-index: 1; }
@@ -307,8 +307,14 @@
   .audio-progress::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: #ffd94d; box-shadow: 0 1px 4px rgba(0,0,0,0.6); cursor: pointer; }
   .audio-time { font-size: 13px; color: #f4eefa; text-align: left; opacity: 0.85; font-variant-numeric: tabular-nums; }
   .aviso-muestra { margin-top: 14px; font-size: 14px; color: var(--lila); }
-  .oracle-btn { background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%); color: #0b0713; border: none; padding: 11px 30px; font-size: 15px; font-weight: 800; border-radius: 30px; cursor: pointer; letter-spacing: 1.3px; box-shadow: 0 6px 20px rgba(170, 119, 28, 0.4); transition: all 0.3s ease; text-transform: uppercase; margin-top: 12px; position: relative; z-index: 5; }
-  .oracle-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+  /* Botón dorado con marco (imagen). En 'Elegir otra carta' se usa el marco sin texto y el texto va encima. */
+  .oracle-btn { width: var(--boton-ancho, 280px); aspect-ratio: 720 / 340; height: auto; padding: 0 0 1%; margin-top: 6px; border: none; border-radius: 0; cursor: pointer;
+    background: url('img/boton-consulta.webp') center / contain no-repeat; color: transparent; text-transform: uppercase;
+    font: 700 calc(var(--boton-ancho, 280px) * 0.06) / 1 'Cormorant Garamond', Georgia, 'Times New Roman', serif; letter-spacing: .02em;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,.45)); transition: transform .25s ease, filter .25s ease; position: relative; z-index: 5; -webkit-tap-highlight-color: transparent; }
+  .oracle-btn.otra { background-image: url('img/boton-vacio.webp'); color: #1b1206; }
+  .oracle-btn:hover { transform: translateY(-2px); filter: drop-shadow(0 8px 18px rgba(0,0,0,.5)) brightness(1.06); }
+  .oracle-btn:active { transform: scale(.97); }
   @media (min-width: 768px) {
     .oracle-layout { flex-direction: row; gap: 15px; }
     .oracle-text-panel { transform: translateX(15px); }
@@ -692,7 +698,7 @@ const ORACULOS = [
     id: 'atman', nombre: 'Atman', subtitulo: 'Oráculo de Luz', estado: 'disponible',
     abiertoParaTodos: true,   // ← baraja gratis: abierta para todos
     base: 'oraculos/atman/', portada: '01.webp', dorso: 'dorso.webp', fondo: 'fondo-2.webp', sonido: 'sonido-giro.mp3',
-    colorFondo: '#130414', colorBarra: '#1a081c', proporcion: 2 / 3, gratis: true,
+    colorFondo: '#130414', colorBarra: '#1a081c', proporcion: 2 / 3, gratis: true, zonaTitulo: 0.225,
     payhip: 'https://payhip.com/b/duJaS',
     cartas: CARTAS_ATMAN
   },
@@ -718,7 +724,7 @@ const ORACULOS = [
     id: 'dioses-india', nombre: 'Dioses de la India', subtitulo: 'El susurro de los Vedas', estado: 'disponible',
     abiertoParaTodos: true,
     base: 'oraculos/dioses-india/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
-    colorFondo: '#2e0406', colorBarra: '#39060a', proporcion: 3 / 4,
+    colorFondo: '#2e0406', colorBarra: '#39060a', proporcion: 3 / 4, zonaTitulo: 0.222,
     payhip: 'https://payhip.com/',
     cartas: CARTAS_INDIA
   }
@@ -1203,18 +1209,23 @@ function ajustarFondo() {
   c.classList.toggle('apaisado', apaisado && lado < W);
   c.style.setProperty('--fundido', Math.round(lado * 0.16) + 'px');
   c.style.setProperty('--fondo-alto', lado + 'px');
-  const arriba = Math.round(lado * ((actual && actual.zonaTitulo) || 0.235) + 4);
+  // En horizontal se sube un poco el fondo (se recorta el hueco vacío sobre el título) para ganar sitio
+  const sube = W > H ? Math.round(lado * 0.03) : 0;
+  c.style.setProperty('--fondo-sube', sube + 'px');
+  const arriba = Math.round(lado * ((actual && actual.zonaTitulo) || 0.235) + 4) - sube;
   c.style.paddingTop = arriba + 'px';
   // Tamaño de las cartas: si la pantalla es baja, se encogen para que el botón quede a la vista
   const prop = (actual && actual.proporcion) || 2 / 3;
   const BASE = Math.min(300, W - 70);              // ancho máximo de la carta
-  const libre = H - arriba - 30 - 106;             // menos instrucción y botón
-  const k = Math.max(0.6, Math.min(1, libre / (BASE / prop * 1.12 + 66)));
+  const botonAncho = Math.round(Math.min(300, W * 0.62, Math.max(200, H * 0.27)));
+  c.style.setProperty('--boton-ancho', botonAncho + 'px');
+  const libre = H - arriba - 30 - Math.round(botonAncho * 340 / 720) - 40;   // menos instrucción y botón
+  const k = Math.max(0.5, Math.min(1, libre / (BASE / prop + 66)));
   const ancho = Math.round(BASE * k), alto = Math.round(ancho / prop);
   cardWidth = ancho + 40;
   c.style.setProperty('--carta-ancho', ancho + 'px');
   c.style.setProperty('--carta-alto', alto + 'px');
-  c.style.setProperty('--ventana-alto', Math.round(alto * 1.12 + 66) + 'px');
+  c.style.setProperty('--ventana-alto', Math.round(alto + 66) + 'px');
 }
 
 function pintarEstadoAcceso() {
@@ -1234,6 +1245,7 @@ function reiniciarMesa() {
   document.getElementById('oracleContainer').classList.remove('revealed');
   const p = document.getElementById('textPanel'); p.classList.remove('visible'); p.hidden = true;
   document.getElementById('actionBtn').innerText = 'Consulta el oráculo';
+  document.getElementById('actionBtn').classList.remove('otra');
   document.getElementById('mainInstruction').style.opacity = '1';
 }
 
@@ -1359,7 +1371,7 @@ function consultOracle() {
     audioEl.pause();
     textPanel.classList.remove('visible');
     setTimeout(() => { textPanel.hidden = true; activeCard.classList.remove('flipped'); container.classList.remove('revealed'); document.getElementById('mainInstruction').style.opacity = '1'; updateTrackPosition(true); }, 200);
-    btn.innerText = 'Consulta el oráculo';
+    btn.innerText = 'Consulta el oráculo'; btn.classList.remove('otra');
     isFlipped = false;
     return;
   }
@@ -1387,7 +1399,7 @@ function consultOracle() {
     container.classList.add('revealed');
     activeCard.classList.add('flipped');
     isFlipped = true;
-    btn.innerText = 'Elegir otra carta';
+    btn.innerText = 'Elegir otra carta'; btn.classList.add('otra');
     document.getElementById('mainInstruction').style.opacity = '0';
     textPanel.hidden = false;
     setTimeout(() => textPanel.classList.add('visible'), 300);
