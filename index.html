@@ -49,7 +49,9 @@
   :focus-visible { outline: 2px solid var(--oro); outline-offset: 3px; }
 
   /* ================= CABECERA (vídeo en bucle) ================= */
+  :root { --franja: clamp(34px, 5vw, 58px); }
   .cabecera {
+    margin-top: var(--franja);
     position: relative; width: 100%; aspect-ratio: 2.5 / 1; max-height: 560px;
     background: var(--morado-hondo) url('img/cabecera-poster.jpg') center / cover no-repeat;
     overflow: hidden;
@@ -178,7 +180,7 @@
   }
   .hueco-media {
     position: relative; width: 100%; aspect-ratio: 3 / 4; max-width: 100%; box-sizing: border-box;
-    border-radius: 12px; border: 2px dashed rgba(205,176,255,0.5);
+    border-radius: 12px; border: 0;
     background: #160624;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
     padding: 16px 12px;
