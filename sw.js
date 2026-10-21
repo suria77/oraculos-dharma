@@ -131,6 +131,7 @@ self.addEventListener('fetch', function (event) {
   if (req.headers.has('x-od-dl')) return;            /* descargas de "Guardar sin conexión" */
   if (esVideo(url)) return;                          /* vídeos: siempre por red */
 
+  if (url.searchParams.has('directo')) return;           /* audios de la página de muestra: siempre directos */
   if (esAudio(url)) { event.respondWith(respuestaAudio(event)); return; }
   if (req.mode === 'navigate') { event.respondWith(cacheYRefresco(event, SCOPE, SHELL)); return; }
   if (req.headers.has('range')) return;
