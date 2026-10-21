@@ -5,7 +5,7 @@
 export async function onRequestGet({ env }) {
   const oraculos = Object.keys(env)
     .filter((k) => k.startsWith('PAYHIP_SECRET_') && env[k])
-    .map((k) => k.slice('PAYHIP_SECRET_'.length).toLowerCase());
+    .map((k) => k.slice('PAYHIP_SECRET_'.length).toLowerCase().replace(/_/g, '-'));
 
   let firma = 'falta';
   if (env.OD_CLAVE_FIRMA) {
