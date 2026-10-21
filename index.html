@@ -219,8 +219,19 @@
   .pista-prueba { font-size: 14px !important; color: var(--lila) !important; }
   .pista-prueba code { background: rgba(244,212,124,0.15); color: var(--oro); padding: 2px 7px; border-radius: 6px; font-weight: 700; }
 
-  .pie { text-align: center; color: var(--texto-suave); font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .pie img { height: 34px; width: auto; opacity: .85; }
+  .pie { color: var(--texto-suave); font-size: 13px; display: flex; flex-direction: column; gap: 14px; }
+  .pie-fila { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+  .pie-fila img { height: 38px; width: auto; opacity: .9; }
+  .pie-botones { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+  .btn-pie {
+    display: inline-flex; align-items: center; gap: 7px; cursor: pointer; white-space: nowrap;
+    background: rgba(29,8,56,.6); color: var(--texto); border: 1px solid rgba(192,132,252,.55);
+    padding: 9px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    transition: background .2s, border-color .2s;
+  }
+  .btn-pie:hover { background: rgba(192,132,252,.18); border-color: var(--lila); }
+  .btn-pie svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .pie-nota { text-align: center; margin: 0; }
 
   /* ================= LECTURA (ORÁCULO ABIERTO) ================= */
   /* Lectura a pantalla completa: arriba solo una línea con dos botones, del color del terciopelo */
@@ -261,10 +272,12 @@
   /* En horizontal el cuadrado no ocupa todo el ancho: sus lados se funden con el color del terciopelo */
   .oracle-container.apaisado::before { left: 50%; right: auto; width: var(--fondo-alto); margin-left: calc(var(--fondo-alto) / -2); background-size: cover; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fundido, 14%), #000 calc(100% - var(--fundido, 14%)), transparent 100%), linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 var(--fundido, 14%), #000 calc(100% - var(--fundido, 14%)), transparent 100%), linear-gradient(to bottom, rgba(0,0,0,.35) 0, #000 22px, #000 80%, transparent 100%); mask-composite: intersect; }
   .oracle-instruction, .oracle-layout { position: relative; z-index: 1; }
+  .fondo-claro .oracle-instruction { color: #6b4a12; text-shadow: 0 1px 0 rgba(255,255,255,.6); }
+  .fondo-claro .btn-volver, .fondo-claro .btn-offline, .fondo-claro .estado-muestra { background-color: rgba(40,20,5,.55); }
   .logo-footer { position: absolute; bottom: 24px; left: 24px; width: 130px; height: auto; opacity: 0.75; pointer-events: none; z-index: 1; }
-  .oracle-instruction { font-size: 21px; font-weight: 800; color: #fcf6ba; margin-bottom: 8px; letter-spacing: 2px; text-transform: uppercase; text-align: center; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8); transition: opacity 0.5s ease; }
+  .oracle-instruction { font-size: clamp(12px, 3.4vw, 18px); white-space: nowrap; font-weight: 800; color: #fcf6ba; margin-bottom: 6px; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8); transition: opacity 0.5s ease; }
   .oracle-layout { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; max-width: 950px; gap: 20px; }
-  .carousel-window { width: 100%; max-width: 500px; height: var(--ventana-alto, 480px); overflow: hidden; position: relative; touch-action: pan-y; }
+  .carousel-window { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 10%, #000 90%, transparent 100%); width: 100%; max-width: none; height: var(--ventana-alto, 480px); overflow: hidden; position: relative; touch-action: pan-y; }
   .carousel-track { display: flex; position: absolute; left: 0; top: 30px; will-change: transform; }
   .card-wrapper { width: var(--carta-ancho, 260px); height: var(--carta-alto, 390px); margin: 0 20px; flex-shrink: 0; transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
   .card-wrapper.active-card { perspective: 1000px; }
@@ -294,7 +307,7 @@
   .audio-progress::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: #ffd94d; box-shadow: 0 1px 4px rgba(0,0,0,0.6); cursor: pointer; }
   .audio-time { font-size: 13px; color: #f4eefa; text-align: left; opacity: 0.85; font-variant-numeric: tabular-nums; }
   .aviso-muestra { margin-top: 14px; font-size: 14px; color: var(--lila); }
-  .oracle-btn { background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%); color: #0b0713; border: none; padding: 16px 42px; font-size: 18px; font-weight: 800; border-radius: 30px; cursor: pointer; letter-spacing: 1.5px; box-shadow: 0 6px 20px rgba(170, 119, 28, 0.4); transition: all 0.3s ease; text-transform: uppercase; margin-top: 22px; position: relative; z-index: 5; }
+  .oracle-btn { background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%); color: #0b0713; border: none; padding: 11px 30px; font-size: 15px; font-weight: 800; border-radius: 30px; cursor: pointer; letter-spacing: 1.3px; box-shadow: 0 6px 20px rgba(170, 119, 28, 0.4); transition: all 0.3s ease; text-transform: uppercase; margin-top: 12px; position: relative; z-index: 5; }
   .oracle-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
   @media (min-width: 768px) {
     .oracle-layout { flex-direction: row; gap: 15px; }
@@ -340,9 +353,46 @@
     padding: 12px 20px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.45); max-width: calc(100% - 32px); text-align: center;
   }
 
+
+  /* ================= TUTORIAL Y COMPARTIR (ventanas claras) ================= */
+  .ayuda-velo { position: fixed; inset: 0; z-index: 1200; display: flex; align-items: center; justify-content: center;
+    padding: max(14px, env(safe-area-inset-top, 0px)) 14px max(14px, env(safe-area-inset-bottom, 0px));
+    background: rgba(18, 5, 34, 0.72); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .ayuda-panel { width: 100%; max-width: 560px; max-height: 100%; display: flex; flex-direction: column; overflow: hidden;
+    background: linear-gradient(180deg, #fffaf0 0%, #f6ecdb 100%); color: #2b1838; border-radius: 22px;
+    border: 1px solid #e3c98a; box-shadow: 0 24px 60px rgba(0,0,0,.5); animation: sube .35s cubic-bezier(.175,.885,.32,1.275); }
+  .ayuda-barra { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid #ead8b0; }
+  .ayuda-barra button { font: 700 15px var(--f-display); color: #4a2a6a; background: #fff; border: 1px solid #d9bfe8; border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+  .ayuda-barra button:hover { background: #f3e8fb; }
+  .ayuda-scroll { overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 22px 22px 28px; }
+  .ayuda-titulo { margin: 0 0 6px; font: 600 32px/1.1 var(--f-lirica); color: #3a1660; text-align: center; }
+  .ayuda-sub { margin: 0 0 18px; text-align: center; font-size: 16px; line-height: 1.5; color: #5d4a6e; }
+  .ayuda-seg { display: flex; background: #efe2c6; border-radius: 999px; padding: 4px; margin: 0 auto 20px; max-width: 380px; }
+  .ayuda-seg button { flex: 1; border: none; background: transparent; border-radius: 999px; padding: 10px 8px; font: 700 14.5px var(--f-display); color: #6b5578; cursor: pointer; }
+  .ayuda-seg button[aria-pressed="true"] { background: #fff; color: #3a1660; box-shadow: 0 2px 8px rgba(90,50,10,.15); }
+  .pasos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; counter-reset: paso; }
+  .pasos li { position: relative; padding: 14px 16px 14px 62px; background: #fff; border: 1px solid #ecdcb8; border-radius: 16px; font-size: 16px; line-height: 1.55; color: #3d2a4c; }
+  .pasos li::before { counter-increment: paso; content: counter(paso); position: absolute; left: 14px; top: 13px; width: 34px; height: 34px; border-radius: 50%;
+    display: grid; place-items: center; font: 800 16px var(--f-display); color: #3a2205; background: linear-gradient(135deg, #f7e2a0, #d9a93a); }
+  .pasos strong { display: block; color: #2b1838; font-size: 16.5px; margin-bottom: 2px; }
+  .ayuda-nota { margin: 16px 0 0; padding: 12px 14px; border-radius: 12px; background: #f3e8fb; color: #4a2a6a; font-size: 14.5px; line-height: 1.5; }
+  .ayuda-accion { display: flex; justify-content: center; margin-top: 18px; }
+  .btn-oro { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 12px 26px; border: none; border-radius: 999px; cursor: pointer;
+    font: 800 16px var(--f-display); letter-spacing: .04em; color: #2a1405; background: linear-gradient(135deg, #f7e2a0 0%, #f4d47c 45%, #c99a2e 100%); box-shadow: 0 6px 18px rgba(201,154,46,.35); }
+  .btn-claro { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 12px 22px; border-radius: 999px; cursor: pointer;
+    font: 700 16px var(--f-display); color: #3a1660; background: #fff; border: 1.5px solid #cfb0e6; }
+  .compartir-vista { width: 100%; max-width: 360px; margin: 0 auto 18px; aspect-ratio: 1080 / 1350; border-radius: 18px; overflow: hidden;
+    background: #2a0d45; display: grid; place-items: center; color: #e0d2f5; font-size: 15px; box-shadow: 0 14px 34px rgba(43,16,80,.32); }
+  .compartir-vista img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .compartir-acciones { display: flex; flex-direction: column; gap: 10px; max-width: 360px; margin: 0 auto; }
+  @media (max-width: 600px) {
+    .ayuda-velo { padding: 0; }
+    .ayuda-panel { max-width: none; height: 100%; border-radius: 0; border: none; }
+    .pie-fila img { height: 32px; }
+    .btn-pie { padding: 8px 11px; font-size: 11.5px; }
+  }
   @media (max-width: 600px) {
     .flecha { display: none; }
-    .oracle-instruction { font-size: 17px; }
     .logo-footer { width: 100px; bottom: 18px; left: 18px; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -386,8 +436,14 @@
       </section>
 
       <footer class="pie">
-        <img src="img/logo-dharma.png" alt="Dharma Eterno">
-        <span>Tus oráculos se guardan en este dispositivo. Si cambias de móvil o tablet, vuelve a pegar tu licencia.</span>
+        <div class="pie-fila">
+          <img src="img/logo-dharma.png" alt="Dharma Eterno">
+          <div class="pie-botones">
+            <button type="button" class="btn-pie" id="btn-tutorial"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17.2h.01"/></svg>Tutorial</button>
+            <button type="button" class="btn-pie" id="btn-compartir"><svg viewBox="0 0 24 24"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1"/></svg>Compartir</button>
+          </div>
+        </div>
+        <p class="pie-nota">Tus oráculos se guardan en este dispositivo. Si cambias de móvil o tablet, vuelve a pegar tu licencia.</p>
       </footer>
     </div>
   </main>
@@ -563,7 +619,7 @@ const CARTAS_GURU = [
   {"title": "SILENCIO", "cita": "El que sabe no habla; el que habla no sabe", "autor": "Lao Tse", "audio": "lao-tse.mp3", "img": "lao-tse.webp", "desc": "Lao Tse, autor del Tao Te Ching, advierte que la verdad más honda no cabe en las palabras. Quien ha probado el Tao no necesita demostrarlo ni convencer a nadie. El silencio no es vacío, sino plenitud: en él se escucha lo que el ruido de las opiniones oculta.<br><br>Practica hablar menos y escuchar más. Antes de opinar, pregúntate si lo que vas a decir añade luz o solo ruido. Concede a tu mente ratos de silencio, sin pantallas ni música. En esa quietud fértil las respuestas maduran solas, y lo que digas después tendrá peso y sentido."},
   {"title": "COMIENZO", "cita": "La paz comienza con una sonrisa", "autor": "Madre Teresa de Calcuta", "audio": "madre-teresa.mp3", "img": "madre-teresa.webp", "desc": "Madre Teresa de Calcuta, que dedicó su vida a los más pobres, creía que los grandes cambios nacen de gestos mínimos. Una sonrisa sincera es un acto de amor al alcance de todos: suaviza al otro, rompe el aislamiento y empieza a construir paz allí donde estés. La paz del mundo se teje con pequeñas bondades.<br><br>Regala una sonrisa a quien menos lo espera: a un desconocido, a alguien con quien tienes tensión, a ti frente al espejo. No aguardes a sentir que es el momento adecuado. Empezar por lo pequeño y cercano es la forma más real de transformar lo grande."},
   {"title": "RECUERDA", "cita": "Camina descalzo sobre la tierra para que recuerdes quién eres y de dónde vienes", "autor": "María Sabina", "audio": "maria-sabina.mp3", "img": "maria-sabina.webp", "desc": "María Sabina, sabia mazateca de México, vivía en comunión con la tierra, las montañas y los ciclos de la naturaleza. Su mensaje invita a volver al contacto directo con el suelo para recordar que formas parte de algo más antiguo y más grande que tus preocupaciones. La tierra sostiene y guarda memoria de tu origen.<br><br>Busca un lugar de hierba, arena o tierra y quítate el calzado. Siente cada paso, la temperatura, la textura, el peso de tu cuerpo. Respira con el suelo bajo ti. Esa sencilla comunión te devuelve a tu raíz y te recuerda que perteneces a esta tierra viva."},
-  {"title": "EL CENTRO", "cita": "El hombre exterior es la puerta que gira; el hombre interior es la bisagra inmóvil", "autor": "Meister Eckhart", "audio": "meister-eckhart.mp3", "img": "meister-eckhart.webp", "desc": "Meister Eckhart, místico dominico del siglo XIV, usa la imagen de una puerta: la hoja se mueve con cada empujón, pero la bisagra permanece quieta. Del mismo modo, la vida exterior está llena de actividad y cambios, mientras que en lo más profundo de ti existe un centro inmóvil, un fondo del alma donde habita lo divino.<br><br>Entre tareas, prisas y obligaciones, regresa de vez en cuando a ese eje silencioso. Basta un instante de atención a la respiración para recordar que no eres solo lo que se agita. Actúa con plenitud en el mundo, pero no pierdas el contacto con la bisagra que te sostiene."},
+  {"title": "INMUTABLE", "cita": "El hombre exterior es la puerta que gira; el hombre interior es la bisagra inmóvil", "autor": "Meister Eckhart", "audio": "meister-eckhart.mp3", "img": "meister-eckhart-2.webp", "desc": "Meister Eckhart, místico dominico del siglo XIV, usa la imagen de una puerta: la hoja se mueve con cada empujón, pero la bisagra permanece quieta. Del mismo modo, la vida exterior está llena de actividad y cambios, mientras que en lo más profundo de ti existe un centro inmóvil, un fondo del alma donde habita lo divino.<br><br>Entre tareas, prisas y obligaciones, regresa de vez en cuando a ese eje silencioso. Basta un instante de atención a la respiración para recordar que no eres solo lo que se agita. Actúa con plenitud en el mundo, pero no pierdas el contacto con la bisagra que te sostiene."},
   {"title": "HUMILDAD", "cita": "Toma el lugar más bajo y alcanzarás el más alto", "autor": "Milarepa", "audio": "milarepa.mp3", "img": "milarepa.webp", "desc": "Milarepa, el yogui tibetano que pasó de la culpa y el orgullo a la iluminación, enseñaba que la humildad es la puerta de la realización. El agua se acumula en el valle y no en la cima. Quien se sitúa sin pretensiones abajo se vuelve receptivo a la enseñanza y a la gracia. El ego busca ascender; el espíritu, hacerse vasija.<br><br>En una conversación o en un grupo, ofrece escuchar antes de destacar. Sirve sin esperar reconocimiento y aprende de quienes parecen saber menos. Cada vez que te abajas con sinceridad, te liberas de un peso y tu corazón se hace espacioso, capaz de recibir lo más alto."},
   {"title": "LIBERTAD", "cita": "Todas las acciones han evolucionado del sabor del vuelo", "autor": "Mirabai", "audio": "mirabai.mp3", "img": "mirabai.webp", "desc": "Mirabai, la princesa poeta devota de Krishna, abandonó palacio y convenciones para cantar libremente a su amado. Su frase sugiere que detrás de todo acto humano late el anhelo de volar, de ser libre y expandirse. Cuando reconoces ese impulso original, tus acciones dejan de ser obligación y se vuelven danza.<br><br>Pregúntate qué haces por miedo o por costumbre, y qué haces por amor y alegría. Reduce lo primero y concede más espacio a lo segundo. Atrévete a seguir el sabor del vuelo que sientes en tu pecho, aunque otros no lo comprendan. La libertad comienza al ser fiel a tu propio canto."},
   {"title": "ACEPTACIÓN", "cita": "El mayor enemigo de la creatividad es el miedo al fracaso", "autor": "Miyamoto Musashi", "audio": "miyamoto-musashi.mp3", "img": "miyamoto-musashi.webp", "desc": "Miyamoto Musashi, maestro samurái invicto y artista, entendía que el combate más duro se libra contra uno mismo. El miedo a fracasar paraliza el gesto y apaga la inspiración. Aceptar que equivocarse forma parte del arte libera la mano y el espíritu, y permite que lo creativo fluya con naturalidad.<br><br>Acepta de antemano que tu obra, tu proyecto o tu siguiente paso puede salir imperfecto. Empieza igualmente, con presencia y disciplina. Cada intento es una lección y cada error afina tu técnica. Quien deja de temer al fracaso descubre que su mayor libertad está en atreverse a crear."},
@@ -645,8 +701,8 @@ const ORACULOS = [
   {
     id: 'rumi', nombre: 'El Oráculo de Rumi', subtitulo: 'Poesía mística sufí', estado: 'disponible',
     abiertoParaTodos: true,
-    base: 'oraculos/rumi/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo-2.webp', sonido: 'sonido-giro.mp3',
-    colorFondo: '#0580ae', colorBarra: '#0aabcf', proporcion: 3 / 4,
+    base: 'oraculos/rumi/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo-3.webp', sonido: 'sonido-giro.mp3',
+    colorFondo: '#c7bca8', colorBarra: '#d4ccbb', fondoClaro: true, zonaTitulo: 0.285, proporcion: 3 / 4,
     payhip: 'https://payhip.com/',
     cartas: CARTAS_RUMI
   },
@@ -800,7 +856,7 @@ const abierto = o => !!o.abiertoParaTodos || loTiene(o.id);
 
 function sello(o, enColeccion) {
   if (o.estado === 'proximamente' && !loTiene(o.id)) return '<span class="sello sello-pronto">Próximamente</span>';
-  if (loTiene(o.id)) return `<span class="sello sello-coleccion">${ICONO_OK} Tuyo</span>`;
+  if (loTiene(o.id) || (enColeccion && o.gratis)) return `<span class="sello sello-coleccion">${ICONO_OK} Tuyo</span>`;
   if (o.abiertoParaTodos) return '<span class="sello sello-abierto">Abierto</span>';
   return `<span class="sello sello-muestra">${ICONO_CANDADO} Muestra</span>`;
 }
@@ -809,7 +865,6 @@ function tarjetaHTML(o, enColeccion) {
   return `<button class="tarjeta" data-id="${o.id}">
       <div class="tarjeta-media">${sello(o, enColeccion)}<img src="${imagenDe(o)}" alt="" draggable="false" loading="lazy"></div>
       <div class="tarjeta-nombre">${o.nombre}</div>
-      <div class="tarjeta-sub">${o.subtitulo}</div>
     </button>`;
 }
 
@@ -830,7 +885,7 @@ function huecoHTML(o) {
 function ordenColeccion() {
   // La gratis (Atman) no entra aquí. Lo comprado sale como baraja; lo demás, como hueco con COMPRAR y ACTIVAR.
   const fecha = o => coleccion[o.id]?.d || 0;
-  const mios = ORACULOS.filter(o => loTiene(o.id)).sort((x, y) => fecha(x) - fecha(y));
+  const mios = ORACULOS.filter(o => o.gratis || loTiene(o.id)).sort((x, y) => (x.gratis ? -1 : 0) - (y.gratis ? -1 : 0) || fecha(x) - fecha(y));
   const vacios = ORACULOS.filter(o => !o.gratis && !loTiene(o.id));
   return { mios, vacios };
 }
@@ -840,7 +895,7 @@ function pintar(recienId) {
   document.getElementById('fila-todos').innerHTML = ORACULOS.filter(o => !loTiene(o.id)).map(o => tarjetaHTML(o, false)).join('');
 
   const { mios, vacios } = ordenColeccion();
-  document.getElementById('cuenta-coleccion').textContent = `${mios.length} de ${ORACULOS.filter(o => !o.gratis).length}`;
+  document.getElementById('cuenta-coleccion').textContent = `${mios.length} de ${ORACULOS.length}`;
   const fila = document.getElementById('fila-coleccion');
   fila.innerHTML = mios.map(o => tarjetaHTML(o, true)).join('') + vacios.map(huecoHTML).join('');
 
@@ -1086,6 +1141,7 @@ function abrirLectura(o) {
   cont.style.setProperty('--fondo-img', `url('${o.base}${o.fondo}')`);
   vista.style.setProperty('--fondo-color', o.colorFondo || '#12061c');
   vista.style.setProperty('--barra-color', o.colorBarra || o.colorFondo || '#12061c');
+  vista.classList.toggle('fondo-claro', !!o.fondoClaro);
   magicSound = new Audio(o.base + o.sonido);
 
   cartas = o.cartas.slice();
@@ -1147,17 +1203,18 @@ function ajustarFondo() {
   c.classList.toggle('apaisado', apaisado && lado < W);
   c.style.setProperty('--fundido', Math.round(lado * 0.16) + 'px');
   c.style.setProperty('--fondo-alto', lado + 'px');
-  const arriba = Math.round(lado * 0.235 + 4);
+  const arriba = Math.round(lado * ((actual && actual.zonaTitulo) || 0.235) + 4);
   c.style.paddingTop = arriba + 'px';
   // Tamaño de las cartas: si la pantalla es baja, se encogen para que el botón quede a la vista
   const prop = (actual && actual.proporcion) || 2 / 3;
-  const libre = H - arriba - 40 - 100;            // menos instrucción y botón
-  const k = Math.max(0.68, Math.min(1, libre / (260 / prop * 1.12 + 36)));
-  const ancho = Math.round(260 * k), alto = Math.round(ancho / prop);
+  const BASE = Math.min(300, W - 70);              // ancho máximo de la carta
+  const libre = H - arriba - 30 - 106;             // menos instrucción y botón
+  const k = Math.max(0.6, Math.min(1, libre / (BASE / prop * 1.12 + 66)));
+  const ancho = Math.round(BASE * k), alto = Math.round(ancho / prop);
   cardWidth = ancho + 40;
   c.style.setProperty('--carta-ancho', ancho + 'px');
   c.style.setProperty('--carta-alto', alto + 'px');
-  c.style.setProperty('--ventana-alto', Math.round(alto * 1.12 + 36) + 'px');
+  c.style.setProperty('--ventana-alto', Math.round(alto * 1.12 + 66) + 'px');
 }
 
 function pintarEstadoAcceso() {
@@ -1380,6 +1437,153 @@ function startMomentum() {
 }
 function snapToNearest() { currentIndex = Math.round(indexForPosition(trackX)); trackX = positionForIndex(currentIndex); applyTrackPosition(true); }
 window.addEventListener('resize', () => { if (actual) { ajustarFondo(); trackX = positionForIndex(currentIndex); applyTrackPosition(false); } });
+
+
+/* =====================================================================
+   TUTORIAL Y COMPARTIR (botones del pie, como en Japa-Móvil)
+   ===================================================================== */
+const ENLACE_APP = location.origin + location.pathname.replace(/index\.html$/, '');
+function abrirAyuda(titulo, html) {
+  const velo = document.createElement('div');
+  velo.className = 'ayuda-velo';
+  velo.setAttribute('role', 'dialog'); velo.setAttribute('aria-modal', 'true'); velo.setAttribute('aria-label', titulo);
+  velo.innerHTML = `<div class="ayuda-panel"><div class="ayuda-barra"><span></span><button type="button" data-cerrar>✕ Cerrar</button></div><div class="ayuda-scroll">${html}</div></div>`;
+  document.body.appendChild(velo);
+  const antes = document.body.style.overflow; document.body.style.overflow = 'hidden';
+  function cerrar() { document.removeEventListener('keydown', tecla); document.body.style.overflow = antes; velo.remove(); }
+  function tecla(e) { if (e.key === 'Escape') cerrar(); }
+  document.addEventListener('keydown', tecla);
+  velo.addEventListener('click', e => { if (e.target === velo || e.target.closest('[data-cerrar]')) cerrar(); });
+  return { velo, cerrar };
+}
+
+/* --- Tutorial: cómo se usa y cómo instalarla --- */
+let avisoInstalar = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); avisoInstalar = e; });
+const esIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const TUTORIAL_USO = `
+  <ol class="pasos">
+    <li><strong>Elige un oráculo</strong>En «Todos los oráculos» pulsa la portada de la baraja que quieras consultar.</li>
+    <li><strong>Piensa en tu pregunta</strong>Respira con calma, céntrate en lo que necesitas comprender y desliza las cartas con el dedo.</li>
+    <li><strong>Saca tu carta</strong>Cuando sientas que es la tuya, pulsa «Consulta el oráculo» y la carta se dará la vuelta.</li>
+    <li><strong>Lee y escucha su mensaje</strong>Junto a la carta aparece su mensaje. Pulsa el botón dorado para escuchar el audio.</li>
+    <li><strong>Otra consulta</strong>Con «Elegir otra carta» vuelves a la baraja; con «Volver», a la pantalla principal.</li>
+    <li><strong>Úsala sin internet</strong>Dentro de cada oráculo, «Guardar sin conexión» guarda sus cartas y audios en tu dispositivo.</li>
+    <li><strong>Tu colección</strong>Al comprar un oráculo recibirás una licencia por correo. Pulsa «Activar», escribe tu correo, pega la licencia y el oráculo quedará abierto en «Tu colección».</li>
+  </ol>`;
+function tutorialInstalar(os) {
+  const ios = `<ol class="pasos">
+      <li><strong>Abre la app en Safari</strong>En iPhone y iPad la instalación se hace desde Safari.</li>
+      <li><strong>Pulsa el icono Compartir</strong>Es el cuadrado con una flecha hacia arriba, en la barra de Safari.</li>
+      <li><strong>«Añadir a pantalla de inicio»</strong>Baja en la lista hasta encontrarlo y púlsalo.</li>
+      <li><strong>Pulsa «Añadir»</strong>El icono de Oráculos del Dharma aparecerá en tu pantalla, como una app más.</li>
+    </ol>`;
+  const android = `<ol class="pasos">
+      <li><strong>Abre la app en Chrome</strong>Con la app abierta, pulsa los tres puntos de arriba a la derecha.</li>
+      <li><strong>«Instalar aplicación»</strong>O «Añadir a pantalla de inicio», según tu móvil.</li>
+      <li><strong>Pulsa «Instalar»</strong>El icono de Oráculos del Dharma aparecerá en tu pantalla, como una app más.</li>
+    </ol>`;
+  return `<div class="ayuda-seg"><button type="button" data-os="ios" aria-pressed="${os === 'ios'}">iPhone / iPad</button><button type="button" data-os="android" aria-pressed="${os === 'android'}">Android</button></div>
+    ${os === 'ios' ? ios : android}
+    ${avisoInstalar && os === 'android' ? '<div class="ayuda-accion"><button type="button" class="btn-oro" data-instalar>Instalar ahora</button></div>' : ''}
+    <p class="ayuda-nota">Una vez instalada se abre a pantalla completa y funciona aunque no tengas conexión.</p>`;
+}
+document.getElementById('btn-tutorial').addEventListener('click', () => {
+  const { velo } = abrirAyuda('Tutorial', `
+    <h2 class="ayuda-titulo">Tutorial</h2>
+    <p class="ayuda-sub">Todo lo que necesitas para consultar tus oráculos.</p>
+    <div class="ayuda-seg" id="ayuda-pestanas"><button type="button" data-tab="uso" aria-pressed="true">Cómo se usa</button><button type="button" data-tab="instalar" aria-pressed="false">Instalar la app</button></div>
+    <div id="ayuda-contenido">${TUTORIAL_USO}</div>`);
+  const cont = velo.querySelector('#ayuda-contenido');
+  velo.addEventListener('click', e => {
+    const tab = e.target.closest('[data-tab]');
+    if (tab) {
+      velo.querySelectorAll('[data-tab]').forEach(b => b.setAttribute('aria-pressed', String(b === tab)));
+      cont.innerHTML = tab.dataset.tab === 'uso' ? TUTORIAL_USO : tutorialInstalar(esIOS() ? 'ios' : 'android');
+      return;
+    }
+    const os = e.target.closest('[data-os]');
+    if (os) { cont.innerHTML = tutorialInstalar(os.dataset.os); return; }
+    if (e.target.closest('[data-instalar]') && avisoInstalar) { avisoInstalar.prompt(); avisoInstalar = null; }
+  });
+});
+
+/* --- Compartir: imagen hecha en el momento con las portadas + enlace --- */
+const TEXTO_COMPARTIR = 'Oráculos del Dharma: saca una carta y escucha su mensaje. Pruébala en:';
+function cargarImg(src) { return new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = src; }); }
+function rectRedondo(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+async function imagenCompartir() {
+  try { await Promise.all([document.fonts.load("600 100px 'Cormorant Garamond'"), document.fonts.load("800 40px 'Montserrat'")]); } catch (e) {}
+  const portadas = await Promise.all(ORACULOS.map(o => cargarImg(imagenDe(o))));
+  const logo = await cargarImg('img/logo-dharma.png');
+  const fondo = await cargarImg('img/fondo-terciopelo.webp');
+  const W = 1080, H = 1350, c = document.createElement('canvas'); c.width = W; c.height = H;
+  const x = c.getContext('2d'); x.imageSmoothingQuality = 'high';
+  const g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#3d1868'); g.addColorStop(1, '#150317');
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  if (fondo) { x.globalAlpha = .55; x.drawImage(fondo, 0, 0, W, H); x.globalAlpha = 1; }
+  const halo = x.createRadialGradient(W / 2, 640, 40, W / 2, 640, 620); halo.addColorStop(0, 'rgba(244,212,124,.28)'); halo.addColorStop(1, 'rgba(244,212,124,0)');
+  x.fillStyle = halo; x.fillRect(0, 0, W, H);
+  x.textAlign = 'center';
+  x.fillStyle = '#f4d47c'; x.font = "600 112px 'Cormorant Garamond', Georgia, serif"; x.fillText('Oráculos del Dharma', W / 2, 170);
+  x.fillStyle = '#efe4ff'; x.font = "700 38px 'Montserrat', Arial, sans-serif"; x.fillText('Oráculos de cartas con audio', W / 2, 235);
+  // Abanico de portadas
+  const n = portadas.length, cw = 300, ch = 400, cx = W / 2, cy = 690;
+  portadas.forEach((im, i) => {
+    const t = n > 1 ? i / (n - 1) - 0.5 : 0;
+    x.save(); x.translate(cx + t * 560, cy + Math.abs(t) * 70); x.rotate(t * 0.42);
+    x.shadowColor = 'rgba(0,0,0,.55)'; x.shadowBlur = 40; x.shadowOffsetY = 16;
+    rectRedondo(x, -cw / 2, -ch / 2, cw, ch, 22); x.fillStyle = '#1d0838'; x.fill(); x.shadowColor = 'transparent';
+    if (im) {
+      x.save(); rectRedondo(x, -cw / 2, -ch / 2, cw, ch, 22); x.clip();
+      const s = Math.max(cw / im.naturalWidth, ch / im.naturalHeight), w = im.naturalWidth * s, h = im.naturalHeight * s;
+      x.drawImage(im, -w / 2, -h / 2, w, h); x.restore();
+    }
+    rectRedondo(x, -cw / 2, -ch / 2, cw, ch, 22); x.lineWidth = 4; x.strokeStyle = 'rgba(244,212,124,.85)'; x.stroke();
+    x.restore();
+  });
+  x.fillStyle = '#ffffff'; x.font = "600 50px 'Cormorant Garamond', Georgia, serif";
+  x.fillText('Saca una carta y escucha su mensaje', W / 2, 1040);
+  // Franja inferior con el logo
+  rectRedondo(x, 70, 1120, W - 140, 160, 40); x.fillStyle = 'rgba(20,4,30,.75)'; x.fill();
+  x.lineWidth = 2; x.strokeStyle = 'rgba(244,212,124,.5)'; x.stroke();
+  if (logo) { const s = Math.min(260 / logo.naturalWidth, 100 / logo.naturalHeight); x.drawImage(logo, 120, 1200 - logo.naturalHeight * s / 2, logo.naturalWidth * s, logo.naturalHeight * s); }
+  x.textAlign = 'right'; x.fillStyle = '#f4d47c'; x.font = "800 40px 'Montserrat', Arial, sans-serif"; x.fillText('Atman, gratis', W - 120, 1192);
+  x.fillStyle = '#e0d2f5'; x.font = "600 30px 'Montserrat', Arial, sans-serif"; x.fillText(ENLACE_APP.replace(/^https?:\/\//, '').replace(/\/$/, ''), W - 120, 1240);
+  return new Promise(r => { try { c.toBlob(b => r(b), 'image/jpeg', 0.9); } catch (e) { r(null); } });
+}
+document.getElementById('btn-compartir').addEventListener('click', () => {
+  const { velo } = abrirAyuda('Compartir', `
+    <h2 class="ayuda-titulo">Comparte los oráculos</h2>
+    <p class="ayuda-sub">Se envía esta imagen con el enlace, para que otras personas puedan probarla.</p>
+    <div class="compartir-vista" id="compartir-vista">Preparando la imagen…</div>
+    <div class="compartir-acciones">
+      <button type="button" class="btn-oro" id="compartir-ir" disabled>${navigator.share ? 'Compartir' : 'Enviar por WhatsApp'}</button>
+      <button type="button" class="btn-claro" id="compartir-copiar">Copiar enlace</button>
+    </div>`);
+  const vista = velo.querySelector('#compartir-vista'), ir = velo.querySelector('#compartir-ir'), copiar = velo.querySelector('#compartir-copiar');
+  let blob = null;
+  imagenCompartir().then(b => {
+    blob = b; ir.disabled = false;
+    if (b) { const im = new Image(); im.alt = 'Imagen para compartir'; im.src = URL.createObjectURL(b); vista.innerHTML = ''; vista.appendChild(im); }
+    else vista.textContent = 'No se pudo preparar la imagen, pero puedes compartir el enlace.';
+  });
+  ir.addEventListener('click', () => {
+    const texto = TEXTO_COMPARTIR + ' ' + ENLACE_APP;
+    if (navigator.share) {
+      if (blob && navigator.canShare && window.File) {
+        const datos = { files: [new File([blob], 'Oraculos-del-Dharma.jpg', { type: 'image/jpeg' })], title: 'Oráculos del Dharma', text: texto };
+        if (navigator.canShare(datos)) { navigator.share(datos).catch(() => {}); return; }
+      }
+      navigator.share({ title: 'Oráculos del Dharma', text: TEXTO_COMPARTIR, url: ENLACE_APP }).catch(() => {});
+    } else window.open('https://wa.me/?text=' + encodeURIComponent(texto), '_blank', 'noopener');
+  });
+  copiar.addEventListener('click', () => {
+    const listo = ok => { copiar.textContent = ok ? '¡Enlace copiado!' : 'No se pudo copiar'; setTimeout(() => copiar.textContent = 'Copiar enlace', 2200); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ENLACE_APP).then(() => listo(true), () => listo(false));
+    else listo(false);
+  });
+});
 
 /* =====================================================================
    ARRANQUE
