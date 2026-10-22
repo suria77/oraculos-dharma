@@ -26,7 +26,7 @@ Si se añade una baraja de pago nueva: añadir su código de Payhip en `PRODUCTO
 
 Diagnóstico: `/api/estado` solo dice si está listo. Para ver el detalle, añade la variable `ESTADO_CLAVE` en Cloudflare y abre `/api/estado?clave=<esa palabra>`.
 
-Herramienta de pruebas («Quitar de este dispositivo», 5 toques en «Tu colección»): abre la app una vez con `?pruebas=1` (se quita con `?pruebas=0`).
+Herramienta de pruebas («Quitar de este dispositivo», 5 toques en «Tu colección»): aparece sola en los dispositivos donde se ha activado una licencia con el correo del dueño (también con `?pruebas=1`).
 
 ## Uso sin conexión
 

@@ -1414,22 +1414,31 @@ document.addEventListener('click', async e => {
     msj.textContent = 'No se pudo quitar ahora mismo. Comprueba tu conexión a internet e inténtalo de nuevo.';
   }
 });
-(function () {
-  // Solo para el dueño: se activa abriendo la app una vez con ?pruebas=1 (y se quita con ?pruebas=0)
+// Solo para el dueño: aparece sola en cualquier dispositivo donde se haya activado una licencia con
+// su correo (se compara la huella SHA-256 del correo; el correo no está escrito en el código).
+// También se puede activar abriendo la app una vez con ?pruebas=1 (y quitar con ?pruebas=0).
+const HUELLA_DUENO = '68e9dce1aa77b4cd8f2a28781399a53a6aa4584836ed52e1ec02b807dfef2c1a';
+async function esDispositivoDePruebas() {
   try {
     const q = new URLSearchParams(location.search).get('pruebas');
     if (q === '1') localStorage.setItem('od_pruebas', '1');
     if (q === '0') localStorage.removeItem('od_pruebas');
-    if (localStorage.getItem('od_pruebas') !== '1') return;
-  } catch (e) { return; }
+    if (localStorage.getItem('od_pruebas') === '1') return true;
+    const email = ((await Store.get(K_EMAIL)) || '').trim().toLowerCase();
+    if (!email || !crypto.subtle) return false;
+    const d = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(email)));
+    return [...d].map(b => b.toString(16).padStart(2, '0')).join('') === HUELLA_DUENO;
+  } catch (e) { return false; }
+}
+(function () {
   const titulo = document.getElementById('t-coleccion');
   if (!titulo) return;
-  titulo.style.touchAction = 'manipulation'; titulo.style.cursor = 'pointer'; titulo.style.userSelect = 'none'; titulo.style.webkitUserSelect = 'none';
+  titulo.style.touchAction = 'manipulation'; titulo.style.userSelect = 'none'; titulo.style.webkitUserSelect = 'none';
   let n = 0, ultimo = 0;
-  titulo.addEventListener('click', () => {
+  titulo.addEventListener('click', async () => {
     const ahora = Date.now();
     n = ahora - ultimo < 1500 ? n + 1 : 1; ultimo = ahora;
-    if (n >= 5) { n = 0; abrirVentanaQuitar(); }
+    if (n >= 5) { n = 0; if (await esDispositivoDePruebas()) abrirVentanaQuitar(); }
   });
 })();
 
@@ -1767,14 +1776,6 @@ function consultOracle() {
     // Con el mensaje al lado (pantallas anchas) la ventana de la carta cambia de ancho: se recentra
     requestAnimationFrame(() => updateTrackPosition(true));
     setTimeout(() => textPanel.classList.add('visible'), 300);
-    // Que el mensaje quede a la vista sin buscarlo
-    const ancho = window.innerWidth >= 768;
-    setTimeout(() => {
-      if (!isFlipped) return;
-      const destino = ancho ? document.querySelector('.oracle-layout') : textPanel;
-      const r = destino.getBoundingClientRect();
-      if (r.top > window.innerHeight * (ancho ? 0.25 : 0.6) || r.top < 58) destino.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
-    }, ancho ? 350 : 1100);
   }
 }
 
