@@ -310,11 +310,11 @@
   .audio-time { font-size: 13px; color: #f4eefa; text-align: left; opacity: 0.85; font-variant-numeric: tabular-nums; }
   .aviso-muestra { margin-top: 14px; font-size: 14px; color: var(--lila); }
   /* Botón dorado con marco (imagen). En 'Elegir otra carta' se usa el marco sin texto y el texto va encima. */
-  .oracle-btn { width: var(--boton-ancho, 280px); aspect-ratio: 720 / 317; height: auto; padding: 0 0 1%; margin-top: 6px; border: none; border-radius: 0; cursor: pointer;
-    background: url('img/boton-consulta-2.webp') center / contain no-repeat; color: transparent; text-transform: uppercase;
-    font: 700 calc(var(--boton-ancho, 280px) * 0.06) / 1 'Cormorant Garamond', Georgia, 'Times New Roman', serif; letter-spacing: .02em;
+  .oracle-btn { width: var(--boton-ancho, 280px); aspect-ratio: 960 / 417; height: auto; padding: 0 0 1%; margin-top: 6px; border: none; border-radius: 0; cursor: pointer;
+    background: url('img/boton-consulta-3.webp') center / contain no-repeat; color: transparent; text-transform: uppercase;
+    font: 700 calc(var(--boton-ancho, 280px) * 0.062) / 1 'Cormorant Garamond', Georgia, 'Times New Roman', serif; letter-spacing: .02em;
     filter: drop-shadow(0 6px 14px rgba(0,0,0,.45)); transition: transform .25s ease, filter .25s ease; position: relative; z-index: 5; -webkit-tap-highlight-color: transparent; }
-  .oracle-btn.otra { background-image: url('img/boton-vacio-2.webp'); color: #1b1206; }
+  .oracle-btn.otra { background-image: url('img/boton-vacio-3.webp'); color: #1b1206; }
   .oracle-btn:hover { transform: translateY(-2px); filter: drop-shadow(0 8px 18px rgba(0,0,0,.5)) brightness(1.06); }
   .oracle-btn:active { transform: scale(.97); }
   @media (min-width: 768px) {
@@ -1772,7 +1772,7 @@ function tutorialInstalar(os) {
   return `<div class="ayuda-seg"><button type="button" data-os="ios" aria-pressed="${os === 'ios'}">iPhone / iPad</button><button type="button" data-os="android" aria-pressed="${os === 'android'}">Android</button></div>
     ${os === 'ios' ? ios : android}
     <h3 class="guia-tit">Míralo paso a paso</h3>
-    ${[1, 2, 3, 4].map(n => `<img class="guia-img" loading="lazy" src="img/instalar/${os === 'ios' ? 'ios' : 'android'}-${n}.webp" alt="Instalación en ${os === 'ios' ? 'iPhone o iPad' : 'Android'}, paso ${n}">`).join('')}
+    ${[1, 2, 3, 4].map(n => `<img class="guia-img" loading="lazy" src="img/instalar/${os === 'ios' ? 'ios' : 'android'}-${n}-b.webp" alt="Instalación en ${os === 'ios' ? 'iPhone o iPad' : 'Android'}, paso ${n}">`).join('')}
     ${avisoInstalar && os === 'android' ? '<div class="ayuda-accion"><button type="button" class="btn-oro" data-instalar>Instalar ahora</button></div>' : ''}
     <p class="ayuda-nota">Una vez instalada se abre a pantalla completa y funciona aunque no tengas conexión.</p>`;
 }
