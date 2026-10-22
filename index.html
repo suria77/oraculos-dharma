@@ -427,6 +427,12 @@
   .ayuda-barra { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid #ead8b0; }
   .ayuda-barra button { font: 700 15px var(--f-display); color: #4a2a6a; background: #fff; border: 1px solid #d9bfe8; border-radius: 999px; padding: 8px 16px; cursor: pointer; }
   .ayuda-barra button:hover { background: #f3e8fb; }
+  .ayuda-barra { padding-top: max(12px, env(safe-area-inset-top, 0px)); background: #fffaf0; }
+  .ayuda-barra .ayuda-volver { background: linear-gradient(180deg, #f6d77a, #d9a93c); color: #2b1838; border-color: #b9892a; font-size: 16.5px; padding: 10px 20px; box-shadow: 0 2px 8px rgba(120,80,10,.25); }
+  .ayuda-barra .ayuda-volver:hover { background: linear-gradient(180deg, #fbe39a, #e2b34a); }
+  .ayuda-barra .ayuda-x { width: 42px; height: 42px; padding: 0; font-size: 18px; }
+  .ayuda-pie { display: flex; justify-content: center; margin-top: 26px; }
+  .ayuda-pie .btn-oro { min-width: 240px; }
   .ayuda-scroll { overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 22px 22px 28px; }
   .ayuda-titulo { margin: 0 0 6px; font: 600 32px/1.1 var(--f-lirica); color: #3a1660; text-align: center; }
   .ayuda-sub { margin: 0 0 18px; text-align: center; font-size: 16px; line-height: 1.5; color: #5d4a6e; }
@@ -1727,7 +1733,7 @@ function abrirAyuda(titulo, html) {
   const velo = document.createElement('div');
   velo.className = 'ayuda-velo';
   velo.setAttribute('role', 'dialog'); velo.setAttribute('aria-modal', 'true'); velo.setAttribute('aria-label', titulo);
-  velo.innerHTML = `<div class="ayuda-panel"><div class="ayuda-barra"><span></span><button type="button" data-cerrar>✕ Cerrar</button></div><div class="ayuda-scroll">${html}</div></div>`;
+  velo.innerHTML = `<div class="ayuda-panel"><div class="ayuda-barra"><button type="button" class="ayuda-volver" data-cerrar>← Volver a la app</button><button type="button" class="ayuda-x" data-cerrar aria-label="Cerrar">✕</button></div><div class="ayuda-scroll">${html}<div class="ayuda-pie"><button type="button" class="btn-oro" data-cerrar>← Volver a la app</button></div></div></div>`;
   document.body.appendChild(velo);
   const antes = document.body.style.overflow; document.body.style.overflow = 'hidden';
   function cerrar() { document.removeEventListener('keydown', tecla); document.body.style.overflow = antes; velo.remove(); }
