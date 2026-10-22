@@ -351,6 +351,20 @@
   }
   .oracle-container.revealed .carousel-window { -webkit-mask-image: none; mask-image: none; }
 
+  /* ================= CARTA EN GRANDE ================= */
+  .card-wrapper { position: relative; }
+  .ampliar { position: absolute; right: 10px; bottom: 10px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(244,212,124,.7); background: rgba(13,8,24,.78); cursor: zoom-in; display: none; align-items: center; justify-content: center; padding: 0; z-index: 6; opacity: 0; transition: opacity .5s ease 1s; -webkit-tap-highlight-color: transparent; }
+  .ampliar svg { width: 22px; height: 22px; fill: var(--oro, #f4d47c); }
+  .oracle-container.revealed .card-wrapper.active-card .ampliar { display: flex; opacity: 1; }
+  .oracle-container.revealed .card-wrapper.active-card .card-front { cursor: zoom-in; }
+  .visor { position: fixed; inset: 0; z-index: 1100; display: flex; align-items: center; justify-content: center; background: rgba(10, 3, 22, .94); padding: max(64px, calc(env(safe-area-inset-top, 0px) + 60px)) 16px max(20px, env(safe-area-inset-bottom, 0px)); animation: aparece .25s ease; }
+  .visor[hidden] { display: none; }
+  @keyframes aparece { from { opacity: 0; } to { opacity: 1; } }
+  .visor img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 18px; border: 2px solid rgba(212,175,55,.55); box-shadow: 0 20px 60px rgba(0,0,0,.8), 0 0 40px rgba(212,175,55,.18); animation: sube .35s cubic-bezier(.175,.885,.32,1.275); }
+  .visor-cerrar { position: absolute; top: max(12px, env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 999px; border: 1.5px solid rgba(244,212,124,.7); background: rgba(13,8,24,.85); color: var(--oro, #f4d47c); font: 700 15px/1 'Montserrat', system-ui, sans-serif; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+  .visor-cerrar svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2.4; fill: none; stroke-linecap: round; }
+  .visor-cerrar:focus-visible { outline: 3px solid var(--oro, #f4d47c); outline-offset: 2px; }
+
   /* ================= VENTANAS (MODAL) ================= */
   .velo {
     position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center;
@@ -631,6 +645,10 @@
 <!-- ======================= VENTANA EMERGENTE ======================= -->
 <div class="velo" id="velo" hidden>
   <div class="ventana" role="dialog" aria-modal="true" aria-labelledby="ventana-titulo" id="ventana"></div>
+</div>
+<div class="visor" id="visor" role="dialog" aria-modal="true" aria-label="Carta en grande" hidden>
+  <button type="button" class="visor-cerrar" id="visorCerrar" aria-label="Cerrar la carta en grande"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>Cerrar</button>
+  <img id="visorImg" alt="" draggable="false">
 </div>
 <div class="aviso-flotante" id="avisoFlotante" role="status" aria-live="polite" hidden></div>
 
@@ -1618,7 +1636,7 @@ function buildCarousel() {
       w.className = 'card-wrapper';
       w.id = `wrapper-${g}`;
       w.setAttribute('data-original-index', idx);
-      w.innerHTML = `<div class="card-3d" id="card-${g}"><div class="card-face card-back"><img src="${dorso}" draggable="false" alt=""></div><div class="card-face card-front"><img data-src="${base}${c.img}" draggable="false" alt=""></div></div>`;
+      w.innerHTML = `<div class="card-3d" id="card-${g}"><div class="card-face card-back"><img src="${dorso}" draggable="false" alt=""></div><div class="card-face card-front"><img data-src="${base}${c.img}" draggable="false" alt=""></div></div><button type="button" class="ampliar" tabindex="-1" aria-label="Ver la carta en grande"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a6 6 0 104.2 10.2l4.8 4.8 1.4-1.4-4.8-4.8A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8zm-1 1.5V9H7.5v2H9v1.5h2V11h1.5V9H11V7.5z"/></svg></button>`;
       track.appendChild(w);
       g++;
     });
@@ -1778,6 +1796,30 @@ function consultOracle() {
     setTimeout(() => textPanel.classList.add('visible'), 300);
   }
 }
+
+/* --- Carta en grande: al tocar la carta revelada se ve a pantalla completa --- */
+const visor = document.getElementById('visor'), visorImg = document.getElementById('visorImg'), visorCerrar = document.getElementById('visorCerrar');
+let visorOrigen = null;
+function abrirVisor() {
+  const cara = document.querySelector('.card-wrapper.active-card .card-front img');
+  if (!isFlipped || !cara || !cara.getAttribute('src')) return;
+  visorOrigen = document.activeElement;
+  visorImg.src = cara.getAttribute('src'); visorImg.alt = cara.alt || '';
+  visor.hidden = false; document.body.style.overflow = 'hidden';
+  visorCerrar.focus();
+}
+function cerrarVisor() {
+  if (visor.hidden) return;
+  visor.hidden = true; document.body.style.overflow = '';
+  if (visorOrigen && visorOrigen.focus) { try { visorOrigen.focus({ preventScroll: true }); } catch (e) {} }
+}
+windowEl.addEventListener('click', e => {
+  if (!isFlipped || dragMoved) return;
+  if (e.target.closest('.card-wrapper.active-card')) abrirVisor();
+});
+visorCerrar.addEventListener('click', e => { e.stopPropagation(); cerrarVisor(); });
+visor.addEventListener('click', cerrarVisor);
+document.addEventListener('keydown', e => { if (!visor.hidden) { if (e.key === 'Escape') { e.stopImmediatePropagation(); cerrarVisor(); } else if (e.key === 'Tab') { e.preventDefault(); visorCerrar.focus(); } } }, true);
 
 /* --- Arrastre e inercia de la mesa --- */
 let isDragging = false, dragMoved = false, startX = 0, startTrackX = 0, lastX = 0, lastTime = 0, velocity = 0, rafId = null;
