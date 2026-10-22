@@ -357,6 +357,7 @@
   .ampliar svg { width: 22px; height: 22px; fill: var(--oro, #f4d47c); }
   .oracle-container.revealed .card-wrapper.active-card .ampliar { display: flex; opacity: 1; }
   .oracle-container.revealed .card-wrapper.active-card .card-front { cursor: zoom-in; }
+  .oracle-container.revealed .carousel-window { cursor: zoom-in; }
   .visor { position: fixed; inset: 0; z-index: 1100; display: flex; align-items: center; justify-content: center; background: rgba(10, 3, 22, .94); padding: max(64px, calc(env(safe-area-inset-top, 0px) + 60px)) 16px max(20px, env(safe-area-inset-bottom, 0px)); animation: aparece .25s ease; }
   .visor[hidden] { display: none; }
   @keyframes aparece { from { opacity: 0; } to { opacity: 1; } }
@@ -1785,6 +1786,7 @@ function consultOracle() {
     aviso.hidden = acceso !== 'muestra';
     aviso.textContent = `En la muestra, el audio se escucha ${MUESTRA_AUDIO_SEG} segundos.`;
     setupAudioButton(cardData);
+    dragMoved = false; isDragging = false;
     container.classList.add('revealed');
     activeCard.classList.add('flipped');
     isFlipped = true;
@@ -1814,8 +1816,12 @@ function cerrarVisor() {
   if (visorOrigen && visorOrigen.focus) { try { visorOrigen.focus({ preventScroll: true }); } catch (e) {} }
 }
 windowEl.addEventListener('click', e => {
-  if (!isFlipped || dragMoved) return;
-  if (e.target.closest('.card-wrapper.active-card')) abrirVisor();
+  if (!isFlipped) return;
+  // Se decide por la posición del toque (no por el elemento tocado) y se ignora el arrastre de antes de revelar
+  const c = document.querySelector('.card-wrapper.active-card .card-3d');
+  if (!c) return;
+  const r = c.getBoundingClientRect(), m = 12;
+  if (e.clientX >= r.left - m && e.clientX <= r.right + m && e.clientY >= r.top - m && e.clientY <= r.bottom + m) abrirVisor();
 });
 visorCerrar.addEventListener('click', e => { e.stopPropagation(); cerrarVisor(); });
 visor.addEventListener('click', cerrarVisor);
