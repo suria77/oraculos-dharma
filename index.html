@@ -261,6 +261,8 @@
   .legal-datos li { padding: 4px 0; }
   .legal-datos strong { color: #2b1838; }
   .legal-texto a { color: #4a2a6a; }
+  .aviso-compra { font-size: 12.5px !important; line-height: 1.5 !important; opacity: .8; }
+  .enlace-condiciones { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 
   /* ================= LECTURA (ORÁCULO ABIERTO) ================= */
   /* Lectura a pantalla completa: arriba solo una línea con dos botones, del color del terciopelo */
@@ -576,7 +578,7 @@
           </div>
         </div>
         <p class="pie-nota">Tus oráculos se guardan en este dispositivo. Si cambias de móvil o tablet, vuelve a pegar tu licencia.</p>
-        <nav class="pie-legal" aria-label="Información legal"><button type="button" id="btn-aviso-legal">Aviso legal y contacto</button><button type="button" id="btn-privacidad">Política de privacidad</button></nav>
+        <nav class="pie-legal" aria-label="Información legal"><button type="button" id="btn-aviso-legal">Aviso legal y contacto</button><button type="button" id="btn-privacidad">Política de privacidad</button><button type="button" id="btn-condiciones">Condiciones de compra</button></nav>
       </footer>
     </div>
   </main>
@@ -643,6 +645,7 @@
         <p>Las 40 cartas con sus audios, en tu móvil o tablet, para consultarlas siempre que lo necesites.</p>
         <a class="muestra-comprar" id="muestraComprar" href="#" target="_blank" rel="noopener">Comprar&nbsp;·&nbsp;<span id="muestraPrecio"></span></a>
         <p class="confianza">Pago seguro con Payhip · Licencia al instante por correo · Válida en 2 dispositivos</p>
+        <p class="muestra-nota aviso-compra">Contenido digital de entrega inmediata: al comprar renuncias al derecho de desistimiento. <button type="button" class="enlace-condiciones" data-accion="condiciones">Condiciones de compra</button></p>
         <button type="button" class="muestra-ya" data-accion="licencia">Ya lo compré: activar licencia</button>
         <p class="muestra-nota">Tras la compra recibirás tu licencia por correo. Pulsa «Activar», escribe tu correo y pega la licencia: el oráculo quedará abierto en «Tu colección».</p>
         <p class="muestra-nota reflexion">Una herramienta de reflexión e inspiración. No predice el futuro ni sustituye el consejo médico, psicológico, legal o financiero.</p>
@@ -1140,6 +1143,7 @@ window.addEventListener('resize', actualizarFlechas);
 
 document.addEventListener('click', e => {
   if (e.target.closest('[data-accion="licencia"]')) { abrirVentanaLicencia(); return; }
+  if (e.target.closest('[data-accion="condiciones"]')) { abrirCondiciones(); return; }
   const t = e.target.closest('.tarjeta');
   if (t) { pulsarOraculo(t.dataset.id); return; }
   if (e.target.closest('[data-accion="cerrar"]')) cerrarVentana();
@@ -1627,6 +1631,7 @@ function ventanaComprar(motivo) {
   const o = actual;
   abrirVentana(`<h3 id="ventana-titulo">Abre ${o.nombre} completo</h3>
     <p>${motivo} Con el oráculo completo tendrás todas las cartas y todos los audios, siempre que quieras.</p>
+    <p class="aviso-compra">Contenido digital de entrega inmediata: al comprar renuncias al derecho de desistimiento. <button type="button" class="enlace-condiciones" data-accion="condiciones">Condiciones de compra</button></p>
     <div class="acciones">
       <a class="btn-comprar" href="${enlaceCompra(o, 'ventana')}" target="_blank" rel="noopener">Comprar en Payhip</a>
       <button class="btn-licencia" data-accion="licencia">Ya lo compré: activar licencia</button>
@@ -2116,6 +2121,30 @@ document.getElementById('btn-privacidad').addEventListener('click', () => {
       <p>Puedes solicitar el acceso, la rectificación, la supresión, la limitación, la portabilidad y la oposición escribiendo a <a href="mailto:${TITULAR.correo}">${TITULAR.correo}</a>. Si consideras que no se han respetado tus derechos, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
     </div>`, { sinPie: true });
 });
+
+/* --- Condiciones de compra (contenido digital, renuncia al desistimiento: art. 103.m TRLGDCU) --- */
+function abrirCondiciones() {
+  abrirAyuda('Condiciones de compra', `
+    <h2 class="ayuda-titulo">Condiciones de compra</h2>
+    <p class="ayuda-sub">Última actualización: 22 de octubre de 2026.</p>
+    <div class="legal-texto">
+      <h3>Quién vende</h3>
+      <p>${TITULAR.nombre} (Dharma Eterno), NIF ${TITULAR.nif}, ${TITULAR.domicilio}. Contacto: <a href="mailto:${TITULAR.correo}">${TITULAR.correo}</a>. La compra se realiza a través de Payhip, que gestiona el pago.</p>
+      <h3>Qué compras</h3>
+      <p>Un contenido digital (un oráculo con sus cartas y audios) y una licencia personal para usarlo en la aplicación «Oráculos del Dharma». El precio final, con los impuestos que correspondan, se muestra en Payhip antes de pagar.</p>
+      <h3>Entrega</h3>
+      <p>Inmediata: al terminar el pago recibes la licencia por correo y puedes activarla enseguida en la app.</p>
+      <h3>Licencia de uso</h3>
+      <p>Es personal e intransferible y funciona en hasta 2 dispositivos. No puede compartirse, revenderse ni copiarse el contenido.</p>
+      <h3>Derecho de desistimiento</h3>
+      <p>Se trata de contenido digital que no se entrega en un soporte material. Al marcar la casilla de aceptación al comprar, pides expresamente que la entrega empiece de inmediato y reconoces que, una vez comenzada, <strong>pierdes el derecho de desistimiento de 14 días</strong> (artículo 103.m del Real Decreto Legislativo 1/2007).</p>
+      <h3>Si algo falla</h3>
+      <p>Si el contenido no funciona o no corresponde con lo ofrecido, escríbenos y lo solucionaremos. Esto no afecta a tus derechos legales como consumidor.</p>
+      <h3>Datos y ley aplicable</h3>
+      <p>Cómo tratamos tus datos está en la política de privacidad de la app. Estas condiciones se rigen por la ley española; si eres consumidor en la UE, conservas los derechos imperativos de tu país.</p>
+    </div>`, { sinPie: true });
+}
+document.getElementById('btn-condiciones').addEventListener('click', abrirCondiciones);
 
 /* --- Compartir: imagen hecha en el momento con las portadas + enlace --- */
 const TEXTO_COMPARTIR = 'Oráculos del Dharma: saca una carta y escucha su mensaje. Pruébala en:';
