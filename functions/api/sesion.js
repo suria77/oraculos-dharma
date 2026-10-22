@@ -5,8 +5,15 @@
 // activar.js se devuelven los oráculos activados en este móvil, firmados de nuevo.
 // Solo se devuelven las licencias en las que este dispositivo sigue siendo uno de los 2
 // permitidos. Usa las mismas variables que activar.js.
+//
+// POST /api/sesion  { accion: 'olvidar', oraculos: ['rumi', …] }
+//   Quita esos oráculos de la sesión de respaldo de ESTE móvil (la app lo usa en
+//   «Quitar de este dispositivo», para pruebas). Solo toca la sesión del propio móvil (su cookie)
+//   y NO libera la plaza del dispositivo en la licencia: así no se puede usar para saltarse el
+//   límite de 2 dispositivos, y volver a activar en este mismo móvil no gasta plaza.
 
 const COOKIE = 'od_sess';
+const UN_ANO = 60 * 60 * 24 * 365;
 
 function json(body) {
   return new Response(JSON.stringify(body), {
@@ -29,6 +36,7 @@ async function kvGet(env, clave) {
   if (v == null) return null;
   try { return JSON.parse(v); } catch (e) { return v; }
 }
+const kvSet = (env, clave, valor, segundos) => kv(env, ['SET', clave, JSON.stringify(valor), 'EX', String(segundos)]);
 function leerCookie(request, nombre) {
   for (const p of (request.headers.get('Cookie') || '').split(';')) {
     const t = p.trim(); if (t.startsWith(nombre + '=')) return t.slice(nombre.length + 1);
@@ -44,6 +52,25 @@ async function firmar(env, oraculo, licencia, dispositivo) {
   const clave = await crypto.subtle.importKey('jwk', JSON.parse(env.OD_CLAVE_FIRMA), { name: 'ECDSA', namedCurve: 'P-256' }, false, ['sign']);
   const datos = new TextEncoder().encode('od1|' + oraculo + '|' + licencia + '|' + dispositivo);
   return b64url(await crypto.subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, clave, datos));
+}
+
+export async function onRequestPost({ request, env }) {
+  let cuerpo;
+  try { cuerpo = await request.json(); } catch (e) { return json({ ok: false }); }
+  if (!cuerpo || cuerpo.accion !== 'olvidar') return json({ ok: false });
+  const token = leerCookie(request, COOKIE);
+  // Sin sesión de respaldo no hay nada que olvidar
+  if (!token || !/^[a-f0-9]{64}$/.test(token) || !env.UPSTASH_REDIS_REST_URL || !env.UPSTASH_REDIS_REST_TOKEN) return json({ ok: true });
+  try {
+    const sesion = await kvGet(env, 'od:sesion:' + token);
+    if (!sesion || !sesion.licencias) return json({ ok: true });
+    const ids = Array.isArray(cuerpo.oraculos) ? cuerpo.oraculos.map(String) : [];
+    for (const id of ids) delete sesion.licencias[id];
+    await kvSet(env, 'od:sesion:' + token, sesion, UN_ANO);
+    return json({ ok: true });
+  } catch (e) {
+    return json({ ok: false });
+  }
 }
 
 export async function onRequestGet({ request, env }) {

@@ -966,7 +966,9 @@ const abierto = o => !!o.abiertoParaTodos || loTiene(o.id);
 
 function sello(o, enColeccion) {
   if (o.estado === 'proximamente' && !loTiene(o.id)) return '<span class="sello sello-pronto">Próximamente</span>';
-  if (loTiene(o.id) || (enColeccion && o.gratis)) return `<span class="sello sello-coleccion">${ICONO_OK} Tuyo</span>`;
+  // La baraja gratis no depende de ninguna licencia: arriba «Abierto», en «Tu colección» «Tuyo»
+  if (o.gratis) return enColeccion ? `<span class="sello sello-coleccion">${ICONO_OK} Tuyo</span>` : '<span class="sello sello-abierto">Abierto</span>';
+  if (loTiene(o.id)) return `<span class="sello sello-coleccion">${ICONO_OK} Tuyo</span>`;
   if (o.abiertoParaTodos) return '<span class="sello sello-abierto">Abierto</span>';
   return `<span class="sello sello-muestra">${ICONO_CANDADO} Muestra</span>`;
 }
@@ -1001,8 +1003,8 @@ function ordenColeccion() {
 }
 
 function pintar(recienId) {
-  // Los que ya se han comprado salen de arriba y pasan a "Tu colección"
-  document.getElementById('fila-todos').innerHTML = ORACULOS.filter(o => !loTiene(o.id)).map(o => tarjetaHTML(o, false)).join('');
+  // Los que ya se han comprado salen de arriba y pasan a "Tu colección". La gratis (Atman) es fija: siempre arriba y también abajo.
+  document.getElementById('fila-todos').innerHTML = ORACULOS.filter(o => o.gratis || !loTiene(o.id)).map(o => tarjetaHTML(o, false)).join('');
 
   const { mios, vacios } = ordenColeccion();
   document.getElementById('cuenta-coleccion').textContent = `${mios.length} de ${ORACULOS.length}`;
@@ -1226,6 +1228,66 @@ async function licenciaDesdeEnlace() {
   if (r.ok) { pintar(r.oraculo); avisar(`${oraculo(r.oraculo).nombre} ya está en tu colección`); }
   else { abrirVentanaLicencia(r.error); document.getElementById('campo-licencia').value = lic; }
 }
+
+/* --- Quitar una baraja de ESTE dispositivo (para hacer pruebas) ---
+   Se abre pulsando 5 veces seguidas el título «Tu colección». Borra la licencia del móvil (los
+   tres sitios donde se guarda) y de la sesión de respaldo del servidor; la baraja vuelve a salir
+   bloqueada. No libera la plaza del dispositivo: se puede volver a activar sin gastar plaza. */
+async function quitarDeEsteDispositivo(ids) {
+  try {
+    const r = await fetch('/api/sesion', {
+      method: 'POST', credentials: 'same-origin', cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ accion: 'olvidar', oraculos: ids })
+    });
+    const d = await r.json();
+    if (!d.ok) return false;
+  } catch (e) { return false; }   // sin el servidor no se borra nada: la copia de respaldo lo volvería a traer
+  for (const id of ids) delete coleccion[id];
+  await guardarColeccion(); await verificarColeccion();
+  return true;
+}
+function abrirVentanaQuitar() {
+  const mios = ORACULOS.filter(o => !o.gratis && loTiene(o.id));
+  if (!mios.length) {
+    abrirVentana(`<h3 id="ventana-titulo">Quitar de este dispositivo</h3>
+      <p>No hay ninguna baraja de pago activada en este dispositivo.</p>
+      <div class="acciones"><button class="btn-secundario" data-accion="cerrar">Cerrar</button></div>`);
+    return;
+  }
+  abrirVentana(`<h3 id="ventana-titulo">Quitar de este dispositivo</h3>
+    <p>Para pruebas: la baraja vuelve a salir bloqueada y podrás activarla otra vez con tu licencia, sin gastar ninguna plaza de dispositivo.</p>
+    <div class="mensaje" id="mensaje-quitar" role="status"></div>
+    <div class="acciones">
+      ${mios.map(o => `<button type="button" class="btn-licencia" data-quitar="${o.id}">Quitar ${o.nombre}</button>`).join('')}
+      <button type="button" class="btn-secundario" data-accion="cerrar">Cancelar</button>
+    </div>`);
+}
+document.addEventListener('click', async e => {
+  const b = e.target.closest('[data-quitar]');
+  if (!b) return;
+  const id = b.dataset.quitar, msj = document.getElementById('mensaje-quitar');
+  document.querySelectorAll('[data-quitar]').forEach(x => x.disabled = true);
+  msj.className = 'mensaje'; msj.textContent = 'Quitando…';
+  if (await quitarDeEsteDispositivo([id])) {
+    cerrarVentana(); pintar();
+    avisar(`${oraculo(id).nombre} quitado de este dispositivo`);
+  } else {
+    document.querySelectorAll('[data-quitar]').forEach(x => x.disabled = false);
+    msj.className = 'mensaje error';
+    msj.textContent = 'No se pudo quitar ahora mismo. Comprueba tu conexión a internet e inténtalo de nuevo.';
+  }
+});
+(function () {
+  const titulo = document.getElementById('t-coleccion');
+  if (!titulo) return;
+  titulo.style.touchAction = 'manipulation'; titulo.style.cursor = 'pointer'; titulo.style.userSelect = 'none'; titulo.style.webkitUserSelect = 'none';
+  let n = 0, ultimo = 0;
+  titulo.addEventListener('click', () => {
+    const ahora = Date.now();
+    n = ahora - ultimo < 1500 ? n + 1 : 1; ultimo = ahora;
+    if (n >= 5) { n = 0; abrirVentanaQuitar(); }
+  });
+})();
 
 /* =====================================================================
    LECTURA — motor del oráculo (código de Atman, generalizado)
