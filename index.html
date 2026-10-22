@@ -256,6 +256,7 @@
   .pie-legal button:hover, .pie-legal button:focus-visible { opacity: .95; text-decoration: underline; text-underline-offset: 3px; }
   .legal-texto { font-size: 15.5px; line-height: 1.65; color: #3d2a4c; }
   .legal-texto p { margin: 0 0 12px; }
+  .legal-texto h3 { margin: 22px 0 6px; font: 700 18px var(--f-display); color: #3a1660; }
   .legal-datos { list-style: none; margin: 0 0 14px; padding: 14px 16px; background: #fff; border: 1px solid #ecdcb8; border-radius: 14px; }
   .legal-datos li { padding: 4px 0; }
   .legal-datos strong { color: #2b1838; }
@@ -575,7 +576,7 @@
           </div>
         </div>
         <p class="pie-nota">Tus oráculos se guardan en este dispositivo. Si cambias de móvil o tablet, vuelve a pegar tu licencia.</p>
-        <nav class="pie-legal" aria-label="Información legal"><button type="button" id="btn-aviso-legal">Aviso legal y contacto</button></nav>
+        <nav class="pie-legal" aria-label="Información legal"><button type="button" id="btn-aviso-legal">Aviso legal y contacto</button><button type="button" id="btn-privacidad">Política de privacidad</button></nav>
       </footer>
     </div>
   </main>
@@ -2088,6 +2089,31 @@ document.getElementById('btn-aviso-legal').addEventListener('click', () => {
       <p>Los textos, audios, imágenes y demás contenidos de la aplicación son obra del titular y no pueden copiarse, reproducirse ni distribuirse sin su autorización.</p>
       <p>Los oráculos son una herramienta de reflexión e inspiración. No predicen el futuro ni sustituyen el consejo médico, psicológico, legal o financiero.</p>
       <p>Para cualquier duda, consulta o incidencia con tu compra, escribe al correo de contacto.</p>
+    </div>`, { sinPie: true });
+});
+
+/* --- Política de privacidad (RGPD / LOPDGDD) --- */
+document.getElementById('btn-privacidad').addEventListener('click', () => {
+  abrirAyuda('Política de privacidad', `
+    <h2 class="ayuda-titulo">Política de privacidad</h2>
+    <p class="ayuda-sub">Última actualización: 22 de octubre de 2026.</p>
+    <div class="legal-texto">
+      <h3>Quién es el responsable</h3>
+      <p>${TITULAR.nombre} (Dharma Eterno), NIF ${TITULAR.nif}, ${TITULAR.domicilio}. Contacto: <a href="mailto:${TITULAR.correo}">${TITULAR.correo}</a>.</p>
+      <h3>Qué datos tratamos y para qué</h3>
+      <p>Para activar tus oráculos con la licencia usamos tu <strong>correo electrónico</strong>, tu <strong>clave de licencia</strong> y un <strong>identificador aleatorio del dispositivo</strong> que la app crea en tu móvil o tableta (no contiene datos personales). Solo sirven para comprobar que la licencia es válida, aplicar el límite de 2 dispositivos por licencia y recuperar tu colección si tu dispositivo pierde sus datos.</p>
+      <p>Base legal: la ejecución del contrato (tu compra) y nuestro interés legítimo en mantener el servicio seguro (por ejemplo, limitar los intentos repetidos de activación).</p>
+      <p>Por seguridad, el servidor también ve tu dirección IP al activar la licencia y guarda un contador de intentos por IP que dura unos minutos.</p>
+      <h3>Pagos</h3>
+      <p>Las compras las procesa <strong>Payhip</strong>, que recoge tus datos de pago. Nosotros nunca recibimos ni guardamos el número de tu tarjeta. Al activar una licencia, la clave se comprueba con Payhip, que nos indica si está activa y a qué correo pertenece.</p>
+      <h3>Cookies y almacenamiento en tu dispositivo</h3>
+      <p>La app solo usa lo estrictamente necesario: una cookie segura de sesión (<em>od_sess</em>, hasta 1 año) que recupera tu colección, un permiso de acceso a las barajas de pago (<em>od_acc</em>, 30 días), un identificador del dispositivo y el almacenamiento local de tu colección y tu correo en el propio dispositivo. <strong>No</strong> usamos cookies de analítica, publicidad ni seguimiento, y la app no carga fuentes ni scripts de terceros.</p>
+      <h3>Quién más trata datos por nosotros</h3>
+      <p><strong>Cloudflare</strong> aloja la app. <strong>Upstash</strong> guarda la sesión, la lista de identificadores de dispositivo de cada licencia y los contadores de intentos. <strong>Payhip</strong> gestiona las ventas y la comprobación de licencias. Actúan por cuenta nuestra y algunos pueden tratar datos fuera del Espacio Económico Europeo con las garantías previstas en el RGPD (como las cláusulas contractuales tipo). No vendemos tus datos ni los usamos para publicidad.</p>
+      <h3>Cuánto tiempo los conservamos</h3>
+      <p>Sesión de respaldo: hasta 1 año, renovada mientras sigas usando la app. Identificadores de dispositivo: mientras la licencia esté activa. Contadores de intentos: unos minutos. Puedes pedirnos que borremos tus datos en cualquier momento.</p>
+      <h3>Tus derechos</h3>
+      <p>Puedes solicitar el acceso, la rectificación, la supresión, la limitación, la portabilidad y la oposición escribiendo a <a href="mailto:${TITULAR.correo}">${TITULAR.correo}</a>. Si consideras que no se han respetado tus derechos, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
     </div>`, { sinPie: true });
 });
 
