@@ -78,9 +78,28 @@ function productos(env) {
     .map((k) => ({ id: k.slice('PAYHIP_SECRET_'.length).toLowerCase().replace(/_/g, '-'), secreto: env[k] }));   // PAYHIP_SECRET_DIOSES_INDIA → dioses-india
 }
 
-// Busca la licencia en cada producto de Payhip hasta encontrar el suyo
+// Código de producto de Payhip (lo que va tras payhip.com/b/ en el enlace de compra) de cada oráculo.
+// Es el que devuelve Payhip como "product_link" al verificar una licencia. Si se añade un oráculo
+// nuevo, hay que añadir aquí su código (el mismo que lleva en "payhip:" dentro de index.html).
+const PRODUCTO_PAYHIP = {
+  'atman': 'duJaS',
+  'rumi': 'lXgpS',
+  'guru': 'hzDlq',
+  'dioses-india': 'MOAE9',
+};
+function oraculoDeProducto(link) {
+  const l = String(link || '').trim().toLowerCase();
+  if (!l) return null;
+  for (const id of Object.keys(PRODUCTO_PAYHIP)) if (PRODUCTO_PAYHIP[id].toLowerCase() === l) return id;
+  return null;
+}
+
+// Busca la licencia en Payhip. El oráculo se decide por el producto al que Payhip dice que
+// pertenece la licencia (product_link), NO por la clave con la que se ha preguntado: así una
+// licencia de Rumi nunca abre otra baraja aunque Payhip responda con la clave de otro producto.
 async function buscarEnPayhip(env, licencia) {
-  for (const { id, secreto } of productos(env)) {
+  let desconocido = null;
+  for (const { secreto } of productos(env)) {
     try {
       const r = await fetch('https://payhip.com/api/v2/license/verify?license_key=' + encodeURIComponent(licencia), {
         headers: { 'product-secret-key': secreto },
@@ -88,10 +107,13 @@ async function buscarEnPayhip(env, licencia) {
       const texto = await r.text();
       if (!texto) continue;                         // no es de este producto
       const datos = JSON.parse(texto).data;
-      if (datos) return { oraculo: id, datos };
+      if (!datos) continue;
+      const oraculo = oraculoDeProducto(datos.product_link);
+      if (oraculo) return { oraculo, datos };
+      desconocido = { producto: String(datos.product_link || '') };   // existe, pero no sabemos de qué baraja es
     } catch (e) { /* se prueba el siguiente */ }
   }
-  return null;
+  return desconocido;
 }
 
 /* ---------- petición ---------- */
@@ -116,6 +138,9 @@ export async function onRequestPost({ request, env }) {
   const encontrada = await buscarEnPayhip(env, licencia);
   if (!encontrada) {
     return json(200, { ok: false, error: 'No encontramos esa licencia. Revisa que esté completa, con sus guiones, tal como aparece en tu email de Payhip.' });
+  }
+  if (encontrada.producto !== undefined) {
+    return json(200, { ok: false, error: 'La licencia es válida, pero su producto' + (encontrada.producto ? ' (código ' + encontrada.producto + ')' : '') + ' no está registrado en la app. Escríbenos y lo resolvemos enseguida.' });
   }
   const { oraculo, datos } = encontrada;
   if (datos.enabled === false) {
