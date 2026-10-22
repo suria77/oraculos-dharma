@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "include": ["/api/*", "/oraculos/rumi/*", "/oraculos/guru/*", "/oraculos/dioses-india/*"],
+  "exclude": []
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://oraculos-dharma.dharmaeterno.com/sitemap.xml

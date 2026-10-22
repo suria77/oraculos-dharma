@@ -4,9 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#2c0f4e">
-<title>Oráculos del Dharma</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="theme-color" content="#2c0f4e">
+<title>Oráculos del Dharma · Oráculos de cartas con audio</title>
+<meta name="description" content="Saca una carta y escucha su mensaje. Oráculos de cartas ilustradas con audio narrado: Atman (gratis), Rumi, Gurú y Dioses de la India. Funciona sin conexión.">
+<link rel="canonical" href="https://oraculos-dharma.dharmaeterno.com/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Dharma Eterno">
+<meta property="og:title" content="Oráculos del Dharma">
+<meta property="og:description" content="Saca una carta y escucha su mensaje. Oráculos de cartas con audio. Empieza gratis con Atman.">
+<meta property="og:url" content="https://oraculos-dharma.dharmaeterno.com/">
+<meta property="og:image" content="https://oraculos-dharma.dharmaeterno.com/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Portadas de los Oráculos del Dharma">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,10 +25,13 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="img/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap">
+<link rel="preload" href="fonts/montserrat.woff" as="font" type="font/woff" crossorigin>
 <style>
+  /* Tipografías servidas desde la propia web (sin Google: no se envía la IP de nadie a terceros
+     y funcionan sin conexión). Licencia SIL Open Font License, ver fonts/OFL-*.txt */
+  @font-face { font-family: 'Montserrat'; src: url('fonts/montserrat.woff') format('woff'); font-weight: 500 800; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Cormorant Garamond'; src: url('fonts/cormorant.woff') format('woff'); font-weight: 500 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Cormorant Garamond'; src: url('fonts/cormorant-italic.woff') format('woff'); font-weight: 500; font-style: italic; font-display: swap; }
   html,body{margin:0}
 
   /* Diseño: cabecera cósmica a sangre con el título sobre el resplandor; debajo, banda morada con dos carruseles tipo Netflix. */
@@ -45,6 +59,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   [hidden] { display: none !important; }
+  .solo-lector { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   button { font-family: inherit; }
   :focus-visible { outline: 2px solid var(--oro); outline-offset: 3px; }
 
@@ -52,7 +67,7 @@
   :root { --franja: clamp(34px, 5vw, 58px); }
   .cabecera {
     margin-top: var(--franja);
-    position: relative; width: 100%; aspect-ratio: 2.5 / 1; max-height: 560px;
+    position: relative; width: 100%; aspect-ratio: 2.5 / 1; max-height: min(560px, 58vh);
     background: var(--morado-hondo) url('img/cabecera-poster.jpg') center / cover no-repeat;
     overflow: hidden;
   }
@@ -168,8 +183,9 @@
   }
 
   .sello-conseguir {
-    position: static; align-self: center; font-size: 12px; padding: 6px 14px; letter-spacing: .1em;
-    background: linear-gradient(135deg, #ff4d5e, #d0142c); color: #fff; text-decoration: none;
+    position: static; align-self: center; font-size: 12.5px; padding: 0 16px; letter-spacing: .1em;
+    min-height: 44px; display: inline-flex; align-items: center; box-sizing: border-box;
+    background: linear-gradient(135deg, #e0283c, #a80f22); color: #fff; text-decoration: none;
     box-shadow: 0 4px 12px rgba(208,20,44,0.45); transition: filter .2s, transform .2s;
   }
   .sello-conseguir:hover { filter: brightness(1.1); transform: translateY(-1px); }
@@ -182,13 +198,13 @@
     position: relative; width: 100%; aspect-ratio: 3 / 4; max-width: 100%; box-sizing: border-box;
     border-radius: 12px; border: 1px solid rgba(205,176,255,0.45);
     background: #160624;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
-    padding: 16px 12px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    padding: 12px 10px;
   }
-  .hueco-texto { font-size: 14px; line-height: 1.45; color: var(--texto-suave); }
+  .hueco-texto { font-size: 14px; line-height: 1.35; color: var(--texto-suave); }
   .btn-activar {
     background: linear-gradient(135deg, #fff0b0 0%, #ffd94d 45%, #e6a800 100%); color: #2a1405;
-    border: none; border-radius: 999px; padding: 6px 14px; font-size: 11.5px; font-weight: 800; letter-spacing: .1em;
+    border: none; border-radius: 999px; padding: 0 18px; min-height: 44px; font-size: 12.5px; font-weight: 800; letter-spacing: .1em;
     cursor: pointer; box-shadow: 0 4px 10px rgba(230,168,0,0.35); transition: transform .2s, filter .2s;
   }
   .btn-activar:hover { transform: translateY(-2px); filter: brightness(1.06); }
@@ -228,7 +244,7 @@
   .btn-pie {
     display: inline-flex; align-items: center; gap: 7px; cursor: pointer; white-space: nowrap;
     background: rgba(29,8,56,.6); color: var(--texto); border: 1px solid rgba(192,132,252,.55);
-    padding: 9px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    padding: 9px 14px; min-height: 44px; box-sizing: border-box; border-radius: 999px; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
     transition: background .2s, border-color .2s;
   }
   .btn-pie:hover { background: rgba(192,132,252,.18); border-color: var(--lila); }
@@ -295,7 +311,7 @@
   .oracle-container.revealed .card-wrapper.active-card { transform: scale(1.12); }
   .oracle-text-panel { width: 100%; max-width: 460px; padding: 26px; border-radius: 14px; background-color: rgba(13, 8, 24, 0.95); border: 1px solid rgba(252, 246, 186, 0.35); opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; text-align: center; box-sizing: border-box; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
   .oracle-text-panel.visible { opacity: 1; transform: translateY(0); }
-  .oracle-title { font-size: 19px; color: #fcf6ba; margin-bottom: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; text-wrap: balance; }
+  .oracle-title { font-size: 19px; color: #fcf6ba; margin: 0 0 12px; line-height: 1.3; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; text-wrap: balance; }
   .oracle-cita { font-family: var(--f-lirica); font-style: italic; font-size: 21px; line-height: 1.35; color: #fff3cf; margin: 0 0 16px; text-wrap: balance; }
   .oracle-cita .autor { display: block; margin-top: 6px; font-family: var(--f-display); font-style: normal; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--lila); }
   .oracle-description { font-size: 16px; color: #e6def2; line-height: 1.7; margin-bottom: 22px; text-align: left; }
@@ -305,8 +321,12 @@
   .audio-btn .icon-play { margin-left: 3px; }
   .audio-btn:hover { transform: scale(1.08); }
   .audio-progress-wrap { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-  .audio-progress { -webkit-appearance: none; appearance: none; width: 100%; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.2); outline: none; cursor: pointer; margin: 0; }
-  .audio-progress::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: #ffd94d; box-shadow: 0 1px 4px rgba(0,0,0,0.6); cursor: pointer; }
+  .audio-progress { -webkit-appearance: none; appearance: none; width: 100%; height: 30px; padding: 12px 0; box-sizing: border-box; border-radius: 3px; background-color: transparent; background-image: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)); background-clip: content-box; background-origin: content-box; outline: none; cursor: pointer; margin: 0; }
+  .audio-progress::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #ffd94d; box-shadow: 0 1px 4px rgba(0,0,0,0.6); cursor: pointer; }
+  .audio-progress::-moz-range-thumb { width: 20px; height: 20px; border: 0; border-radius: 50%; background: #ffd94d; box-shadow: 0 1px 4px rgba(0,0,0,0.6); cursor: pointer; }
+  .audio-progress:focus-visible { outline: 2px solid var(--oro); outline-offset: 2px; }
+  .audio-btn.cargando { animation: latido 1s ease-in-out infinite; }
+  @keyframes latido { 50% { transform: scale(.92); opacity: .75; } }
   .audio-time { font-size: 13px; color: #f4eefa; text-align: left; opacity: 0.85; font-variant-numeric: tabular-nums; }
   .aviso-muestra { margin-top: 14px; font-size: 14px; color: var(--lila); }
   /* Botón dorado con marco (imagen). En 'Elegir otra carta' se usa el marco sin texto y el texto va encima. */
@@ -317,11 +337,19 @@
   .oracle-btn.otra { background-image: url('img/boton-vacio-3.webp'); color: #1b1206; }
   .oracle-btn:hover { transform: translateY(-2px); filter: drop-shadow(0 8px 18px rgba(0,0,0,.5)) brightness(1.06); }
   .oracle-btn:active { transform: scale(.97); }
+  .oracle-btn:focus-visible { outline: 3px solid var(--oro); outline-offset: 2px; border-radius: 999px; }
+  .carousel-window:focus-visible { outline: 2px dashed rgba(244,212,124,.8); outline-offset: -6px; border-radius: 18px; }
+  .oracle-layout, .oracle-text-panel { scroll-margin-top: 72px; }
   @media (min-width: 768px) {
     .oracle-layout { flex-direction: row; gap: 15px; }
     .oracle-text-panel { transform: translateX(15px); }
     .oracle-text-panel.visible { transform: translateX(0); }
+    .oracle-container.revealed .carousel-window { flex: 0 0 auto; width: calc(var(--carta-ancho, 260px) * 1.12 + 48px); }
+    .oracle-container.revealed .oracle-text-panel { flex: 1 1 auto; min-width: 0; }
+    /* El botón «Elegir otra carta» siempre a la vista al leer el mensaje */
+    .oracle-container.revealed .oracle-btn { position: sticky; bottom: max(14px, env(safe-area-inset-bottom, 0px)); }
   }
+  .oracle-container.revealed .carousel-window { -webkit-mask-image: none; mask-image: none; }
 
   /* ================= VENTANAS (MODAL) ================= */
   .velo {
@@ -355,6 +383,12 @@
   .mensaje.error { color: #ffb4c4; }
   .mensaje.ok { color: var(--verde); }
 
+  .aviso-version { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 18px); z-index: 1250;
+    border: 2px solid var(--oro); background: #fbf7ff; color: #2c0f4e; font: 700 15px/1.3 var(--f-display); padding: 12px 20px; min-height: 44px;
+    border-radius: 999px; box-shadow: 0 8px 26px rgba(0,0,0,.45); cursor: pointer; max-width: calc(100% - 32px); }
+  .pasos-bienvenida { margin: 4px 0 18px; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5; }
+  .confianza { margin: 10px 0 0; font-size: 13.5px; color: #e9dcff; line-height: 1.5; }
+  .reflexion { font-size: 12.5px !important; color: #b9a8d6 !important; font-style: italic; }
   .aviso-flotante {
     position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
     z-index: 1100; background: var(--oro); color: #2a1405; font-weight: 800; font-size: 15px;
@@ -460,7 +494,7 @@
     .ayuda-velo { padding: 0; }
     .ayuda-panel { max-width: none; height: 100%; border-radius: 0; border: none; }
     .pie-fila img { height: 32px; }
-    .btn-pie { padding: 8px 11px; font-size: 11.5px; }
+    .btn-pie { padding: 8px 11px; font-size: 11.5px; min-height: 44px; }
   }
   @media (max-width: 600px) {
     .flecha { display: none; }
@@ -480,6 +514,7 @@
   </header>
 
   <main class="catalogo">
+    <h1 class="solo-lector">Oráculos del Dharma: oráculos de cartas ilustradas con audio narrado</h1>
     <div class="catalogo-interior">
 
       <section aria-labelledby="t-todos">
@@ -532,13 +567,13 @@
 
   <div class="oracle-container" id="oracleContainer">
     <img src="img/logo-dharma.png" class="logo-footer" alt="">
-    <div class="oracle-instruction" id="mainInstruction">Desliza para obtener una carta</div>
+    <div class="oracle-instruction" id="mainInstruction">Desliza y elige tu carta</div>
     <div class="oracle-layout">
-      <div class="carousel-window" id="carouselWindow">
+      <div class="carousel-window" id="carouselWindow" tabindex="0" role="group" aria-roledescription="baraja" aria-label="Baraja. Usa las flechas izquierda y derecha para elegir carta e Intro para consultarla">
         <div class="carousel-track" id="carouselTrack"></div>
       </div>
-      <div class="oracle-text-panel" id="textPanel" hidden>
-        <div class="oracle-title" id="cardTitle"></div>
+      <div class="oracle-text-panel" id="textPanel" hidden aria-live="polite">
+        <h2 class="oracle-title" id="cardTitle"></h2>
         <div class="oracle-cita" id="cardCita" hidden></div>
         <div class="oracle-description" id="cardDesc"></div>
         <div class="audio-player">
@@ -572,7 +607,7 @@
         <p class="muestra-lema" id="muestraLema"></p>
         <div class="muestra-texto" id="muestraTexto"></div>
         <ul class="muestra-chips">
-          <li>40 cartas ilustradas</li><li>40 audios narrados</li><li>Funciona sin conexión</li><li>Tuyo para siempre</li>
+          <li>40 cartas ilustradas</li><li>40 audios narrados</li><li>Funciona sin conexión</li><li>Acceso permanente</li>
         </ul>
       </section>
       <div class="muestra-cartas" id="muestraCartas"></div>
@@ -580,8 +615,10 @@
         <h2>Llévate el oráculo completo</h2>
         <p>Las 40 cartas con sus audios, en tu móvil o tablet, para consultarlas siempre que lo necesites.</p>
         <a class="muestra-comprar" id="muestraComprar" href="#" target="_blank" rel="noopener">Comprar&nbsp;·&nbsp;<span id="muestraPrecio"></span></a>
+        <p class="confianza">Pago seguro con Payhip · Licencia al instante por correo · Válida en 2 dispositivos</p>
         <button type="button" class="muestra-ya" data-accion="licencia">Ya lo compré: activar licencia</button>
         <p class="muestra-nota">Tras la compra recibirás tu licencia por correo. Pulsa «Activar», escribe tu correo y pega la licencia: el oráculo quedará abierto en «Tu colección».</p>
+        <p class="muestra-nota reflexion">Una herramienta de reflexión e inspiración. No predice el futuro ni sustituye el consejo médico, psicológico, legal o financiero.</p>
       </section>
       <section class="muestra-panel muestra-todas">
         <h3>Y estas son las demás cartas que te esperan</h3>
@@ -595,7 +632,7 @@
 <div class="velo" id="velo" hidden>
   <div class="ventana" role="dialog" aria-modal="true" aria-labelledby="ventana-titulo" id="ventana"></div>
 </div>
-<div class="aviso-flotante" id="avisoFlotante" hidden></div>
+<div class="aviso-flotante" id="avisoFlotante" role="status" aria-live="polite" hidden></div>
 
 <script>
 /* =====================================================================
@@ -661,133 +698,139 @@ const CARTAS_ATMAN = [
   ];
 
 /*@@CARTAS_NUEVAS@@*/
+// Solo títulos e imágenes (para la página de muestra). Los textos completos están en
+// oraculos/rumi/cartas.json, que el servidor solo entrega con licencia.
 const CARTAS_RUMI = [
-  {"title": "LA ALQUIMIA DEL SER", "cita": "Convertiré el barro en joyas", "audio": "01.mp3", "img": "01.webp", "desc": "Rumi nos enseña que la existencia humana es un proceso de transmutación constante. El \"barro\" representa nuestras densidades: el dolor, el miedo, los errores y las partes de nosotros mismos que rechazamos. La enseñanza es que no debemos huir de nuestra sombra ni despreciar nuestros momentos bajos, pues son la materia prima necesaria para la iluminación. Al igual que el alquimista no rechaza el metal base sino que lo trabaja, tú debes abrazar tu humanidad herida. <br><br>Para aplicar esta enseñanza, observa una situación que hoy consideres un fracaso o una mancha en tu historia. En lugar de intentar borrarla, pregúntate qué valor ha aportado a tu madurez. El poder reside en tu capacidad de ver el potencial dorado en medio de la dificultad."},
-  {"title": "EL CAMINO LIMPIO", "cita": "Entré en el camino del amor puro y limpio", "audio": "02.mp3", "img": "02.webp", "desc": "La pureza en el camino de Rumi no se refiere a una perfección moral externa, sino a la transparencia de la intención. Un camino es \"limpio\" cuando el caminante ha soltado las agendas ocultas del ego, como la necesidad de reconocimiento, el control o la manipulación. La enseñanza es que la claridad de tu destino depende de la honestidad de tu corazón. Si actúas desde el amor sin esperar nada a cambio, el universo se vuelve un aliado transparente. <br><br>Para aplicarlo, revisa tus proyectos actuales: ¿los haces por el placer de la acción amorosa o para obtener algo de otros? Limpia tu intención y verás cómo los obstáculos que parecían muros se vuelven cristales que puedes atravesar."},
-  {"title": "LA SEMILLA DIVINA", "cita": "Desde entonces, mi alma está embarazada", "audio": "03.mp3", "img": "03.webp", "desc": "Rumi utiliza a menudo la metáfora del embarazo para describir el estado del alma tras haber tenido un vislumbre de lo sagrado. Esta enseñanza habla de la gestación espiritual: hay momentos en la vida en los que algo nuevo y vasto está creciendo en tu interior, pero aún no es visible para el mundo. Es un tiempo de protección y silencio. No puedes forzar el nacimiento de una nueva conciencia; requiere paciencia y nutrición interna. <br><br>Para aplicarlo, trata tus nuevas ideas, sentimientos o cambios de perspectiva con la delicadeza de una madre. No los expongas a la crítica de los escépticos demasiado pronto. Deja que la semilla se fortalezca en la oscuridad nutritiva de tu propio recogimiento."},
-  {"title": "EL VELO DEL VIENTO", "cita": "Si el viento arrebatara el velo de tu rostro", "audio": "04.mp3", "img": "04.webp", "desc": "La enseñanza de Rumi postula que la Realidad Absoluta y la Belleza están siempre presentes, pero nuestra visión está cubierta por velos de prejuicios, juicios y conceptos mentales. El \"viento\" es la gracia divina o los eventos inesperados que, por un instante, retiran esas distracciones. El poder de esta enseñanza es la revelación: la verdad no es algo que debas fabricar, sino algo que descubres cuando dejas de proyectar tus propias historias sobre el mundo. <br><br>Para aplicar esto, practica hoy la observación pura. Mira a una persona o un objeto sin usar adjetivos mentales. Deja que la cosa sea lo que es, sin tu interpretación. En ese vacío de etiquetas, el velo se cae y la luz de la esencia brilla."},
-  {"title": "LA RENUNCIA SAGRADA", "cita": "Renuncia a tu propio ser", "audio": "05.mp3", "img": "05.webp", "desc": "Esta es la enseñanza central de la \"fana\" o aniquilación del ego. Rumi nos invita a entender que el \"yo\" pequeño que defendemos con tanto ahínco es en realidad una prisión. Al renunciar a la identidad limitada, a los gustos y disgustos personales, y a la necesidad de ser \"alguien\" especial, nos abrimos a ser el Todo. No es una pérdida de valor, sino una expansión infinita. <br><br>Aplicar este poder significa practicar el desapego de tu propia imagen. Hoy, cuando sientas la necesidad de defender tu posición o de ser admirada, elige el silencio y la retirada. Al vaciarte de ti misma, permites que la abundancia del universo te llene por completo."},
-  {"title": "EL REFUGIO INTERIOR", "cita": "El Yurt se niega a estar vacío", "audio": "06.mp3", "img": "06.webp", "desc": "El \"Yurt\" o la tienda es el símbolo de tu propio cuerpo y mente. Rumi asegura que este espacio nunca está realmente vacío, porque la esencia divina, el \"Rey\", siempre mora en él. La enseñanza es que la soledad es una ilusión de los sentidos. Siempre estás acompañada por la Presencia. El poder de esta carta es el consuelo absoluto: no necesitas buscar validación ni compañía externa para sentirte completa. <br><br>Para aplicar esta enseñanza, regresa a tu centro cada vez que sientas ansiedad o abandono. Siente el latido de tu vida como la evidencia de que lo sagrado te habita. Trata tu interior como un palacio donde el Amado siempre te espera para cenar."},
-  {"title": "LA ARMONÍA DEL VACÍO", "cita": "Vacíate para llenarte de melodías", "audio": "07.mp3", "img": "07.webp", "desc": "Rumi compara al ser humano con una flauta de caña. Si la flauta está llena de barro o de aire estancado, el músico no puede producir música a través de ella. La enseñanza es que nuestras preocupaciones, planes y ruidos mentales obstruyen el flujo de la inspiración divina. El poder de la vida solo puede sonar a través de un canal despejado. <br><br>Para aplicar esta enseñanza, practica el silencio consciente. No se trata solo de no hablar, sino de limpiar los canales de tu mente de pensamientos repetitivos. Dedica tiempo hoy a simplemente \"ser\", sin agendas. Cuando te vacías de tus propios planes, la melodía de la existencia empieza a tocar una canción de alegría a través de tus actos."},
-  {"title": "EL OJO DEL CORAZÓN", "cita": "¡Qué felicidad para el ojo! Hoy vi su rostro", "audio": "08.mp3", "img": "08.webp", "desc": "El ojo físico ve formas, pero el ojo del corazón ve la luz que sostiene esas formas. Rumi nos enseña que la verdadera percepción es espiritual. Ver el \"Rostro del Amado\" significa reconocer la divinidad en todo lo que existe: en el amigo, en el enemigo, en la piedra y en la estrella. Esta enseñanza te otorga el poder de la visión sagrada, que transforma un mundo ordinario en un paraíso. <br><br>Para aplicarla, haz el ejercicio de buscar un rasgo de belleza o de bondad en cada persona con la que interactúes hoy, especialmente en aquellas que te resultan difíciles. Al entrenar tu mirada para ver lo divino, cambias tu frecuencia vibratoria y atraes experiencias de la misma altura."},
-  {"title": "LA ENTREGA AL RITMO", "cita": "El tambor ruega por el golpe del tamborilero", "audio": "09.mp3", "img": "09.webp", "desc": "La enseñanza es la de la rendición activa al fluir de la vida. A menudo nos resistimos a los eventos, tratando de imponer nuestro propio compás. Rumi sugiere que somos instrumentos en manos de una inteligencia superior y que nuestra mayor alegría ocurre cuando dejamos de luchar y permitimos que el \"Músico\" marque el ritmo. No es una invitación a la pasividad, sino a la alineación. <br><br>Para aplicar este poder, observa dónde estás forzando las cosas en tu vida actual. Suelta el control por un momento y permite que los eventos sigan su curso natural. Descubrirás que hay una sabiduría en el ritmo de los acontecimientos que es mucho más profunda que la lógica de tu intelecto."},
-  {"title": "LA MULTIPLICIDAD DE LA UNIDAD", "cita": "Soy un alma y cien mil cuerpos", "audio": "10.mp3", "img": "10.webp", "desc": "Rumi rompe la ilusión de la separación individual. La enseñanza es que todos compartimos la misma esencia vital; somos como gotas de agua en un solo océano. Cuando dañas a otro, te dañas a ti misma; cuando amas a otro, te amas a ti misma. El poder de esta carta es la compasión universal. <br><br>Para aplicar esta enseñanza, trata de reconocer hoy tus propios deseos, miedos y esperanzas en las personas que te rodean. Al disolver la barrera del \"yo\" contra el \"otro\", recuperas la fuerza de la totalidad. Actúa desde la premisa de que no hay extraños, sino solo versiones diferentes de tu propia alma buscando el camino de regreso a casa."},
-  {"title": "EL CREADOR INTERNO", "cita": "Comienza como creación, conviértete en creador", "audio": "11.mp3", "img": "11.webp", "desc": "Rumi nos desafía a dejar de ser sujetos pasivos de nuestra historia. La enseñanza es que, aunque somos \"creaciones\" de la vida, también poseemos la chispa de la voluntad creativa. El poder de la carta es la responsabilidad consciente: tienes la capacidad de moldear tu realidad a través de tu enfoque y tus decisiones. <br><br>Para aplicar esta enseñanza, identifica una situación en la que te sientas como una víctima o una pieza de ajedrez movida por otros. Toma una acción, por pequeña que sea, que nazca de tu propia visión y no de la reacción al entorno. Al asumir tu papel de co-creadora con lo divino, recuperas tu autoridad espiritual y tu alegría."},
-  {"title": "EL SECRETO DEL SILENCIO", "cita": "No puedo contar mis secretos", "audio": "12.mp3", "img": "12.webp", "desc": "Hay experiencias del alma que son tan delicadas que, al intentar explicarlas con palabras, pierden su esencia y su poder. Rumi enseña que el silencio es a menudo el guardián de la verdad más profunda. El poder de esta carta es la contención sagrada. No todo debe ser compartido, posteado o discutido. Algunas verdades necesitan fermentar en la oscuridad del corazón para dar fruto. <br><br>Para aplicar esto, guarda para ti una experiencia espiritual o una idea valiosa que hayas tenido recientemente. No busques la validación de los demás. Deja que esa energía se acumule en tu interior y te fortalezca. El silencio nutre la raíz; las palabras a menudo solo dispersan la savia."},
-  {"title": "EL VINO DEL ESPÍRITU", "cita": "Esta noche se derrama el vino", "audio": "13.mp3", "img": "13.webp", "desc": "Rumi utiliza con frecuencia la embriaguez como metáfora del éxtasis espiritual y la abundancia del amor divino. La enseñanza es que la vida no es solo un valle de lágrimas o un lugar de trabajo pesado, sino una fiesta de amor que está ocurriendo ahora mismo. El \"vino\" es la alegría que no depende de motivos externos. El poder de esta carta es la celebración. <br><br>Para aplicar esta enseñanza, permítete un momento de gozo puro e irracional. Baila, canta o simplemente asómbrate de estar vivo. Deja que la seriedad del ego se disuelva en la gratitud por la existencia. Cuando celebras la vida, la vida te devuelve razones cada vez más grandes para celebrar."},
-  {"title": "EL ANHELO AFILADO", "cita": "Cuando el deseo es agudo", "audio": "14.mp3", "img": "14.webp", "desc": "Para Rumi, el deseo ardiente por lo divino es el motor de toda transformación. La enseñanza es que tu anhelo no es una carencia, sino una brújula. El hecho de que busques algo con intensidad es la prueba de que eso que buscas ya te está llamando. El poder de esta carta es el enfoque: utiliza la energía de tus deseos actuales para impulsarte hacia tu verdad más profunda. <br><br>Para aplicar esta enseñanza, toma un anhelo que tengas hoy y trata de ver qué hay detrás de él. Si buscas dinero, quizás anhelas seguridad; si buscas pareja, quizás anhelas unión. Dirige ese \"hambre\" hacia su origen espiritual y verás cómo la ansiedad se transforma en una aspiración noble y clara."},
-  {"title": "LA VIGILANCIA LUNAR", "cita": "Luna llena. Despierto en quietud", "audio": "15.mp3", "img": "15.webp", "desc": "La enseñanza es la importancia de la atención plena en los estados de calma o \"noche\" del alma. Rumi nos recuerda que la luz de la verdad no siempre es el sol deslumbrante de la lógica, sino a veces la luz suave y reflejada de la intuición (la luna). Estar despierta en la quietud significa ser receptivo a los mensajes del inconsciente y de los mundos sutiles. El poder de esta carta es la clarividencia interior. <br><br>Para aplicar esta enseñanza, dedica los momentos finales del día al silencio absoluto. Antes de dormir, observa tus pensamientos sin juzgarlos, como quien mira la luna en un lago. Deja que las respuestas que no llegaron durante el ruido del día emerjan solas en la paz de tu observación."},
-  {"title": "EL SACRIFICIO DE LA UVA", "cita": "Uvas bajo los pies que las trituran", "audio": "16.mp3", "img": "16.webp", "desc": "Esta es una enseñanza sobre la presión y el refinamiento. Rumi explica que la uva debe ser aplastada para que se convierta en vino; sin esa crisis, solo se secaría. De la misma manera, los desafíos y las presiones de la vida no tienen el fin de destruirte, sino de extraer tu esencia más noble y dulce. El poder de esta carta es la resiliencia mística. <br><br>Para aplicar esta enseñanza, observa una situación actual que sientas opresiva o dolorosa. Imagina que es el proceso necesario para que lo mejor de ti salga a la luz. No resistas la presión; en lugar de eso, permite que refine tu carácter y profundice tu amor."},
-  {"title": "MÁS ALLÁ DE LOS LÍMITES", "cita": "Ido, lo interno y lo externo", "audio": "17.mp3", "img": "17.webp", "desc": "Rumi nos lleva a un estado de conciencia donde desaparece la dualidad entre el \"yo\" y el \"mundo\". La enseñanza es que las fronteras que percibimos entre nuestro cuerpo y el espacio, o entre nuestro pensamiento y el objeto, son construcciones de la mente. El poder de esta carta es la unidad absoluta. Al reconocer que eres uno con todo lo que te rodea, el miedo desaparece, porque no hay nada fuera de ti que pueda dañarte. <br><br>Para aplicar esto, practica la meditación en la respiración: siente cómo el aire de fuera se vuelve tú al entrar, y cómo tú te vuelves el mundo al exhalar. Vive hoy con la libertad de quien sabe que no tiene límites."},
-  {"title": "EL CAZADOR ALADO", "cita": "Cazado, y sin embargo cazador", "audio": "18.mp3", "img": "18.webp", "desc": "La enseñanza es la paradoja de la búsqueda espiritual. Rumi dice que mientras nosotros creemos que estamos buscando a Dios o a la Verdad con gran esfuerzo, es en realidad la Gracia la que nos está atrayendo hacia ella. El buscador y el buscado son polos de un mismo imán. El poder de esta carta es la entrega a la atracción mutua del alma con su origen. <br><br>Para aplicar esta enseñanza, deja de lado el esfuerzo tenso por \"lograr\" metas espirituales o personales. Relájate en la certidumbre de que tu deseo de mejorar es la prueba de que el universo ya está trabajando en ti. Permítete ser \"cazado\" por el amor, soltando las defensas y la lucha innecesaria."},
-  {"title": "LA ÚNICA REALIDAD", "cita": "Lo real eres tú y mi amor", "audio": "19.mp3", "img": "19.webp", "desc": "En un mundo de formas cambiantes y apariencias efímeras, Rumi señala el Amor como la única sustancia permanente. La enseñanza es el discernimiento: casi todo lo que nos preocupa hoy (el estatus, las posesiones, las opiniones ajenas) es \"espuma sobre el agua\". Lo único que queda al final es la calidad del amor que has cultivado. El poder de esta carta es la simplificación de la vida. <br><br>Para aplicar esta enseñanza, prioriza hoy cualquier acción que nazca del amor genuino por encima de las obligaciones mecánicas o los deseos de ganancia. Al enfocarte solo en lo real, tu vida adquiere una solidez y una paz que nada externo puede perturbar."},
-  {"title": "EL LAÚD DEL ALMA", "cita": "No vengas a nosotros sin traer música", "audio": "20.mp3", "img": "20.webp", "desc": "Rumi nos recuerda que somos responsables de la energía o la \"vibración\" que aportamos a nuestras interacciones. La enseñanza es que tu alma es un instrumento que emite un sonido constante. Si estás lleno de amargura, traes discordia; si estás lleno de alegría, traes armonía. El poder de esta carta es la influencia sutil. <br><br>Para aplicar esta enseñanza, asegúrate de que tu presencia sea un regalo para los demás hoy. No se trata de fingir una sonrisa, sino de conectar con la melodía interna de tu propia paz. Haz que tus palabras y gestos dejen una estela de belleza, convirtiendo tu rutina en una ofrenda musical para el Amado."},
-  {"title": "EL GOZO SIN CAUSA", "cita": "Alegre sin razón, quiero ver más allá", "audio": "21.mp3", "img": "21.webp", "desc": "La mayoría de las personas condicionan su felicidad a que ocurran ciertos hechos externos. Rumi nos enseña que el verdadero gozo es una cualidad intrínseca del alma, una \"alegría sin razón\". El poder de esta enseñanza es la libertad emocional total: si tu gozo no tiene causa externa, nada en el mundo puede arrebatártelo. <br><br>Para aplicar esto, practica hoy la alegría como una disciplina. Sonríe a la vida simplemente por el milagro de respirar. No esperes a recibir buenas noticias para estar radiante; decide ser la buena noticia tú mismo. Al cultivar esta alegría incondicional, te vuelves invulnerable a las fluctuaciones del destino."},
-  {"title": "EL YO VERDADERO", "cita": "Si este yo no soy yo, ¿quién soy yo?", "audio": "22.mp3", "img": "22.webp", "desc": "Esta es la enseñanza del autoconocimiento profundo. Rumi nos invita a cuestionar todas las máscaras que usamos: nuestro nombre, nuestra profesión, nuestra historia familiar y nuestros roles sociales. La enseñanza es que nuestra verdadera esencia está más allá de todas esas etiquetas. El poder de esta carta es la autenticidad radical. <br><br>Para aplicar esta enseñanza, observa hoy cada situación en la que te sientas obligado a actuar de una manera determinada para \"encajar\". Pregúntate: \"¿Quién es el que observa todo esto?\". Al desidentificarte de tus personajes, descubres una paz inamovible que no depende de lo que piensen los demás ni de tus éxitos temporales."},
-  {"title": "EL JADEO DEL ASOMBRO", "cita": "Si el rostro del Amado no te hace jadear", "audio": "23.mp3", "img": "23.webp", "desc": "Rumi advierte contra el peligro de la \"muerte en vida\", que es la pérdida de la capacidad de asombro. La enseñanza es que la divinidad es tan vasta e impactante que, si realmente estuviéramos presentes, viviríamos en un estado de maravilla constante. El poder de esta carta es la renovación de la percepción. <br><br>Para aplicar esta enseñanza, sal hoy de tu rutina mental y busca activamente la belleza en lo cotidiano: el diseño de una hoja, el brillo de un ojo, la complejidad de un sonido. Permite que la inmensidad del milagro de existir te quite el aliento por un segundo. El asombro es la puerta de entrada a la gratitud y a la presencia real."},
-  {"title": "EL DESESPERADO DE AMOR", "cita": "Estoy irremediablemente enamorado de ti", "audio": "24.mp3", "img": "24.webp", "desc": "La enseñanza de Rumi es que el amor por lo absoluto debe ser tan intenso que eclipse cualquier otra preocupación por la seguridad personal o la lógica mundana. Esta \"desesperación\" no es angustia, sino una entrega total donde ya no hay vuelta atrás. El poder de esta carta es el coraje del corazón. <br><br>Para aplicar esta enseñanza, realiza hoy un acto de entrega o generosidad que no sea \"lógico\" para tu ego, pero que dicte tu corazón. No calcules los riesgos; actúa desde la pureza de tu afecto. Al lanzarte al vacío del amor sin red de seguridad, descubres que la propia Gracia divina es la que te sostiene."},
-  {"title": "LA LIBERACIÓN DEL NUDO", "cita": "Libera mi corazón del enredo", "audio": "25.mp3", "img": "25.webp", "desc": "Rumi enseña que nuestras mentes a menudo crean complicaciones y \"nudos\" innecesarios a través de la preocupación, el resentimiento y el análisis excesivo. La enseñanza es que la libertad espiritual reside en la simplicidad. El poder de esta carta es la claridad mental. <br><br>Para aplicar esta enseñanza, identifica un pensamiento recurrente o un conflicto emocional que te tenga \"atado\". Reconoce que el nudo solo existe porque tú sigues tirando de los hilos del pasado. Decide soltarlo conscientemente, eligiendo la paz por encima de tener la razón o de entender el \"por qué\". Al soltar el hilo, el nudo se deshace y tu corazón queda libre para volar."},
-  {"title": "EL ETERNO RETORNO", "cita": "Él ha vuelto, aquel que nunca se fue", "audio": "26.mp3", "img": "26.webp", "desc": "La enseñanza es la omnípre sencia de la divinidad. Rumi nos recuerda que la sensación de estar separados de la fuente de vida es una ilusión de nuestro estado de sueño. La esencia divina es constante y permanente; no viene ni se va, solo nuestra conciencia se nubla y se aclara. El poder de esta carta es la fe inquebrantable. <br><br>Para aplicar esta enseñanza, deja de buscar la \"iluminación\" o el \"éxito\" como algo lejano. Respira profundamente y reconoce que el apoyo que necesitas ya está aquí, sosteniendo cada una de tus células. No hay ningún lugar al que ir para encontrar lo sagrado; solo necesitas despertar a lo que ya es."},
-  {"title": "LA BRISA DEL ALBA", "cita": "La brisa del amanecer es la guardiana", "audio": "27.mp3", "img": "27.webp", "desc": "Rumi le da un valor místico especial al momento del amanecer, cuando el mundo pasa de la oscuridad a la luz. La enseñanza es que cada día ofrece una oportunidad de renovación total y que hay mensajes y bendiciones que solo pueden ser captados en ese silencio liminal. El poder de esta carta es el nuevo comienzo. <br><br>Para aplicar esta enseñanza, despiértate mañana unos minutos antes y sal a recibir el aire fresco del alba. Escucha el silencio antes de que empiece el ruido del tráfico y de las mentes. Pide una dirección para tu día en ese espacio de pureza. Al sintonizarte con el amanecer, permites que tu alma se limpie de los restos de ayer."},
-  {"title": "EL BESO DE LA GRACIA", "cita": "Pedí un beso, me diste seis", "audio": "28.mp3", "img": "28.webp", "desc": "Esta enseñanza habla de la generosidad desmedida del universo. Rumi nos asegura que cuando nos acercamos a lo divino con una petición humilde y sincera, la respuesta siempre supera nuestras expectativas. El problema es que a menudo pedimos con tacañería o con falta de fe. El poder de esta carta es la apertura a la abundancia. <br><br>Para aplicar esta enseñanza, atrévete hoy a pedir lo que realmente anhela tu alma, pero sin poner condiciones sobre cómo debe llegar. Prepárate para recibir mucho más de lo que imaginaste. Mantén una actitud de gratitud anticipada, sabiendo que eres un hijo amado de una existencia infinitamente rica."},
-  {"title": "LA VISIÓN DIRECTA", "cita": "Invocar tu nombre no me ayuda a verte", "audio": "29.mp3", "img": "29.webp", "desc": "Rumi critica la espiritualidad que se queda solo en el plano del intelecto o de las palabras. La enseñanza es que la religión de las formas es estéril si no lleva a una experiencia directa de la presencia divina. El poder de esta carta es la realización a través de la vivencia. <br><br>Para aplicar esta enseñanza, deja de leer y de hablar sobre la verdad por un día y dedícate a vivirla. Busca lo sagrado en el tacto, en el sabor de la comida, en el servicio a los demás y en la respiración consciente. Pasar de la teoría a la práctica significa reconocer que la divinidad no es un concepto que se entiende, sino una realidad que se siente y se encarna."},
-  {"title": "LA CUEVA ESCONDIDA", "cita": "Hay una cueva escondida dentro de ti", "audio": "30.mp3", "img": "30.webp", "desc": "La enseñanza es la de la interioridad absoluta. Rumi nos invita a entrar en el silencio de nuestro propio ser para descubrir tesoros que no pueden ser hallados en el mundo externo. La \"cueva\" es el espacio del corazón donde el ego no puede entrar. El poder de esta carta es el autodescubrimiento místico. <br><br>Para aplicar esta enseñanza, busca hoy un momento de soledad deliberada. Cierra los ojos y retírate hacia adentro, lejos de tus roles y preocupaciones. Observa la paz que reside en tu núcleo, más allá del torbellino de tus pensamientos. Al amigarte con tu profundidad, descubres que eres mucho más vasto y rico de lo que el mundo te ha hecho creer."},
-  {"title": "LA VIDA NUEVA", "cita": "Cuando la vida termina, se nos da otra", "audio": "31.mp3", "img": "31.webp", "desc": "Rumi enseña que el proceso de muerte y renacimiento no solo ocurre al final de la existencia física, sino en cada ciclo de nuestra vida. Cada vez que soltamos una etapa, una relación o una creencia, algo nuevo y más elevado nace. La enseñanza es la de la esperanza invencible y el cambio constante. El poder de esta carta es el renacimiento. <br><br>Para aplicar esta enseñanza, no temas a los finales. Si algo en tu vida se está terminando hoy, bendícelo y déjalo ir con gratitud. Confía en que el vacío creado es el espacio necesario para que la \"vida nueva\" se manifieste. El universo no admite el vacío; siempre lo llena con algo más acorde a tu nivel actual de conciencia."},
-  {"title": "LA MUERTE DEL EGO", "cita": "Dije: muéstrame qué hacer. Él dijo: muere", "audio": "32.mp3", "img": "32.webp", "desc": "Esta es quizás la enseñanza más radical de Rumi: el secreto del éxito espiritual es la rendición total del \"yo\" falso. Para que el ser real brille, el personaje que hemos construido debe dejar de ser el protagonista. \"Morir antes de morir\" significa soltar la importancia personal, el orgullo y el control. El poder de esta carta es la liberación absoluta. <br><br>Para aplicar esta enseñanza, hoy, ante cualquier conflicto, elige no defenderte. Si alguien te critica o las cosas no salen como querías, simplemente acepta el momento sin resistencia. Al dejar \"morir\" la necesidad del ego de tener siempre la razón, descubrirás una paz indestructible que nada en el mundo puede perturbar."},
-  {"title": "EL LADRÓN DE SOMBRAS", "cita": "Viniste de repente y me robaste tres cosas", "audio": "33.mp3", "img": "33.webp", "desc": "A veces, la intervención de lo divino parece una pérdida o un robo. Rumi enseña que el Amado actúa como un \"ladrón\" que nos quita aquello que nos estorba en el camino, aunque nosotros estemos apegados a ello. La enseñanza es que las pérdidas suelen ser liberaciones disfrazadas. El poder de esta carta es el desapego forzoso que conduce a la libertad. <br><br>Para aplicar esta enseñanza, observa una pérdida reciente en tu vida. En lugar de lamentarte, pregúntate qué carga te ha quitado de encima. ¿Qué espacio de tiempo, energía o preocupación se ha liberado? Agradece al \"ladrón\" divino por haberte aligerado el equipaje para que puedas correr más rápido hacia la verdad."},
-  {"title": "LAS ESFERAS DE LUZ", "cita": "Vienes de las esferas celestiales", "audio": "34.mp3", "img": "34.webp", "desc": "Rumi nos recuerda constantemente nuestra noble procedencia. La enseñanza es que somos seres de luz teniendo una experiencia temporal en un mundo de \"barro\", no al revés. Olvidar nuestro origen nos lleva a la mezquindad y al miedo. El poder de esta carta es la dignidad espiritual. <br><br>Para aplicar esta enseñanza, camina hoy por el mundo con la conciencia de tu linaje real. No te permitas caer en comportamientos vulgares, odios o envidias. Actúa, habla y piensa desde la altura de las \"esferas\" de donde vienes. Al honrar tu origen luminoso, elevas automáticamente la vibración de cada lugar que pisas y de cada persona con la que hablas."},
-  {"title": "LA DANZA DE LA VERDAD", "cita": "Danzar no es saltar sobre los pies", "audio": "35.mp3", "img": "35.webp", "desc": "La verdadera danza, para Rumi, es el movimiento del alma cuando se alinea con la verdad. No es un ejercicio físico, sino un estado de integridad donde cada acción externa es un reflejo de la devoción interna. La enseñanza es la coherencia absoluta. El poder de esta carta es la gracia en la acción. <br><br>Para aplicar esta enseñanza, haz que cada tarea de tu día sea un paso de baile sagrado. No importa si estás trabajando, limpiando o conversando; hazlo con presencia, amor y sin división interna. Cuando actúas desde tu centro, tu vida se vuelve fluida y hermosa, y dejas de luchar con la realidad para empezar a danzar con ella."},
-  {"title": "EL DESVÍO DEL DESEO", "cita": "Son tus deseos los que te alejan", "audio": "36.mp3", "img": "36.webp", "desc": "Rumi advierte que los deseos superficiales y las gratificaciones inmediatas funcionan como distracciones que nos alejan de nuestro propósito real. La enseñanza es el discernimiento entre el hambre del ego y el anhelo del alma. El poder de esta carta es el enfoque sagrado. <br><br>Para aplicar esta enseñanza, identifica hoy un deseo compulsivo o una distracción que consuma mucho de tu tiempo o energía. Elige conscientemente no seguir ese impulso por un día. Redirige esa energía hacia tu interior o hacia un acto de servicio puro. Verás que al no alimentar los \"desvíos\", tu conexión con tu esencia se vuelve mucho más clara y potente."},
-  {"title": "EL CAMINO SIN FIN", "cita": "Aunque el camino no tenga fin", "audio": "37.mp3", "img": "37.webp", "desc": "La enseñanza es el amor por el proceso del despertar, sin la ansiedad de llegar a una meta final. Rumi explica que el viaje hacia lo divino es infinito porque la propia divinidad no tiene límites. El poder de esta carta es la paciencia gozosa. <br><br>Para aplicar esta enseñanza, deja de preguntarte hoy cuánto falta para resolver tus problemas o para alcanzar tus sueños. Encuentra la belleza y la lección en el paso que estás dando justo ahora. Cuando aceptas que no hay un \"lugar\" al que llegar porque ya estás en el camino, el tiempo deja de ser una carga y empiezas a disfrutar de la eternidad presente en cada momento del viaje."},
-  {"title": "LA SALVACIÓN POR EL AMOR", "cita": "Estamos enamorados del Amor", "audio": "38.mp3", "img": "38.webp", "desc": "Para Rumi, el amor no es solo un sentimiento humano, sino la fuerza fundamental que sostiene el universo. La enseñanza es que el amor es el único camino real de curación y salvación ante cualquier crisis. El poder de esta carta es la sanación afectiva. <br><br>Para aplicar esta enseñanza, elige hoy resolver cualquier duda o conflicto mediante un acto de amor incondicional. No busques justicia, ni disculpas, ni tener la razón; busca la conexión de corazón a corazón. Al convertirte en un \"amante del Amor\", te vuelves invulnerable a la negatividad del mundo y entras en la corriente de los milagros."},
-  {"title": "LA GUÍA DE LAS DIRECCIONES", "cita": "La luz de Dios viene de seis direcciones", "audio": "39.mp3", "img": "39.webp", "desc": "La enseñanza es la omnipresencia de la guía divina. Rumi nos asegura que la ayuda y las respuestas que buscamos no están limitadas a una sola fuente o forma; pueden venir de cualquier parte: del pasado, de un extraño, de un pájaro o del silencio. El poder de esta carta es la percepción expandida. <br><br>Para aplicar esta enseñanza, mantente hoy en un estado de alerta serena. No busques la solución solo donde crees que debería estar. Presta atención a las señales, a las coincidencias y a las palabras al azar de los demás. Al reconocer que la guía te rodea por todas partes, dejas de sentirte desamparado y empiezas a caminar con la seguridad de quien es constantemente escuchado por el universo."},
-  {"title": "EL ESPEJO DE LA HUMILDAD", "cita": "Me humillo ante quienes se conocen", "audio": "40.mp3", "img": "40.webp", "desc": "Rumi enseña que la verdadera sabiduría comienza con la humildad de reconocer nuestra ignorancia y nuestras limitaciones. Solo el que se sabe vacío puede ser llenado. La enseñanza es que el autoconocimiento real pasa por soltar la arrogancia del ego. El poder de esta carta es la receptividad sagrada. <br><br>Para aplicar esta enseñanza, practica hoy el arte de escuchar más que hablar. No intentes impresionar a nadie con lo que sabes. Ponte en el lugar de un aprendiz perpetuo, reconociendo que cada persona y cada situación tiene algo que enseñarte. Al humillar tu orgullo, te conviertes en un espejo limpio donde la sabiduría de la vida puede reflejarse sin distorsiones."}
+  {"title":"LA ALQUIMIA DEL SER","cita":"Convertiré el barro en joyas","audio":"01.mp3","img":"01.webp"},
+  {"title":"EL CAMINO LIMPIO","img":"02.webp"},
+  {"title":"LA SEMILLA DIVINA","img":"03.webp"},
+  {"title":"EL VELO DEL VIENTO","img":"04.webp"},
+  {"title":"LA RENUNCIA SAGRADA","img":"05.webp"},
+  {"title":"EL REFUGIO INTERIOR","img":"06.webp"},
+  {"title":"LA ARMONÍA DEL VACÍO","img":"07.webp"},
+  {"title":"EL OJO DEL CORAZÓN","img":"08.webp"},
+  {"title":"LA ENTREGA AL RITMO","img":"09.webp"},
+  {"title":"LA MULTIPLICIDAD DE LA UNIDAD","img":"10.webp"},
+  {"title":"EL CREADOR INTERNO","img":"11.webp"},
+  {"title":"EL SECRETO DEL SILENCIO","img":"12.webp"},
+  {"title":"EL VINO DEL ESPÍRITU","img":"13.webp"},
+  {"title":"EL ANHELO AFILADO","img":"14.webp"},
+  {"title":"LA VIGILANCIA LUNAR","img":"15.webp"},
+  {"title":"EL SACRIFICIO DE LA UVA","img":"16.webp"},
+  {"title":"MÁS ALLÁ DE LOS LÍMITES","img":"17.webp"},
+  {"title":"EL CAZADOR ALADO","img":"18.webp"},
+  {"title":"LA ÚNICA REALIDAD","img":"19.webp"},
+  {"title":"EL LAÚD DEL ALMA","img":"20.webp"},
+  {"title":"EL GOZO SIN CAUSA","img":"21.webp"},
+  {"title":"EL YO VERDADERO","img":"22.webp"},
+  {"title":"EL JADEO DEL ASOMBRO","img":"23.webp"},
+  {"title":"EL DESESPERADO DE AMOR","img":"24.webp"},
+  {"title":"LA LIBERACIÓN DEL NUDO","img":"25.webp"},
+  {"title":"EL ETERNO RETORNO","img":"26.webp"},
+  {"title":"LA BRISA DEL ALBA","cita":"La brisa del amanecer es la guardiana","audio":"27.mp3","img":"27.webp"},
+  {"title":"EL BESO DE LA GRACIA","img":"28.webp"},
+  {"title":"LA VISIÓN DIRECTA","img":"29.webp"},
+  {"title":"LA CUEVA ESCONDIDA","img":"30.webp"},
+  {"title":"LA VIDA NUEVA","img":"31.webp"},
+  {"title":"LA MUERTE DEL EGO","img":"32.webp"},
+  {"title":"EL LADRÓN DE SOMBRAS","img":"33.webp"},
+  {"title":"LAS ESFERAS DE LUZ","img":"34.webp"},
+  {"title":"LA DANZA DE LA VERDAD","img":"35.webp"},
+  {"title":"EL DESVÍO DEL DESEO","img":"36.webp"},
+  {"title":"EL CAMINO SIN FIN","img":"37.webp"},
+  {"title":"LA SALVACIÓN POR EL AMOR","img":"38.webp"},
+  {"title":"LA GUÍA DE LAS DIRECCIONES","img":"39.webp"},
+  {"title":"EL ESPEJO DE LA HUMILDAD","img":"40.webp"}
 ];
 
+// Solo títulos e imágenes (para la página de muestra). Los textos completos están en
+// oraculos/guru/cartas.json, que el servidor solo entrega con licencia.
 const CARTAS_GURU = [
-  {"title": "EL ACTOR", "cita": "El Gran Actor actúa a través de ti", "autor": "Abhinavagupta", "audio": "abhinavagupta.mp3", "img": "abhinavagupta.webp", "desc": "Abhinavagupta, gran maestro del shivaísmo de Cachemira, veía el universo como un teatro sagrado donde Shiva es el único actor y cada ser humano, una de sus máscaras. Esta carta te recuerda que la fuerza que respira, piensa y actúa en ti no es solo tuya: es la misma inteligencia que mueve toda la vida.<br><br>Cuando dudes de tu capacidad, recuerda que no actúas solo. Haz lo que tienes delante con entrega total, como quien interpreta su papel con alegría, sin cargar con el peso de controlar el resultado. Deja que sea el Actor quien se exprese a través de tus gestos, tus palabras y tus decisiones."},
-  {"title": "PERCEPCIÓN", "cita": "Un objeto percibido depende de la mente de quien lo observa", "autor": "Adi Shankara", "audio": "adi-shankara.mp3", "img": "adi-shankara.webp", "desc": "Shankara, gran maestro del Advaita Vedanta, enseñó que el mundo que vemos pasa siempre por el filtro de la mente que lo mira. Dos personas ante la misma escena viven mundos distintos, porque cada una proyecta sus recuerdos, miedos y deseos sobre lo percibido. La realidad no es solo lo que ocurre fuera, sino cómo la interpretas desde dentro.<br><br>Ante una situación que te perturbe, detente y pregúntate qué parte de lo que ves viene del hecho y qué parte viene de tu mente. Suaviza el juicio, cambia el ángulo, observa con curiosidad. A menudo basta con cambiar la mirada para que el problema pierda su fuerza y aparezca una salida."},
-  {"title": "ACCIÓN SAGRADA", "cita": "Si caíste al suelo, usa el mismo suelo para levantarte de nuevo", "autor": "Anandamayi Ma", "audio": "anandamayi-ma.mp3", "img": "anandamayi-ma.webp", "desc": "Anandamayi Ma, la Madre llena de dicha, enseñaba que ninguna caída es un final. El suelo que te recibe cuando fracasas, sufres o te equivocas es también tu punto de apoyo. No hace falta buscar otro lugar para empezar de nuevo: la fuerza para levantarte está justo donde has caído.<br><br>Si atraviesas un momento de derrota, no huyas de él ni te castigues. Apoya las manos en lo ocurrido, respira y pregúntate qué puede enseñarte. Cada pequeño gesto de levantarte, hecho con confianza en lo divino, se convierte en una acción sagrada que te devuelve la dignidad y el rumbo."},
-  {"title": "DISTANCIA", "cita": "Para ver, hay que dejar de estar en medio de la imagen", "autor": "Aurobindo", "audio": "aurobindo.mp3", "img": "aurobindo.webp", "desc": "Sri Aurobindo, yogui y filósofo, señalaba que quien está enredado en una situación no puede verla entera. Cuando te identificas con cada emoción y cada pensamiento, te conviertes en parte del cuadro y pierdes la perspectiva. Dar un paso atrás y hacerte testigo es el primer movimiento de la conciencia que quiere comprender.<br><br>Ante un conflicto, una preocupación o una decisión difícil, crea espacio. Sal a caminar, respira hondo, imagina que observas tu vida desde lo alto de una montaña. Desde esa distancia serena descubrirás patrones, opciones y verdades que dentro del ruido era imposible percibir."},
-  {"title": "DETERMINACIÓN", "cita": "Si caes siete veces, levántate ocho", "autor": "Bodhidharma (Daruma)", "audio": "bodhidharma.mp3", "img": "bodhidharma.webp", "desc": "Bodhidharma, el monje que llevó el zen a China, pasó nueve años frente a un muro hasta alcanzar la claridad. En Japón su figura, Daruma, es un muñeco redondo que siempre vuelve a erguirse. Su mensaje es la determinación: el camino no consiste en no caer nunca, sino en no rendirte cuando caes.<br><br>Si el cansancio te invita a abandonar, recuerda cuántas veces ya te has levantado. No necesitas fuerza ni certezas, solo un gesto más: retomar la práctica, el proyecto o la promesa que dejaste a medias. Persevera con calma y sin dramatismo. La constancia silenciosa ablanda hasta el muro más duro."},
-  {"title": "LA LUZ", "cita": "Sé una luz para ti mismo", "autor": "Buda", "audio": "buda.mp3", "img": "buda.webp", "desc": "Cuenta la tradición que, al final de su vida, Buda pidió a su discípulo Ananda que fuera una lámpara para sí mismo. Nadie puede recorrer el camino por ti: ni maestros, ni libros, ni rituales. Esta enseñanza te invita a confiar en tu propia atención, en tu propia experiencia y en la claridad que ya habita en ti.<br><br>Antes de buscar fuera una respuesta, detente en silencio y consulta tu interior. Contrasta lo que escuchas con lo que has comprobado por experiencia propia que trae paz y bondad. Agradece a quienes te guían, pero no les entregues tu criterio. La lámpara que necesitas ya está encendida dentro."},
-  {"title": "LA PRESENCIA", "cita": "Aquel que camina con la cabeza en las nubes tropezará con la piedra más pequeña del camino", "autor": "Caballo Loco", "audio": "caballo-loco.mp3", "img": "caballo-loco.webp", "desc": "Caballo Loco, guerrero y visionario lakota, vivía atento a la tierra, al viento y a cada gesto de su entorno. Su sabiduría recuerda que la presencia es una forma de protección. Quien vive perdido en fantasías o preocupaciones futuras deja de sentir el suelo que pisa, y por eso hasta lo más pequeño puede hacerle caer.<br><br>Vuelve al cuerpo y al paso que estás dando. Siente los pies, escucha los sonidos, observa lo que tienes delante con todos los sentidos. No se trata de dejar de soñar, sino de caminar con los pies en la tierra, atento a cada detalle del camino. Ahí se encuentra la verdadera fortaleza."},
-  {"title": "PUREZA", "cita": "No juzgues la pureza de un manantial por la turbidez del barro de la orilla", "autor": "Chaitanya Mahaprabhu", "audio": "chaitanya-mahaprabhu.mp3", "img": "chaitanya-mahaprabhu.webp", "desc": "Chaitanya, el santo bengalí que difundió el canto del santo nombre, enseñaba que la esencia del alma es pura, aunque su apariencia esté cubierta de errores. El barro de la orilla no mancha el manantial. Igual ocurre contigo: tus fallos, hábitos o vergüenzas pasadas no alteran la fuente luminosa que fluye en tu interior.<br><br>Cuando te juzgues con dureza o juzgues a alguien por sus defectos visibles, recuerda mirar más hondo. Detrás del barro hay agua clara que espera ser reconocida. Trata con ternura tu propia orilla y la de los demás, y deja que el corazón vuelva a cantar."},
-  {"title": "EL CENTRO", "cita": "Cuando comprendemos, estamos en el centro del círculo", "autor": "Chuang Tzu", "audio": "chuang-tzu.mp3", "img": "chuang-tzu.webp", "desc": "Chuang Tzu habló del eje del Tao, ese punto central del círculo desde el cual se puede responder a todo sin quedar atrapado en ninguna posición. Quien se instala en él deja de agitarse con los pros y los contras, los éxitos y los fracasos. Comprender es descansar en el centro mientras la rueda gira alrededor.<br><br>Si sientes que te zarandean las opiniones, las noticias o las exigencias, vuelve a tu eje. Respira. Suelta la necesidad de tener razón y deja que cada cosa ocupe su lugar. Desde la calma central podrás responder a lo que llegue con la flexibilidad del agua, sin perder tu equilibrio."},
-  {"title": "OPORTUNIDAD", "cita": "Hay dos días al año que no podemos hacer nada: ayer y mañana", "autor": "Gandhi", "audio": "gandhi.mp3", "img": "gandhi.webp", "desc": "Gandhi, que entregó su vida a la verdad y a la no violencia, sabía que el único terreno donde se puede actuar es el presente. El pasado ya no se puede cambiar y el futuro todavía no existe. Cada instante trae su oportunidad, y gastar energía en lamentos o ansiedades es dejar pasar el único tiempo que realmente posees.<br><br>Suelta la culpa por lo que ocurrió y la inquietud por lo que vendrá. Pregúntate qué pequeña acción, honesta y amable, puedes realizar ahora mismo, y hazla con atención. Así se construyen los grandes cambios: un presente tras otro, sin esperar el momento perfecto que nunca llega."},
-  {"title": "EGO", "cita": "El egoísmo es un mal profundo, pero en su interior radica también la medicina para superarlo", "autor": "Gurú Nanak", "audio": "guru-nanak.mp3", "img": "guru-nanak.webp", "desc": "Gurú Nanak, fundador del sijismo, enseñó que el ego es una enfermedad del alma, pero no un enemigo sin remedio. Al mirarlo de frente, descubrimos que el mismo dolor que causa el apego al yo nos empuja a buscar libertad. Tomar conciencia del problema es ya el comienzo de la cura.<br><br>Observa sin culpa cuando aparece tu orgullo, tu necesidad de destacar o tu miedo a perder. Cada vez que lo reconozcas, el ego pierde fuerza. Responde con servicio, gratitud y el recuerdo del Nombre. Allí donde antes te encerrabas, se abre un espacio de humildad y de amor."},
-  {"title": "CORRESPONDENCIA", "cita": "Como es arriba es abajo", "autor": "Hermes Trismegisto", "audio": "hermes-trismegisto.mp3", "img": "hermes-trismegisto.webp", "desc": "Este principio, atribuido a Hermes Trismegisto, afirma que los planos de la realidad se reflejan unos en otros. Lo que ocurre en el cielo se refleja en la tierra, y lo que vive en tu interior se manifiesta en tu vida exterior. Transformar el mundo interior es la forma más profunda de transformar el exterior.<br><br>Mira tu vida como un espejo: las relaciones, el orden de tu casa o tus hábitos hablan de lo que sucede dentro de ti. Si quieres armonía fuera, cultívala primero en tu interior, con pensamientos serenos y gestos coherentes. Los pequeños cambios internos reordenan, con el tiempo, todo lo que te rodea."},
-  {"title": "CREER", "cita": "Si no esperas lo inesperado, no lo hallarás", "autor": "Heráclito", "audio": "heraclito.mp3", "img": "heraclito.webp", "desc": "Heráclito de Éfeso, el filósofo del cambio, afirmaba que todo fluye y que la verdad se esconde de quien se conforma con lo previsible. Esperar lo inesperado es una forma de fe: confiar en que la vida guarda sorpresas, revelaciones y posibilidades que no caben en tus planes ni en tus costumbres.<br><br>Abre la mente a que algo distinto de lo que imaginas pueda llegar. Suelta la certeza de cómo deberían ser las cosas y mantén la mirada despierta. Muchas veces la respuesta que buscas aparece por una puerta que ni siquiera sabías que existía, para quien se atreve a creer."},
-  {"title": "QUIETUD", "cita": "La bandera se mueve. No, el viento se mueve. No, la mente se mueve", "autor": "Hui Neng", "audio": "hui-neng.mp3", "img": "hui-neng.webp", "desc": "Hui Neng, sexto patriarca del zen, escuchó a dos monjes discutir si se movía la bandera o el viento, y les respondió que lo que se mueve es la mente. La inquietud no está en las cosas, sino en cómo las vives. Cuando la mente se aquieta, el mundo sigue cambiando, pero deja de perturbarte.<br><br>Cuando algo exterior te agite, mira dónde nace realmente el movimiento. Observa tus pensamientos como quien ve ondear una bandera, sin seguirlos ni pelearte con ellos. En esa pausa consciente aparece una quietud que no depende de que las circunstancias cambien."},
-  {"title": "LA ELECCIÓN", "cita": "Porque donde esté vuestro tesoro, allí estará también vuestro corazón", "autor": "Jesús de Nazaret", "audio": "jesus.mp3", "img": "jesus.webp", "desc": "Jesús de Nazaret señala una verdad sencilla: aquello a lo que das más valor se convierte en el centro de tu corazón. Tu atención, tu tiempo y tu energía van detrás de lo que consideras un tesoro. Por eso, elegir lo que amas es la decisión más importante: moldea quién te estás convirtiendo.<br><br>Revisa en silencio a qué estás entregando tus días. ¿Alimenta tu alma o solo tu ansiedad? Elige conscientemente un tesoro que no se oxide: la bondad, la verdad, el amor. Cada vez que priorices lo esencial, tu corazón encontrará su hogar firme."},
-  {"title": "SILENCIO", "cita": "El que sabe no habla; el que habla no sabe", "autor": "Lao Tse", "audio": "lao-tse.mp3", "img": "lao-tse.webp", "desc": "Lao Tse, autor del Tao Te Ching, advierte que la verdad más honda no cabe en las palabras. Quien ha probado el Tao no necesita demostrarlo ni convencer a nadie. El silencio no es vacío, sino plenitud: en él se escucha lo que el ruido de las opiniones oculta.<br><br>Practica hablar menos y escuchar más. Antes de opinar, pregúntate si lo que vas a decir añade luz o solo ruido. Concede a tu mente ratos de silencio, sin pantallas ni música. En esa quietud fértil las respuestas maduran solas, y lo que digas después tendrá peso y sentido."},
-  {"title": "COMIENZO", "cita": "La paz comienza con una sonrisa", "autor": "Madre Teresa de Calcuta", "audio": "madre-teresa.mp3", "img": "madre-teresa.webp", "desc": "Madre Teresa de Calcuta, que dedicó su vida a los más pobres, creía que los grandes cambios nacen de gestos mínimos. Una sonrisa sincera es un acto de amor al alcance de todos: suaviza al otro, rompe el aislamiento y empieza a construir paz allí donde estés. La paz del mundo se teje con pequeñas bondades.<br><br>Regala una sonrisa a quien menos lo espera: a un desconocido, a alguien con quien tienes tensión, a ti frente al espejo. No aguardes a sentir que es el momento adecuado. Empezar por lo pequeño y cercano es la forma más real de transformar lo grande."},
-  {"title": "RECUERDA", "cita": "Camina descalzo sobre la tierra para que recuerdes quién eres y de dónde vienes", "autor": "María Sabina", "audio": "maria-sabina.mp3", "img": "maria-sabina.webp", "desc": "María Sabina, sabia mazateca de México, vivía en comunión con la tierra, las montañas y los ciclos de la naturaleza. Su mensaje invita a volver al contacto directo con el suelo para recordar que formas parte de algo más antiguo y más grande que tus preocupaciones. La tierra sostiene y guarda memoria de tu origen.<br><br>Busca un lugar de hierba, arena o tierra y quítate el calzado. Siente cada paso, la temperatura, la textura, el peso de tu cuerpo. Respira con el suelo bajo ti. Esa sencilla comunión te devuelve a tu raíz y te recuerda que perteneces a esta tierra viva."},
-  {"title": "INMUTABLE", "cita": "El hombre exterior es la puerta que gira; el hombre interior es la bisagra inmóvil", "autor": "Meister Eckhart", "audio": "meister-eckhart.mp3", "img": "meister-eckhart-2.webp", "desc": "Meister Eckhart, místico dominico del siglo XIV, usa la imagen de una puerta: la hoja se mueve con cada empujón, pero la bisagra permanece quieta. Del mismo modo, la vida exterior está llena de actividad y cambios, mientras que en lo más profundo de ti existe un centro inmóvil, un fondo del alma donde habita lo divino.<br><br>Entre tareas, prisas y obligaciones, regresa de vez en cuando a ese eje silencioso. Basta un instante de atención a la respiración para recordar que no eres solo lo que se agita. Actúa con plenitud en el mundo, pero no pierdas el contacto con la bisagra que te sostiene."},
-  {"title": "HUMILDAD", "cita": "Toma el lugar más bajo y alcanzarás el más alto", "autor": "Milarepa", "audio": "milarepa.mp3", "img": "milarepa.webp", "desc": "Milarepa, el yogui tibetano que pasó de la culpa y el orgullo a la iluminación, enseñaba que la humildad es la puerta de la realización. El agua se acumula en el valle y no en la cima. Quien se sitúa sin pretensiones abajo se vuelve receptivo a la enseñanza y a la gracia. El ego busca ascender; el espíritu, hacerse vasija.<br><br>En una conversación o en un grupo, ofrece escuchar antes de destacar. Sirve sin esperar reconocimiento y aprende de quienes parecen saber menos. Cada vez que te abajas con sinceridad, te liberas de un peso y tu corazón se hace espacioso, capaz de recibir lo más alto."},
-  {"title": "LIBERTAD", "cita": "Todas las acciones han evolucionado del sabor del vuelo", "autor": "Mirabai", "audio": "mirabai.mp3", "img": "mirabai.webp", "desc": "Mirabai, la princesa poeta devota de Krishna, abandonó palacio y convenciones para cantar libremente a su amado. Su frase sugiere que detrás de todo acto humano late el anhelo de volar, de ser libre y expandirse. Cuando reconoces ese impulso original, tus acciones dejan de ser obligación y se vuelven danza.<br><br>Pregúntate qué haces por miedo o por costumbre, y qué haces por amor y alegría. Reduce lo primero y concede más espacio a lo segundo. Atrévete a seguir el sabor del vuelo que sientes en tu pecho, aunque otros no lo comprendan. La libertad comienza al ser fiel a tu propio canto."},
-  {"title": "ACEPTACIÓN", "cita": "El mayor enemigo de la creatividad es el miedo al fracaso", "autor": "Miyamoto Musashi", "audio": "miyamoto-musashi.mp3", "img": "miyamoto-musashi.webp", "desc": "Miyamoto Musashi, maestro samurái invicto y artista, entendía que el combate más duro se libra contra uno mismo. El miedo a fracasar paraliza el gesto y apaga la inspiración. Aceptar que equivocarse forma parte del arte libera la mano y el espíritu, y permite que lo creativo fluya con naturalidad.<br><br>Acepta de antemano que tu obra, tu proyecto o tu siguiente paso puede salir imperfecto. Empieza igualmente, con presencia y disciplina. Cada intento es una lección y cada error afina tu técnica. Quien deja de temer al fracaso descubre que su mayor libertad está en atreverse a crear."},
-  {"title": "VACIARSE", "cita": "Para quien todo es vacuidad, todo es posible. Para quien nada es vacuidad, nada es posible", "autor": "Nagarjuna", "audio": "nagarjuna.mp3", "img": "nagarjuna.webp", "desc": "Nagarjuna, fundador del camino medio budista, enseñó que nada existe por sí solo ni de forma fija. Esa vacuidad no es un vacío triste, sino apertura: precisamente porque nada es rígido, todo puede cambiar, crecer y transformarse. Si todo fuera sólido y permanente, la vida quedaría inmovilizada.<br><br>Cuando creas que una situación, un hábito o una identidad es inamovible, recuerda que está hecho de condiciones que pueden cambiar. Afloja el apego a cómo tienen que ser las cosas. Al vaciarte de certezas rígidas, se abre un espacio donde nacen posibilidades que ni imaginabas."},
-  {"title": "CLARIDAD", "cita": "Donde fluye el agua, no hay lodo", "autor": "Nityananda", "audio": "nityananda.mp3", "img": "nityananda.webp", "desc": "Bhagavan Nityananda, avadhuta de pocas palabras, enseñaba con imágenes sencillas. El agua en movimiento se mantiene limpia; la estancada se enturbia. Lo mismo ocurre con la mente y el corazón: cuando la energía fluye, sin aferrarse ni acumular resentimientos, la claridad surge de forma natural.<br><br>Identifica dónde se ha estancado algo en ti: un rencor, una duda, una rutina sin vida. Deja que se mueva: perdona, habla, cambia, camina, canta. No hace falta luchar contra el lodo. Basta con devolver el cauce al agua para que ella misma lo despeje."},
-  {"title": "ARMONÍA", "cita": "La armonía es la unidad de lo múltiple", "autor": "Pitágoras", "audio": "pitagoras.mp3", "img": "pitagoras.webp", "desc": "Pitágoras descubrió que las notas musicales responden a proporciones numéricas, y concluyó que el cosmos entero es una gran armonía. Los sonidos distintos no se anulan, sino que forman un acorde. La armonía no pide uniformidad, sino que cada voz ocupe su lugar dentro de un todo mayor.<br><br>Si tu vida se siente fragmentada entre tareas, deseos y relaciones distintas, busca el hilo que las une: un valor, un propósito, una intención. Escucha cómo cada parte puede sonar con las demás. Al ordenar tu interior como un instrumento afinado, lo diverso se convierte en música."},
-  {"title": "PERSPECTIVA", "cita": "No son los ojos los que ven, sino lo que nosotros vemos por medio de los ojos", "autor": "Platón", "audio": "platon.mp3", "img": "platon.webp", "desc": "Platón sostenía que los ojos son solo ventanas: quien realmente ve es el alma. Lo que percibimos depende de lo que somos, de lo que hemos comprendido y de lo que estamos dispuestos a reconocer. Su alegoría de la caverna muestra cuánto confundimos las sombras con la realidad.<br><br>Cuando algo te parezca evidente, cuestiona desde qué lugar lo estás mirando. Cultiva la curiosidad, escucha otros puntos de vista y amplía tu comprensión con el estudio y la contemplación. Cuanto más se purifica y se ensancha el alma, más profunda y verdadera es la realidad que alcanzas a ver."},
-  {"title": "OBRA INTERIOR", "cita": "No dejes de esculpir tu propia escultura", "autor": "Plotino", "audio": "plotino.mp3", "img": "plotino.webp", "desc": "Plotino, filósofo neoplatónico, comparaba el trabajo espiritual con el del escultor que quita lo que sobra hasta que aparece la belleza oculta en la piedra. Tú eres a la vez la piedra y el escultor. Cada pensamiento noble, cada hábito que depuras y cada virtud que practicas afina la imagen de tu verdadero ser.<br><br>Dedica un tiempo regular a tu obra interior. Identifica qué sobra —una queja, una actitud, un temor— y retíralo con paciencia, como quien cincela. No te impacientes: la escultura se perfecciona con constancia. Cada gesto de cuidado hace brillar un poco más la belleza que ya habita en ti."},
-  {"title": "EL VIAJERO", "cita": "Arroja el mapa al viento para que el viento escriba nuevos rumbos", "autor": "Rumi", "audio": "rumi.mp3", "img": "rumi.webp", "desc": "Rumi, el poeta sufí, invita al viajero a soltar el mapa que con tanto cuidado ha dibujado. Los planes dan seguridad, pero también encierran en lo ya conocido. Cuando te entregas al viento del espíritu, se abren rutas que tu mente nunca habría trazado y la vida tiene el sabor de la aventura sagrada.<br><br>Detecta dónde te aferras a un esquema rígido sobre cómo deberían ir las cosas. Suelta un poco el control, da un paso hacia lo desconocido y confía en la guía que llega en forma de corazonadas, coincidencias y encuentros. A veces perderse es la única manera de encontrar el camino verdadero."},
-  {"title": "APERTURA", "cita": "Cuando la flor florece, las abejas vienen sin invitación", "autor": "Ramakrishna", "audio": "ramakrishna.mp3", "img": "ramakrishna.webp", "desc": "Sri Ramakrishna, el místico de Dakshineswar, usaba esta imagen para hablar de la vida espiritual. La flor no persigue a las abejas: simplemente se abre y se llena de fragancia y néctar. Así, cuando el corazón florece en amor y sinceridad, la gracia, los maestros y las bendiciones acuden por sí solos.<br><br>En lugar de correr tras lo que deseas, ocúpate de abrirte. Cultiva la pureza de intención, la devoción y la alegría. Deja de forzar y empieza a florecer. Lo que necesitas llegará atraído por tu apertura, sin que tengas que mendigarlo ni convencer a nadie."},
-  {"title": "SER", "cita": "Todo lo que tenemos que hacer es dejar de identificar el Ser con el cuerpo, con formas y límites, y así conoceremos el Ser que siempre somos", "autor": "Ramana Maharshi", "audio": "ramana-maharshi.mp3", "img": "ramana-maharshi.webp", "desc": "Ramana Maharshi, el sabio de Arunachala, enseñó que el Ser no es algo que haya que alcanzar: ya eres eso. Lo único que lo oculta es la costumbre de identificarte con el cuerpo, la mente y la historia personal. El camino consiste en desaprender, no en conquistar. Al soltar las identificaciones, lo que queda es presencia plena.<br><br>Cuando surja el pensamiento «yo soy esto o aquello», pregunta con serenidad: ¿quién es el que piensa? Vuelve a la sensación simple de existir, anterior a cualquier etiqueta. En ese reposo silencioso reconocerás tu naturaleza ilimitada, que nunca estuvo lejos."},
-  {"title": "PERSEVERANCIA", "cita": "Empieza haciendo lo necesario, luego lo posible y acabarás haciendo lo imposible", "autor": "San Francisco de Asís", "audio": "san-francisco-de-asis.mp3", "img": "san-francisco-de-asis.webp", "desc": "San Francisco de Asís, el hermano de los pobres y de los animales, entendía que las grandes obras comienzan con pasos humildes. No hace falta tener la visión completa ni fuerzas extraordinarias: basta con cumplir lo que el momento requiere. La perseverancia convierte, poco a poco, lo pequeño en inmenso.<br><br>Frente a una meta que parece inalcanzable, no mires la cima completa. Pregúntate cuál es el siguiente paso necesario y dalo. Repite con paciencia y alegría. Sin darte cuenta, tu constancia irá ampliando los límites de lo que creías posible, hasta alcanzar lo que antes parecía un sueño."},
-  {"title": "LO DESCONOCIDO", "cita": "Para venir adonde no sabes, has de ir por donde no sabes", "autor": "San Juan de la Cruz", "audio": "san-juan-de-la-cruz.mp3", "img": "san-juan-de-la-cruz.webp", "desc": "San Juan de la Cruz, poeta y místico carmelita, habló de la noche oscura como camino hacia la unión con Dios. Lo desconocido no es un obstáculo, sino la puerta. Lo nuevo no se alcanza por rutas ya trazadas. La fe consiste en avanzar sin garantías, con una luz interior que arde en medio de la oscuridad.<br><br>Si atraviesas una etapa de incertidumbre, no exijas saber el final. Camina con confianza por la niebla, apoyándote en la intuición y en el amor que te mueve. Soltar el control y tolerar el no saber es el precio de descubrir lugares del alma que jamás visitarías por caminos conocidos."},
-  {"title": "LA VERDAD", "cita": "La verdad padece, pero no perece", "autor": "Santa Teresa", "audio": "santa-teresa.mp3", "img": "santa-teresa.webp", "desc": "Santa Teresa de Ávila, mística y reformadora, conoció la incomprensión y la persecución por su fidelidad a lo que sentía verdadero. Su frase expresa una confianza profunda: la verdad puede ser silenciada, discutida o maltratada, pero nunca destruida. Tarde o temprano vuelve a emerger con más fuerza.<br><br>Si algo te empuja a ocultar lo que es cierto en ti o a callar por miedo al rechazo, recuerda que la verdad tiene su propio tiempo. Sé coherente con tu conciencia, habla con humildad y firmeza, y no te desanimes ante la oposición. Lo auténtico resiste y acaba floreciendo."},
-  {"title": "PAZ", "cita": "Si quieres paz, no mires los defectos de los demás; mira los tuyos", "autor": "Sarada Devi", "audio": "sarada-devi.mp3", "img": "sarada-devi.webp", "desc": "Sarada Devi, la Santa Madre y compañera de Ramakrishna, acogía a todos con una paciencia infinita. Su enseñanza es muy práctica: la paz se pierde cuando la atención se dirige a criticar lo ajeno. Señalar defectos agita la mente; observar los propios con ternura la serena y la lleva a transformarse.<br><br>Cuando notes el impulso de juzgar a alguien, redirige la mirada hacia adentro y pregúntate qué hay en ti que ese juicio está reflejando. Corrige lo que puedas con amabilidad, sin castigarte. Al dejar de vigilar a los demás, tu corazón se libera y la calma regresa."},
-  {"title": "ESENCIA", "cita": "Dondequiera que se coloque el diamante, es seguro que brillará", "autor": "Siddharameshwar Maharaj", "audio": "siddarameshwar-maharaj.mp3", "img": "siddarameshwar-maharaj.webp", "desc": "Siddharameshwar Maharaj, maestro del linaje Inchegiri, usaba la imagen del diamante para hablar del Ser: su brillo no depende del lugar donde se encuentre. Tu esencia no se altera por las circunstancias, ya sean éxito o pobreza, salud o enfermedad. Lo que verdaderamente eres brilla igual en cualquier escenario.<br><br>En los momentos en que sientas que tu valor depende de lo que haces o tienes, recuerda tu naturaleza diamantina. No necesitas cambiar de lugar ni de situación para ser quien eres. Reconoce ese brillo sereno que persiste bajo el cansancio y las dudas, y déjalo manifestarse allí donde estés."},
-  {"title": "ESPERANZA", "cita": "Si lloras por haber perdido el sol, las lágrimas no te dejarán ver las estrellas", "autor": "Tagore", "audio": "tagore.mp3", "img": "tagore.webp", "desc": "Rabindranath Tagore, poeta y premio Nobel de Literatura, escribió estas palabras para recordar que el duelo prolongado puede nublar la visión de lo que aún queda. Llorar lo perdido es humano y necesario, pero quedarse solo en la pérdida impide percibir la belleza que la noche también ofrece. La esperanza es mirar hacia lo que sigue brillando.<br><br>Date permiso para sentir tu tristeza y luego levanta la vista. Busca en medio de la oscuridad esas pequeñas luces: una persona que te quiere, un recuerdo valioso, una posibilidad nueva. No niegues lo que perdiste, pero permite que las estrellas te enseñen que la vida sigue abriendo caminos."},
-  {"title": "DECISIÓN", "cita": "Eleva tus capacidades al nivel de tus objetivos", "autor": "Vivekananda", "audio": "vivekananda.mp3", "img": "vivekananda.webp", "desc": "Swami Vivekananda, el joven monje que llevó el Vedanta a Occidente, insistía en la fuerza de la voluntad. En lugar de rebajar tus sueños a lo que crees poder, su consejo es crecer hasta alcanzarlos. Cada decisión firme, sostenida por el estudio, la disciplina y la fe en ti, amplía tus capacidades.<br><br>Define con claridad qué quieres lograr y comprométete. Después, identifica qué habilidades, hábitos o conocimientos necesitas desarrollar y empieza a cultivarlos con entusiasmo. No te midas por lo que has sido, sino por lo que eliges llegar a ser. Una decisión valiente pone en marcha la transformación."},
-  {"title": "CONFIANZA", "cita": "La Naturaleza no crea nada en vano ni imperfecto", "autor": "Zera Yacob", "audio": "zera-yacob.mp3", "img": "zera-yacob.webp", "desc": "Zera Yacob, filósofo etíope del siglo XVII, llegó a la fe mediante la razón y la contemplación en una cueva. Observando el mundo, concluyó que existe un orden sabio en todo lo creado: nada sobra y nada falta. Cada ser, incluido tú, tiene su propósito y su belleza dentro del conjunto.<br><br>Cuando dudes de tu valor o rechaces algún aspecto de ti, recuerda que formas parte de una obra perfecta en su conjunto. Confía en la inteligencia de la vida que te trajo hasta aquí. Acepta con gratitud tu forma particular de ser y deja de compararte con los demás."},
-  {"title": "ACCIONES", "cita": "Una acción vale más que mil oraciones", "autor": "Zoroastro", "audio": "zoroastro.mp3", "img": "zoroastro.webp", "desc": "Zoroastro, profeta de la antigua Persia, resumió su enseñanza en tres principios: buenos pensamientos, buenas palabras y buenas acciones. Su frase no desprecia la oración, sino que la completa: la devoción se prueba en los hechos. Cada gesto concreto de bondad, honestidad y servicio es una plegaria hecha realidad.<br><br>Lleva a la práctica lo que valoras. Si deseas más amabilidad, sé amable. Si anhelas justicia, actúa con justicia en tu entorno. No esperes sentirte perfecto o preparado. Un acto sencillo y sincero hace más bien en el mundo que muchas intenciones sin ejecutar."},
-  {"title": "LA SEMILLA", "cita": "El árbol está oculto dentro de la semilla", "autor": "Kabir", "audio": "kabir.mp3", "img": "kabir.webp", "desc": "Kabir, poeta y místico de Benarés que unió en su canto lo hindú y lo islámico, ofrece esta imagen: dentro de una diminuta semilla ya vive un árbol entero. Del mismo modo, en ti habitan en germen la sabiduría, el amor y la libertad que buscas. Lo divino no está lejos: te espera en tu interior.<br><br>Trata tus potencialidades como una semilla. Dales tierra, agua y paciencia. No te impacientes por ver resultados inmediatos ni desprecies tus pequeños comienzos. Cuida tu interior con prácticas sencillas y constantes, y confía en que lo que duerme en ti sabe perfectamente cómo crecer."}
+  {"title":"EL ACTOR","img":"abhinavagupta.webp"},
+  {"title":"PERCEPCIÓN","img":"adi-shankara.webp"},
+  {"title":"ACCIÓN SAGRADA","img":"anandamayi-ma.webp"},
+  {"title":"DISTANCIA","img":"aurobindo.webp"},
+  {"title":"DETERMINACIÓN","img":"bodhidharma.webp"},
+  {"title":"LA LUZ","cita":"Sé una luz para ti mismo","autor":"Buda","audio":"buda.mp3","img":"buda.webp"},
+  {"title":"LA PRESENCIA","img":"caballo-loco.webp"},
+  {"title":"PUREZA","img":"chaitanya-mahaprabhu.webp"},
+  {"title":"EL CENTRO","img":"chuang-tzu.webp"},
+  {"title":"OPORTUNIDAD","img":"gandhi.webp"},
+  {"title":"EGO","img":"guru-nanak.webp"},
+  {"title":"CORRESPONDENCIA","img":"hermes-trismegisto.webp"},
+  {"title":"CREER","img":"heraclito.webp"},
+  {"title":"QUIETUD","img":"hui-neng.webp"},
+  {"title":"LA ELECCIÓN","img":"jesus.webp"},
+  {"title":"SILENCIO","img":"lao-tse.webp"},
+  {"title":"COMIENZO","img":"madre-teresa.webp"},
+  {"title":"RECUERDA","img":"maria-sabina.webp"},
+  {"title":"INMUTABLE","img":"meister-eckhart-2.webp"},
+  {"title":"HUMILDAD","img":"milarepa.webp"},
+  {"title":"LIBERTAD","img":"mirabai.webp"},
+  {"title":"ACEPTACIÓN","img":"miyamoto-musashi.webp"},
+  {"title":"VACIARSE","img":"nagarjuna.webp"},
+  {"title":"CLARIDAD","img":"nityananda.webp"},
+  {"title":"ARMONÍA","img":"pitagoras.webp"},
+  {"title":"PERSPECTIVA","img":"platon.webp"},
+  {"title":"OBRA INTERIOR","img":"plotino.webp"},
+  {"title":"EL VIAJERO","img":"rumi.webp"},
+  {"title":"APERTURA","img":"ramakrishna.webp"},
+  {"title":"SER","cita":"Todo lo que tenemos que hacer es dejar de identificar el Ser con el cuerpo, con formas y límites, y así conoceremos el Ser que siempre somos","autor":"Ramana Maharshi","audio":"ramana-maharshi.mp3","img":"ramana-maharshi.webp"},
+  {"title":"PERSEVERANCIA","img":"san-francisco-de-asis.webp"},
+  {"title":"LO DESCONOCIDO","img":"san-juan-de-la-cruz.webp"},
+  {"title":"LA VERDAD","img":"santa-teresa.webp"},
+  {"title":"PAZ","img":"sarada-devi.webp"},
+  {"title":"ESENCIA","img":"siddarameshwar-maharaj.webp"},
+  {"title":"ESPERANZA","img":"tagore.webp"},
+  {"title":"DECISIÓN","img":"vivekananda.webp"},
+  {"title":"CONFIANZA","img":"zera-yacob.webp"},
+  {"title":"ACCIONES","img":"zoroastro.webp"},
+  {"title":"LA SEMILLA","img":"kabir.webp"}
 ];
 
+// Solo títulos e imágenes (para la página de muestra). Los textos completos están en
+// oraculos/dioses-india/cartas.json, que el servidor solo entrega con licencia.
 const CARTAS_INDIA = [
-  {"title": "AGNI", "sub": "El fuego que transforma", "audio": "agni.mp3", "img": "agni.webp", "desc": "Un fuego pequeño puede iluminar una casa entera. Agni, el fuego sagrado que lleva las ofrendas a los dioses, transforma lo que toca, purifica e ilumina. Es también el fuego interior: la voluntad, el entusiasmo y la pasión, que se alimentan de aquello a lo que damos atención.<br><br>Descubre qué enciende tu entusiasmo y dale combustible. Y deja que lo que ya no sirve se queme para dar paso a algo más luminoso."},
-  {"title": "ANNAPURNA", "sub": "Gratitud y alimento del alma", "audio": "annapurna.mp3", "img": "annapurna.webp", "desc": "Dar de comer es una de las formas más antiguas del amor. Annapurna, la diosa que nutre, sostiene el mundo con generosidad y recuerda que cada alimento es un regalo y que compartirlo une a las personas. Ella nutre el cuerpo, y también el alma.<br><br>Come con atención y agradecimiento, y comparte algo con alguien, aunque sea un café. Alimentar a otro es honrar la vida."},
-  {"title": "ARDHANARISHVARA", "sub": "El equilibrio de los opuestos", "audio": "ardhanarishwara.mp3", "img": "ardhanarishwara.webp", "desc": "Mitad Shiva, mitad Parvati: un solo cuerpo que une lo masculino y lo femenino. Ardhanarishvara enseña que dentro de cada persona conviven la fuerza y la ternura, la acción y la escucha, y que la plenitud llega al integrarlas en lugar de enfrentarlas.<br><br>Observa qué cualidad has dejado de lado: ¿necesitas actuar más o escuchar más? Busca el equilibrio y deja que ambas trabajen juntas."},
-  {"title": "ASHWINI KUMARAS", "sub": "Los sanadores celestiales", "audio": "ashwini-kumaras.mp3", "img": "ashwini-kumaras.webp", "desc": "Con la luz del amanecer a su favor, los Ashwini Kumaras son los gemelos divinos de la medicina, la salud y la vitalidad. Representan el rejuvenecimiento, el alivio del dolor y la capacidad milagrosa de restaurar la fuerza donde antes había cansancio o enfermedad. No se limitan a curar el cuerpo, sino que despiertan el soplo de vida y abren caminos donde parecía no haber salida.<br><br>Dedica hoy un momento a escuchar las necesidades de tu cuerpo y de tu mente con gentileza. Permítete soltar el desgaste, revitalizar tu energía y elegir conscientemente renovarte desde adentro hacia afuera."},
-  {"title": "BAGALAMUKHI", "sub": "Detener lo que daña", "audio": "bagalamukhi.mp3", "img": "bagalamukhi.webp", "desc": "A veces el mayor poder consiste en detenerse. Bagalamukhi silencia las palabras dañinas, los pensamientos obsesivos y las fuerzas que perjudican, y enseña a no alimentar lo que nos hace daño. Su energía es la de quien sabe parar, callar y recuperar su centro.<br><br>Evita entrar en una discusión inútil o en un pensamiento que da vueltas. Haz una pausa, guarda silencio y vuelve a ti."},
-  {"title": "BHAIRAVA", "sub": "Mirar el miedo de frente", "audio": "bhairava.mp3", "img": "bhairava.webp", "desc": "Lo que se mira de frente pierde su poder. Bhairava, forma intensa de Shiva que guarda los umbrales, tiene un nombre que alude al temor, pero su enseñanza es liberadora: quien se atreve a observar aquello que teme descubre que no era tan grande como parecía.<br><br>Nombra con claridad ese miedo y da un pequeño paso hacia él. Lo que se enfrenta con conciencia se vuelve más pequeño."},
-  {"title": "BRAHMA", "sub": "El poder de crear", "audio": "brahma.mp3", "img": "brahma.webp", "desc": "Antes de toda forma hubo una intención. Brahma, el creador, nos recuerda que todo lo que existe empezó como una idea y un primer movimiento, casi siempre imperfecto. Crear no pide estar listo: pide atreverse a comenzar y permitir que la obra se vaya revelando.<br><br>Si llevas tiempo guardando una idea, dale forma aunque sea en borrador. Lo que se hace puede mejorarse; lo que solo se imagina, no."},
-  {"title": "CHITRAGUPTA", "sub": "El escriba del karma", "audio": "chitragupta.mp3", "img": "chitragupta.webp", "desc": "Con pluma y libro en mano, Chitragupta es el escribano divino que, según la tradición, anota cada acto, palabra e intención de todos los seres y presenta sus cuentas ante Yama. No es un juez que castiga, sino un testigo imparcial que recuerda que nada de lo que hacemos se pierde: cada acción deja huella y da fruto a su tiempo.<br><br>Haz hoy un breve repaso de tus actos con honestidad y sin dureza. Reconoce lo que quieres corregir y elige conscientemente qué quieres escribir en tu libro a partir de ahora."},
-  {"title": "DATTATREYA", "sub": "Aprender de todo y de todos", "audio": "dattatreya.mp3", "img": "dattatreya.webp", "desc": "¿Y si cada cosa que te rodea fuera un maestro? Dattatreya aprendió de veinticuatro: la tierra, el agua, el cielo, un niño, una abeja… Nos recuerda que la sabiduría está en todas partes para quien mira con humildad y atención, sin necesidad de buscar muy lejos.<br><br>Pregúntate qué te enseña esta persona, este problema, este paisaje. La vida es una escuela siempre abierta."},
-  {"title": "DHANVANTARI", "sub": "La salud como equilibrio", "audio": "dhanvantari.mp3", "img": "dhanvantari.webp", "desc": "La salud no es solo ausencia de enfermedad: es equilibrio. Dhanvantari, el médico de los dioses, trajo la ciencia del bienestar y el néctar de la inmortalidad. Su mensaje es que cuerpo, mente y forma de vida se cuidan juntos, y que ese cuidado se cultiva día a día.<br><br>Haz algo concreto por tu bienestar: descansar, caminar, comer con atención. Escuchar al cuerpo es la medicina más sencilla y más olvidada."},
-  {"title": "DURGA", "sub": "La fuerza que protege", "audio": "durga.mp3", "img": "durga.webp", "desc": "Hay momentos en que la suavidad no basta y hace falta un rugido. Durga cabalga sobre un tigre y vence al demonio de la arrogancia con la serenidad de quien sabe lo que protege. Representa la fuerza interior que despierta cuando algo importante está en juego.<br><br>Si necesitas poner un límite o tomar una decisión difícil, hazlo con firmeza y sin culpa. Tienes más fuerza de la que imaginas."},
-  {"title": "GANGA", "sub": "Lo que purifica y fluye", "audio": "ganga.mp3", "img": "ganga.webp", "desc": "Lo que se estanca se enturbia; lo que fluye se renueva. Ganga, el río sagrado, desciende del cielo para limpiar y nutrir la tierra. Representa la purificación que llega cuando dejamos de retener y permitimos que la vida circule a través de nosotros.<br><br>Suelta lo que llevas guardado: un resentimiento, una preocupación, un desorden. Imagina que el agua se lo lleva y siente cómo vuelve la claridad."},
-  {"title": "GAYATRI", "sub": "El despertar de la mente", "audio": "gayatri.mp3", "img": "gayatri.webp", "desc": "Una luz que no deslumbra, sino que aclara. Gayatri es la diosa del célebre mantra védico que pide que la luz divina ilumine nuestro entendimiento. Representa la inteligencia despierta, la mente que distingue lo verdadero y guía las decisiones con sabiduría.<br><br>Antes de decidir algo importante, haz una pausa y pide claridad. Una mente serena ve con más nitidez que una apresurada."},
-  {"title": "HANUMAN", "sub": "Fe, fuerza y servicio", "audio": "hanuman.mp3", "img": "hanuman.webp", "desc": "Su fuerza es inmensa, pero su mayor tesoro es la fe. Hanuman cruza océanos y mueve montañas porque pone todo su poder al servicio de Rama. Enseña que la valentía nace de tener algo más grande que uno mismo a lo que servir, y que la humildad no resta poder.<br><br>Pon tus capacidades al servicio de algo que valga la pena. Con fe y sin vanidad, lo imposible se acerca."},
-  {"title": "INDRA", "sub": "Vencer el orgullo", "audio": "indra.mp3", "img": "indra.webp", "desc": "Hasta el rey de los dioses tuvo que aprender humildad. Indra, con su rayo y su elefante blanco, posee un gran poder, pero los relatos lo muestran tropezando con su propia soberbia. Enseña que el éxito sin humildad es frágil, y que el verdadero dominio es sobre uno mismo.<br><br>Ante un logro o una discusión, suelta la necesidad de tener razón. La humildad no te resta poder: te hace sabio."},
-  {"title": "JAGANNATH", "sub": "Una mirada sin distinciones", "audio": "jagannath.mp3", "img": "jagannath.webp", "desc": "Sus ojos grandes y redondos miran a todos por igual. Jagannath, «señor del universo», se venera en Puri y recibe a cualquiera sin distinción. Su imagen sencilla invita a mirar a cada persona con apertura y sin prejuicios, porque lo divino no hace diferencias.<br><br>Trata con la misma amabilidad a quien se cruce en tu camino, sea quien sea. Una mirada que acoge a todos ensancha tu propio corazón."},
-  {"title": "KALI", "sub": "La libertad de soltar", "audio": "kali.mp3", "img": "kali.webp", "desc": "Su rostro asusta; su mensaje libera. Kali corta con su espada el ego, el miedo y las máscaras que ya no sirven, y baila sobre lo que termina. Quien se atreve a mirarla de frente descubre, detrás de su fiereza, una ternura inmensa de madre.<br><br>Pregúntate qué cargas por costumbre y no por verdad. Soltarlo con honestidad puede ser el comienzo de tu libertad."},
-  {"title": "KRISHNA", "sub": "La alegría de un corazón abierto", "audio": "krishna.mp3", "img": "krishna.webp", "desc": "Su flauta no suena para impresionar, sino para llamar al alma de vuelta a casa. Krishna muestra que se puede vivir con alegría, juego y plenitud sin perder el centro, y en el Bhagavad Gita enseña a actuar con todo el corazón sin quedar atrapado en el resultado.<br><br>Haz lo que te toque con entrega y suelta el fruto. Deja siempre un hueco para la risa, la música o la belleza."},
-  {"title": "KUBERA", "sub": "Riqueza que se comparte", "audio": "kubera.mp3", "img": "kubera.webp", "desc": "El dinero no es bueno ni malo: depende del corazón que lo maneja. Kubera, guardián de los tesoros, enseña que la riqueza cobra sentido cuando se administra con sabiduría y se comparte con generosidad, y que acumular sin propósito no enriquece a nadie.<br><br>Revisa cómo usas tus recursos: tiempo, energía, dinero. Elige un gesto generoso, grande o pequeño: la prosperidad crece cuando circula."},
-  {"title": "LAKSHMI", "sub": "La abundancia que fluye", "audio": "lakshmi.mp3", "img": "lakshmi.webp", "desc": "La verdadera riqueza se parece a un río: se queda cuando circula. Lakshmi aparece sobre un loto, con monedas que caen de su mano, para recordarnos que la abundancia nace de la gratitud, la armonía y el buen uso de lo que ya tenemos.<br><br>Nombra tres cosas valiosas que hay en tu vida y comparte algo con alguien. Lo que se da con alegría deja sitio a lo que viene."},
-  {"title": "LALITA", "sub": "La belleza interior", "audio": "lalita.mp3", "img": "lalita.webp", "desc": "La belleza más duradera no se muestra: se habita. Lalita Tripura Sundari representa la hermosura suprema que nace de la plenitud interior y no de la apariencia. Es la alegría serena de quien se reconoce completo y disfruta del juego de la vida sin tener que demostrar nada.<br><br>Mírate con ternura y reconoce lo bello que hay en ti y a tu alrededor. La belleza brilla cuando estás en paz contigo."},
-  {"title": "NARASIMHA", "sub": "Protección en la hora más oscura", "audio": "narasimha.mp3", "img": "narasimha.webp", "desc": "Cuando todo parece perdido, la ayuda llega de donde menos se espera. Narasimha, mitad hombre y mitad león, apareció en el instante exacto para proteger a su devoto Prahlada. Su historia recuerda que quien confía de verdad no queda desamparado.<br><br>En los momentos oscuros, pide ayuda y apóyate en lo que crees. Incluso la noche más larga termina por amanecer."},
-  {"title": "NATARAJA", "sub": "La danza del cambio", "audio": "nataraja.mp3", "img": "nataraja.webp", "desc": "El universo no se detiene: baila. Nataraja, Shiva como señor de la danza, mueve con sus pies el ciclo eterno de creación y disolución, rodeado por un círculo de fuego. Su enseñanza es que el cambio no es una amenaza, sino el ritmo natural de la vida.<br><br>Cuando todo se mueva, intenta fluir en lugar de resistir. Respira y baila con la incertidumbre: cada paso forma parte de una danza más grande."},
-  {"title": "PARVATI", "sub": "El amor que sostiene", "audio": "parvati.mp3", "img": "parvati.webp", "desc": "El amor más fuerte no es el que arde de golpe, sino el que persevera. Parvati ganó con paciencia y devoción el corazón del eterno asceta Shiva, y sostiene a los suyos con una ternura firme. Ella enseña que amar es presencia, entrega y constancia.<br><br>Cuida a quien quieres con un gesto pequeño, y no olvides cuidarte tú también. El amor se renueva en lo cotidiano."},
-  {"title": "RADHA", "sub": "Entregar el corazón", "audio": "radha.mp3", "img": "radha.webp", "desc": "Hay un amor que no mide, no exige y no guarda nada. Radha es la devoción en estado puro: un corazón completamente despierto que convierte cada instante en encuentro con lo divino. Su anhelo no es sufrimiento, sino la intensidad de quien ama sin reservas.<br><br>Pon tu atención entera en aquello que amas, sin distraerte ni esperar recompensa. Lo que se ama así se vuelve sagrado."},
-  {"title": "SARASWATI", "sub": "Sabiduría y creatividad", "audio": "saraswati.mp3", "img": "saraswati.webp", "desc": "Hay conocimientos que se guardan y otros que se cantan. Saraswati, con su vina y sus libros, une la sabiduría y el arte en una misma corriente. Su sabiduría no se acumula: se expresa, se escribe, se comparte, y fluye mejor cuando la mente está serena y curiosa.<br><br>Aprende algo nuevo o crea sin juzgarte. No busques el resultado perfecto, solo el gusto de dejar pasar la inspiración."},
-  {"title": "SHANI", "sub": "La paciencia que madura", "audio": "shani.mp3", "img": "shani.webp", "desc": "Lo que se construye despacio dura más. Shani, el señor de Saturno, es el gran maestro de la disciplina y del tiempo. Sus pruebas no son castigos, sino una invitación a madurar, asumir responsabilidades y levantar con paciencia lo que perdura.<br><br>Acepta un reto que exija esfuerzo y tiempo, y no busques atajos. Cada paso honesto suma, y la constancia siempre termina dando fruto."},
-  {"title": "SHIVA", "sub": "El silencio que transforma", "audio": "shiva.mp3", "img": "shiva.webp", "desc": "En el centro de todo cambio hay un punto inmóvil. Shiva vive ahí: en el silencio donde lo viejo se disuelve y lo nuevo aún no tiene nombre. No teme a los finales, porque sabe que cada cosa que termina deja espacio para que algo verdadero nazca.<br><br>Si una etapa se acaba, no la llenes de ruido. Quédate un momento en la quietud y deja que ella te diga qué viene después."},
-  {"title": "SURYA", "sub": "La luz que renueva cada día", "audio": "surya.mp3", "img": "surya.webp", "desc": "Cada amanecer es una segunda oportunidad que llega sin pedir nada. Surya recorre el cielo en su carro de siete caballos, dando luz, calor y vida sin esperar recompensa. Nos enseña la constancia de quien cumple su función con generosidad.<br><br>Empieza el día con unos instantes de luz y gratitud. Deja que la claridad disipe lo que pesaba y vuelve a comenzar con ánimo limpio."},
-  {"title": "VARUNA", "sub": "La verdad que ordena la vida", "audio": "varuna.mp3", "img": "varuna.webp", "desc": "Hay una verdad que, dicha con calma, ordena todo lo demás. Varuna, señor de las aguas y guardián del orden cósmico, lo ve todo y representa la honestidad profunda: esa que da firmeza a la confianza y mantiene la vida en armonía, igual que el océano sostiene el mundo.<br><br>Sé honesto contigo y con los demás en algo pequeño que sueles esquivar. Decirlo sin dureza despeja el camino."},
-  {"title": "VAYU", "sub": "El aliento y la libertad", "audio": "vayu.mp3", "img": "vayu.webp", "desc": "Antes de cualquier pensamiento hay una respiración. Vayu es el viento y el aliento vital, presente en cada inhalación y cada exhalación. Nos recuerda que la vida se sostiene en algo tan sencillo, y que la libertad empieza cuando no nos aferramos a lo que ya pasó.<br><br>Haz tres respiraciones lentas y profundas, y con cada exhalación suelta una tensión. Respirar con conciencia es volver a casa."},
-  {"title": "VENKATESHWARA", "sub": "Confiar y entregarse", "audio": "venkateshwara.mp3", "img": "venkateshwara.webp", "desc": "Millones de personas llegan hasta él con una petición en las manos y gratitud en el corazón. Venkateshwara, forma de Vishnu venerada en Tirupati, enseña la confianza: entregar lo que no depende de ti y cumplir con sinceridad lo que prometes.<br><br>Haz lo que esté en tu mano y suelta lo demás con confianza. Confiar no es quedarse quieto, sino actuar sin cargar con un control que no te pertenece."},
-  {"title": "VISHVAKARMA", "sub": "El arte de construir", "audio": "vishvakarma.mp3", "img": "vishvakarma.webp", "desc": "Cada obra bien hecha es una forma de oración. Vishvakarma, el divino arquitecto, da forma a los mundos y a los palacios de los dioses, y honra el trabajo cuidadoso, la técnica y la creatividad. Nos recuerda que construir con atención es también construir sentido.<br><br>Pon cariño y esmero en la tarea que tengas entre manos, por pequeña que sea. Hacerla bien es construir tu vida."},
-  {"title": "YAMA", "sub": "Aceptar lo impermanente", "audio": "yama.mp3", "img": "yama.webp", "desc": "Saber que todo termina es lo que da valor a cada instante. Yama, señor de la muerte y de la justicia, no trae un mensaje sombrío, sino una invitación a vivir con presencia, a no aplazar lo importante y a valorar el tiempo que se nos ha dado.<br><br>Pregúntate qué estás dejando para después y de verdad importa. Dale un momento ahora mismo: la vida es ahora."},
-  {"title": "DAKSHINAMURTHY", "sub": "El maestro del silencio", "audio": "dakshinamurti.mp3", "img": "dakshinamurti.webp", "desc": "Un maestro joven, unos discípulos ancianos y ninguna palabra. Dakshinamurthy es Shiva enseñando bajo un árbol, y según la tradición el silencio bastó para disolver todas las dudas de sus discípulos. Las respuestas más profundas no siempre llegan con explicaciones, sino con quietud.<br><br>Deja de perseguir respuestas a fuerza de pensar. Siéntate en calma unos minutos y permite que la claridad aparezca sola."},
-  {"title": "GANESHA", "sub": "Quien abre los caminos", "audio": "ganesha.mp3", "img": "ganesha.webp", "desc": "Cada obstáculo trae un mensaje escondido. Ganesha, con sus grandes orejas, invita a escuchar lo que la dificultad quiere enseñarte, y con su trompa flexible, a rodearla, levantarla o atravesarla según haga falta. No quita las piedras del camino: te enseña a leerlas.<br><br>Cuando algo te detenga, prueba a preguntarte qué te está pidiendo. A veces la puerta se abre con un solo paso pequeño, dado con atención."},
-  {"title": "KARTIKEYA", "sub": "Valor y disciplina", "audio": "kartikeya.mp3", "img": "kartikeya.webp", "desc": "La valentía sin disciplina se dispersa; la disciplina sin valentía no avanza. Kartikeya, joven general de los dioses, reúne ambas con una mirada clara y una lanza que simboliza la mente afilada, capaz de atravesar la duda. Su camino es preparación, rigor y determinación.<br><br>Elige una meta concreta y dale constancia. La disciplina no es una cárcel: es el camino más corto hacia lo que quieres lograr."},
-  {"title": "RAMA", "sub": "Vivir con rectitud", "audio": "rama.mp3", "img": "rama.webp", "desc": "Cumplir la palabra cuesta, sobre todo cuando nadie mira. Rama encarna el dharma: respeta a los demás, mantiene su integridad en la dificultad y no se aparta de sus principios. Su fortaleza no consiste en imponerse, sino en ser fiel a lo que es justo.<br><br>Ante una decisión, elige la acción que sea coherente con tus valores, aunque no sea la más cómoda. La paz nace de haber obrado con honestidad."},
-  {"title": "SITA", "sub": "La fortaleza serena", "audio": "sita.mp3", "img": "sita.webp", "desc": "No toda fortaleza hace ruido. Sita conserva su dignidad y la pureza de su corazón en medio de la adversidad, y su paciencia no es debilidad, sino una profunda confianza en la verdad. Ella recuerda que la serenidad también es una forma de poder.<br><br>Si te enfrentas a algo injusto o difícil, respira y mantén tu centro. Tu verdad no necesita alzar la voz para sostenerse."},
-  {"title": "VISHNU", "sub": "Quien sostiene el equilibrio", "audio": "vishnu.mp3", "img": "vishnu.webp", "desc": "Hay una fuerza discreta que mantiene el mundo en pie: la de quien cuida cada día. Vishnu acude cuando el equilibrio se rompe y lo devuelve a su cauce. Su enseñanza es que sostener también es sagrado, y que lo importante se conserva con constancia más que con gestos grandiosos.<br><br>Piensa en lo que más valoras y en el pequeño cuidado que necesita. Repetido con cariño, ese gesto lo mantiene vivo."}
+  {"title":"AGNI","img":"agni.webp"},
+  {"title":"ANNAPURNA","img":"annapurna.webp"},
+  {"title":"ARDHANARISHVARA","img":"ardhanarishwara.webp"},
+  {"title":"ASHWINI KUMARAS","img":"ashwini-kumaras.webp"},
+  {"title":"BAGALAMUKHI","img":"bagalamukhi.webp"},
+  {"title":"BHAIRAVA","img":"bhairava.webp"},
+  {"title":"BRAHMA","img":"brahma.webp"},
+  {"title":"CHITRAGUPTA","img":"chitragupta.webp"},
+  {"title":"DATTATREYA","img":"dattatreya.webp"},
+  {"title":"DHANVANTARI","img":"dhanvantari.webp"},
+  {"title":"DURGA","img":"durga.webp"},
+  {"title":"GANGA","img":"ganga.webp"},
+  {"title":"GAYATRI","img":"gayatri.webp"},
+  {"title":"HANUMAN","img":"hanuman.webp"},
+  {"title":"INDRA","img":"indra.webp"},
+  {"title":"JAGANNATH","img":"jagannath.webp"},
+  {"title":"KALI","img":"kali.webp"},
+  {"title":"KRISHNA","img":"krishna.webp"},
+  {"title":"KUBERA","img":"kubera.webp"},
+  {"title":"LAKSHMI","sub":"La abundancia que fluye","audio":"lakshmi.mp3","img":"lakshmi.webp"},
+  {"title":"LALITA","img":"lalita.webp"},
+  {"title":"NARASIMHA","img":"narasimha.webp"},
+  {"title":"NATARAJA","img":"nataraja.webp"},
+  {"title":"PARVATI","img":"parvati.webp"},
+  {"title":"RADHA","img":"radha.webp"},
+  {"title":"SARASWATI","img":"saraswati.webp"},
+  {"title":"SHANI","img":"shani.webp"},
+  {"title":"SHIVA","img":"shiva.webp"},
+  {"title":"SURYA","img":"surya.webp"},
+  {"title":"VARUNA","img":"varuna.webp"},
+  {"title":"VAYU","img":"vayu.webp"},
+  {"title":"VENKATESHWARA","img":"venkateshwara.webp"},
+  {"title":"VISHVAKARMA","img":"vishvakarma.webp"},
+  {"title":"YAMA","img":"yama.webp"},
+  {"title":"DAKSHINAMURTHY","img":"dakshinamurti.webp"},
+  {"title":"GANESHA","sub":"Quien abre los caminos","audio":"ganesha.mp3","img":"ganesha.webp"},
+  {"title":"KARTIKEYA","img":"kartikeya.webp"},
+  {"title":"RAMA","img":"rama.webp"},
+  {"title":"SITA","img":"sita.webp"},
+  {"title":"VISHNU","img":"vishnu.webp"}
 ];
 /*@@FIN_CARTAS_NUEVAS@@*/
 
@@ -891,7 +934,12 @@ const Store = (function () {
     try { document.cookie = k + '=' + encodeURIComponent(v) + '; max-age=' + UN_ANO + '; path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : ''); }
     catch (e) {}
   };
-  function set(k, v) { lsSet(k, v); ckSet(k, v); return idbSet(k, v); }
+  // En cookie solo va el identificador del dispositivo (pequeño y sin datos personales). La colección y
+  // el correo se guardan en localStorage + IndexedDB; si el móvil lo borra todo, el servidor los devuelve.
+  function set(k, v) { lsSet(k, v); if (k === 'od_dispositivo') ckSet(k, v); return idbSet(k, v); }
+  function limpiarCookiesViejas() {
+    for (const k of ['od_coleccion', 'od_email']) { try { document.cookie = k + '=; max-age=0; path=/'; } catch (e) {} }
+  }
   // Devuelve lo que haya en los tres sitios (para poder juntarlo)
   async function todos(k) { return [lsGet(k), ckGet(k), await idbGet(k)].filter(Boolean); }
   async function get(k) {
@@ -899,7 +947,7 @@ const Store = (function () {
     if (v) set(k, v);
     return v;
   }
-  return { get, set, todos };
+  return { get, set, todos, limpiarCookiesViejas };
 })();
 
 function pedirPersistencia() {
@@ -970,6 +1018,8 @@ const ICONO_OK = '<svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19
 const LOTO = '<svg viewBox="0 0 48 48"><path d="M24 8c4 5 6 10 6 15s-2 9-6 13c-4-4-6-8-6-13s2-10 6-15z"/><path d="M24 36c-6-1-12-5-15-12 6-1 11 1 15 5"/><path d="M24 36c6-1 12-5 15-12-6-1-11 1-15 5"/><path d="M10 40h28"/></svg>';
 
 const imagenDe = o => o.base ? o.base + o.portada : o.muestra;
+// Enlace de compra con etiqueta de origen (para saber desde dónde se vende más, sin cookies)
+const enlaceCompra = (o, desde) => o.payhip ? o.payhip + '?utm_source=app&utm_medium=' + desde + '&utm_campaign=' + o.id : '#';
 const abierto = o => !!o.abiertoParaTodos || loTiene(o.id);
 
 function sello(o, enColeccion) {
@@ -992,9 +1042,9 @@ function tarjetaHTML(o, enColeccion) {
 function huecoHTML(o) {
   return `<div class="hueco" data-id="${o.id}">
       <div class="hueco-media">
-        <a class="sello sello-conseguir" href="${o.payhip || '#'}" target="_blank" rel="noopener">Comprar</a>
-        <div class="hueco-texto">Tras la compra recibirás tu licencia. Pincha en el botón</div>
-        <button class="btn-activar" data-accion="licencia">ACTIVAR</button>
+        <a class="sello sello-conseguir" href="${enlaceCompra(o, 'coleccion')}" target="_blank" rel="noopener" aria-label="Comprar ${o.nombre}, ${o.precio || PRECIO_ORACULO}">Comprar</a>
+        <div class="hueco-texto">¿Ya lo compraste?</div>
+        <button class="btn-activar" data-accion="licencia" aria-label="Activar la licencia de ${o.nombre}">ACTIVAR</button>
       </div>
       <div class="tarjeta-nombre hueco-nombre-linea">${ICONO_CANDADO.replace('<svg', '<svg class="hueco-candado"')}<span>${o.nombre}</span></div>
       <div class="hueco-precio">${o.precio || PRECIO_ORACULO}</div>
@@ -1064,8 +1114,10 @@ document.addEventListener('click', e => {
   if (e.target.closest('[data-accion="cerrar"]')) cerrarVentana();
 });
 
-function pulsarOraculo(id) {
+let abriendo = false;
+async function pulsarOraculo(id) {
   const o = oraculo(id);
+  if (abriendo) return;
   if (o.estado === 'proximamente') {
     abrirVentana(`<h3 id="ventana-titulo">${o.nombre}</h3>
       <p>Este oráculo está en preparación. Muy pronto podrás consultarlo aquí.</p>
@@ -1073,6 +1125,10 @@ function pulsarOraculo(id) {
     return;
   }
   if (!abierto(o)) { abrirMuestra(o); return; }
+  if (!o.gratis) {
+    abriendo = true;
+    try { if (!await cargarCartasCompletas(o)) return; } finally { abriendo = false; }
+  }
   abrirLectura(o);
 }
 
@@ -1080,8 +1136,31 @@ function pulsarOraculo(id) {
    VENTANAS
    ===================================================================== */
 const velo = document.getElementById('velo');
-function abrirVentana(html) { document.getElementById('ventana').innerHTML = html; velo.hidden = false; }
-function cerrarVentana() { velo.hidden = true; }
+const ENFOCABLES = 'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
+function atraparFoco(contenedor, e) {
+  if (e.key !== 'Tab') return;
+  const f = [...contenedor.querySelectorAll(ENFOCABLES)].filter(x => x.offsetParent !== null);
+  if (!f.length) return;
+  const primero = f[0], ultimo = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === primero) { e.preventDefault(); ultimo.focus(); }
+  else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primero.focus(); }
+  else if (!contenedor.contains(document.activeElement)) { e.preventDefault(); primero.focus(); }
+}
+let focoAntesVentana = null;
+function abrirVentana(html) {
+  const v = document.getElementById('ventana');
+  if (velo.hidden) focoAntesVentana = document.activeElement;
+  v.innerHTML = html; velo.hidden = false;
+  v.setAttribute('tabindex', '-1');
+  setTimeout(() => { if (!v.contains(document.activeElement)) { const f = v.querySelector(ENFOCABLES); (f || v).focus(); } }, 60);
+}
+function cerrarVentana() {
+  if (velo.hidden) return;
+  velo.hidden = true;
+  if (focoAntesVentana && document.contains(focoAntesVentana)) { try { focoAntesVentana.focus(); } catch (e) {} }
+  focoAntesVentana = null;
+}
+velo.addEventListener('keydown', e => atraparFoco(document.getElementById('ventana'), e));
 velo.addEventListener('click', e => { if (e.target === velo) cerrarVentana(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarVentana(); });
 
@@ -1093,7 +1172,7 @@ function avisar(texto) {
 
 function abrirVentanaLicencia(textoArriba) {
   abrirVentana(`<h3 id="ventana-titulo">Activar licencia</h3>
-    <p>${textoArriba || 'Escribe el correo con el que compraste y pega la licencia que te llegó por email.'}</p>
+    <p id="ventana-intro"></p>
     <form id="form-licencia" style="display:flex;flex-direction:column;gap:12px">
       <div class="campo">
         <label for="campo-email">Tu correo</label>
@@ -1109,6 +1188,7 @@ function abrirVentanaLicencia(textoArriba) {
         <button type="button" class="btn-secundario" data-accion="cerrar">Cancelar</button>
       </div>
     </form>`);
+  document.getElementById('ventana-intro').textContent = textoArriba || 'Escribe el correo con el que compraste y pega la licencia que te llegó por email.';
   const campo = document.getElementById('campo-licencia');
   const correo = document.getElementById('campo-email');
   Store.get(K_EMAIL).then(v => { if (v && !correo.value) correo.value = v; setTimeout(() => (correo.value ? campo : correo).focus(), 50); });
@@ -1120,6 +1200,12 @@ function abrirVentanaLicencia(textoArriba) {
     btn.disabled = true; btn.textContent = 'Comprobando…'; msj.className = 'mensaje'; msj.textContent = '';
     const r = await activarLicencia(correo.value, campo.value, liberar);
     btn.disabled = false; btn.textContent = 'Activar';
+    if (r.ok && r.yaEstaba) {
+      cerrarVentana();
+      avisar(`Licencia confirmada en este dispositivo`);
+      pulsarOraculo(r.oraculo);
+      return;
+    }
     if (r.ok) {
       cerrarVentana();
       if (!document.getElementById('vista-muestra').hidden) cerrarMuestra();
@@ -1174,39 +1260,82 @@ async function activarLicencia(email, texto, liberar) {
       const previa = coleccion[d.oraculo];
       coleccion[d.oraculo] = { l: d.licencia || licencia, f: d.firma, d: (previa && previa.d) || Date.now(), c: Date.now() };
       Store.set(K_EMAIL, email);
+      guardarAccesoHasta(d.accesoHasta);
       await guardarColeccion(); await verificarColeccion();
       pedirPersistencia();
       if (!loTiene(d.oraculo)) return { ok: false, error: 'No se pudo confirmar la licencia en este dispositivo. Inténtalo de nuevo.' };
-      if (yaEstaba) return { ok: false, error: `${oraculo(d.oraculo).nombre} ya estaba en tu colección.` };
-      return { ok: true, oraculo: d.oraculo };
+      return { ok: true, oraculo: d.oraculo, yaEstaba };
     }
     return { ok: false, error: d.error || 'No encontramos esa licencia. Revisa que esté completa, con sus guiones.', necesitaLiberar: !!d.necesitaLiberar };
   } catch (err) {
-    return { ok: false, error: 'No se pudo comprobar la licencia ahora mismo. Revisa tu conexión a internet e inténtalo de nuevo.' };
+    return { ok: false, error: navigator.onLine
+      ? 'No pudimos contactar con el servidor de licencias. Inténtalo de nuevo en unos minutos.'
+      : 'No tienes conexión a internet. Conéctate para activar tu licencia.' };
   }
 }
 
-// Último respaldo: si el móvil perdió su colección, el servidor la devuelve (cookie HttpOnly)
-async function recuperarDelServidor() {
-  if (!navigator.onLine) return;
-  const tiempo = new Promise(res => setTimeout(() => res(null), 4000));
+/* Permiso de acceso a las barajas de pago. Lo da el servidor en una cookie HttpOnly que caduca a los
+   30 días; aquí solo se apunta cuándo caduca para renovarlo a tiempo (al abrir la app con conexión). */
+const K_ACCESO = 'od_acceso_hasta', K_SYNC = 'od_ultima_sync';
+const leerNum = k => { try { return Number(localStorage.getItem(k)) || 0; } catch (e) { return 0; } };
+const guardarNum = (k, v) => { try { if (v) localStorage.setItem(k, String(v)); else localStorage.removeItem(k); } catch (e) {} };
+function guardarAccesoHasta(t) { if (t !== undefined) guardarNum(K_ACCESO, t); }
+
+// Con la cookie de sesión del servidor: recupera la colección si el móvil la perdió, quita lo
+// reembolsado o liberado y renueva el permiso. Como mucho una vez al día, salvo que haga falta.
+async function sincronizarConServidor(forzar) {
+  if (!navigator.onLine) return false;
+  const DIA = 864e5, ahora = Date.now();
+  const hayPago = Object.keys(coleccion).some(id => oraculo(id) && !oraculo(id).gratis);
+  const permisoBien = leerNum(K_ACCESO) - ahora > 20 * DIA;
+  if (!forzar && hayPago && permisoBien && ahora - leerNum(K_SYNC) < DIA) return false;
+  const tiempo = new Promise(res => setTimeout(() => res(null), 6000));
   const peticion = fetch('/api/sesion', { credentials: 'same-origin', cache: 'no-store' })
     .then(r => r.ok ? r.json() : null).catch(() => null);
   const d = await Promise.race([peticion, tiempo]);
-  if (!d || !d.ok || !Array.isArray(d.coleccion) || !d.coleccion.length) return;
+  if (!d || !d.ok) return false;
+  guardarNum(K_SYNC, ahora);
+  guardarAccesoHasta(d.accesoHasta);
   // Si este móvil perdió también su identificador, se recupera el del servidor
   if (d.dispositivo && d.dispositivo !== dispositivo && validas.size === 0) {
     dispositivo = d.dispositivo; Store.set(K_DISPOSITIVO, dispositivo);
   }
-  if (d.dispositivo !== dispositivo) return;
-  const antes = validas.size;
-  for (const x of d.coleccion) {
+  if (d.dispositivo !== dispositivo) return false;
+  const antes = new Set(validas);
+  for (const id of d.desactivadas || []) delete coleccion[id];
+  for (const x of d.coleccion || []) {
     const e = coleccion[x.oraculo];
     coleccion[x.oraculo] = { l: x.licencia, f: x.firma, d: (e && e.d) || Date.now(), c: Date.now() };
   }
   if (d.email) Store.set(K_EMAIL, d.email);
   await guardarColeccion(); await verificarColeccion();
-  if (validas.size !== antes) { pintar(); avisar('Hemos recuperado tu colección'); }
+  const gano = [...validas].some(id => !antes.has(id)), perdio = [...antes].some(id => !validas.has(id));
+  if (gano || perdio) pintar();
+  if (gano && antes.size === 0) avisar('Hemos recuperado tu colección');
+  return true;
+}
+
+// Textos completos de una baraja de pago: el servidor solo los entrega con permiso de acceso
+async function cargarCartasCompletas(o) {
+  if (o.cartasCompletas) return o.cartasCompletas;
+  const pedir = () => fetch(o.base + 'cartas.json', { credentials: 'same-origin' }).catch(() => null);
+  let r = await pedir();
+  if (r && r.status === 401 && navigator.onLine) {
+    await sincronizarConServidor(true);            // el permiso caducó: se renueva y se reintenta
+    if (!loTiene(o.id)) { pintar(); avisar(`${o.nombre} ya no está activado en este dispositivo`); return null; }
+    r = await pedir();
+  }
+  if (r && r.ok) {
+    try { const a = await r.json(); if (Array.isArray(a) && a.length) { o.cartasCompletas = a; return a; } } catch (e) {}
+  }
+  if (r && r.status === 401) {
+    const e = coleccion[o.id];
+    abrirVentanaLicencia(`Para abrir ${o.nombre} en este dispositivo, confirma tu licencia una vez más. No gasta ninguna plaza.`);
+    if (e && e.l) document.getElementById('campo-licencia').value = e.l;
+    return null;
+  }
+  avisar(navigator.onLine ? 'No se pudo abrir el oráculo. Inténtalo de nuevo.' : 'Conéctate a internet para abrir este oráculo la primera vez.');
+  return null;
 }
 
 // Una vez por semana, en silencio, se comprueba que las licencias siguen activas
@@ -1226,15 +1355,15 @@ async function recomprobarLicencias() {
   if (cambios) { await guardarColeccion(); await verificarColeccion(); pintar(); }
 }
 
-// Enlace mágico: si la app se abre con ?licencia=XXXX (y opcionalmente &email=…) se activa sola
+// Enlace con licencia: si la app se abre con ?licencia=XXXX se abre la ventana de activación ya
+// rellena, para que la persona confirme (nunca se activa sola).
 async function licenciaDesdeEnlace() {
-  let lic = null, em = '';
-  try { const q = new URLSearchParams(location.search); lic = q.get('licencia'); em = q.get('email') || ''; } catch (e) {}
+  let lic = null;
+  try { lic = new URLSearchParams(location.search).get('licencia'); } catch (e) {}
+  try { if (location.search) history.replaceState(null, '', location.pathname); } catch (e) {}
   if (!lic) return;
-  try { history.replaceState(null, '', location.pathname); } catch (e) {}
-  const r = await activarLicencia(em || await Store.get(K_EMAIL), lic);
-  if (r.ok) { pintar(r.oraculo); avisar(`${oraculo(r.oraculo).nombre} ya está en tu colección`); }
-  else { abrirVentanaLicencia(r.error); document.getElementById('campo-licencia').value = lic; }
+  abrirVentanaLicencia();
+  document.getElementById('campo-licencia').value = lic.slice(0, 80);
 }
 
 /* --- Quitar una baraja de ESTE dispositivo (para hacer pruebas) ---
@@ -1286,6 +1415,13 @@ document.addEventListener('click', async e => {
   }
 });
 (function () {
+  // Solo para el dueño: se activa abriendo la app una vez con ?pruebas=1 (y se quita con ?pruebas=0)
+  try {
+    const q = new URLSearchParams(location.search).get('pruebas');
+    if (q === '1') localStorage.setItem('od_pruebas', '1');
+    if (q === '0') localStorage.removeItem('od_pruebas');
+    if (localStorage.getItem('od_pruebas') !== '1') return;
+  } catch (e) { return; }
   const titulo = document.getElementById('t-coleccion');
   if (!titulo) return;
   titulo.style.touchAction = 'manipulation'; titulo.style.cursor = 'pointer'; titulo.style.userSelect = 'none'; titulo.style.webkitUserSelect = 'none';
@@ -1326,28 +1462,41 @@ function abrirLectura(o) {
   vista.classList.toggle('fondo-claro', !!o.fondoClaro);
   magicSound = new Audio(o.base + o.sonido);
 
-  cartas = o.cartas.slice();
+  cartas = (o.cartasCompletas || o.cartas).slice();
   totalCards = cartas.length;
   shuffleCards(cartas);
   reiniciarMesa();
 
   document.getElementById('vista-catalogo').hidden = true;
   document.getElementById('vista-lectura').hidden = false;
+  videoCabecera(false);
   window.scrollTo(0, 0);
   ajustarFondo();
   buildCarousel();
   if (window.ODOffline) window.ODOffline.guardarCartas(o.id);   // las cartas se guardan solas
   pintarBotonOffline();
+  bienvenida();
+}
+function bienvenida() {
+  try { if (localStorage.getItem('od_bienvenida')) return; localStorage.setItem('od_bienvenida', '1'); } catch (e) { return; }
+  abrirVentana(`<h3 id="ventana-titulo">Cómo consultar el oráculo</h3>
+    <ol class="pasos-bienvenida">
+      <li><strong>Piensa en tu pregunta</strong> o en lo que necesitas comprender hoy.</li>
+      <li><strong>Desliza las cartas</strong> con el dedo y detente cuando sientas que es la tuya.</li>
+      <li><strong>Pulsa «Consulta el oráculo»</strong>: la carta se dará la vuelta y podrás leer y escuchar su mensaje.</li>
+    </ol>
+    <div class="acciones"><button class="btn-licencia" data-accion="cerrar">Empezar</button></div>`);
 }
 
 /* --- Guardar el oráculo entero (cartas + audios) para usarlo sin conexión --- */
 const ICONO_BAJAR = '<svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M8 10.5l4 4 4-4"/><path d="M5 19h14"/></svg>';
-let descargando = false;
+let descargando = null;   // id del oráculo que se está guardando
 async function pintarBotonOffline() {
   const b = document.getElementById('btn-offline');
   const off = window.ODOffline;
   if (!off || !actual || acceso !== 'completo') { b.hidden = true; return; }
-  if (descargando) return;
+  if (descargando === actual.id) return;
+  if (descargando) { b.hidden = false; b.className = 'btn-offline'; b.textContent = `Guardando ${oraculo(descargando).nombre}…`; return; }
   const st = await off.estado(actual.id);
   if (!st.images.total && !st.audio.total) { b.hidden = true; return; }
   b.hidden = false;
@@ -1359,16 +1508,17 @@ async function pintarBotonOffline() {
 document.getElementById('btn-offline').addEventListener('click', async () => {
   const off = window.ODOffline, b = document.getElementById('btn-offline');
   if (!off || !actual || b.classList.contains('listo')) return;
-  if (descargando) { off.parar(); return; }
-  descargando = true;
+  if (descargando) { if (descargando === actual.id) off.parar(); return; }
+  const id = actual.id, nombre = actual.nombre;
+  descargando = id;
   b.textContent = 'Guardando… 0 %';
-  const r = await off.descargar(actual.id, pct => { b.textContent = `Guardando… ${pct} % · tocar para parar`; });
-  descargando = false;
+  const r = await off.descargar(id, pct => { if (actual && actual.id === id) b.textContent = `Guardando… ${pct} % · tocar para parar`; });
+  descargando = null;
   if (r.sinRed) avisar('Necesitas conexión para guardarlo.');
   else if (r.sinEspacio) avisar('No hay espacio suficiente en el dispositivo.');
   else if (r.parado) avisar('Descarga detenida. Puedes seguir cuando quieras.');
   else if (r.fallos) avisar('Algunos archivos no se guardaron. Inténtalo de nuevo con conexión.');
-  else avisar(`${actual.nombre} ya funciona sin conexión`);
+  else avisar(`${nombre} ya funciona sin conexión`);
   pintarBotonOffline();
 });
 
@@ -1429,6 +1579,7 @@ document.getElementById('btn-volver').addEventListener('click', () => {
   reiniciarMesa(); cancelAnimationFrame(rafId);
   document.getElementById('vista-lectura').hidden = true;
   document.getElementById('vista-catalogo').hidden = false;
+  videoCabecera(true);
   pintar();
 });
 
@@ -1437,7 +1588,7 @@ function ventanaComprar(motivo) {
   abrirVentana(`<h3 id="ventana-titulo">Abre ${o.nombre} completo</h3>
     <p>${motivo} Con el oráculo completo tendrás todas las cartas y todos los audios, siempre que quieras.</p>
     <div class="acciones">
-      <a class="btn-comprar" href="${o.payhip}" target="_blank" rel="noopener">Comprar en Payhip</a>
+      <a class="btn-comprar" href="${enlaceCompra(o, 'ventana')}" target="_blank" rel="noopener">Comprar en Payhip</a>
       <button class="btn-licencia" data-accion="licencia">Ya lo compré: activar licencia</button>
       <button class="btn-secundario" data-accion="cerrar">Seguir mirando</button>
     </div>`);
@@ -1458,7 +1609,7 @@ function buildCarousel() {
       w.className = 'card-wrapper';
       w.id = `wrapper-${g}`;
       w.setAttribute('data-original-index', idx);
-      w.innerHTML = `<div class="card-3d" id="card-${g}"><div class="card-face card-back"><img src="${dorso}" draggable="false" alt=""></div><div class="card-face card-front"><img src="${base}${c.img}" draggable="false" alt=""></div></div>`;
+      w.innerHTML = `<div class="card-3d" id="card-${g}"><div class="card-face card-back"><img src="${dorso}" draggable="false" alt=""></div><div class="card-face card-front"><img data-src="${base}${c.img}" draggable="false" alt=""></div></div>`;
       track.appendChild(w);
       g++;
     });
@@ -1500,7 +1651,7 @@ function formatTime(sec) {
   if (!isFinite(sec) || isNaN(sec) || sec < 0) return '0:00';
   return `${Math.floor(sec / 60)}:${Math.floor(sec % 60).toString().padStart(2, '0')}`;
 }
-function paintProgress(pct) { progressEl.style.background = `linear-gradient(to right, #ffd94d ${pct}%, rgba(255,255,255,0.2) ${pct}%)`; }
+function paintProgress(pct) { progressEl.style.backgroundImage = `linear-gradient(to right, #ffd94d ${pct}%, rgba(255,255,255,0.2) ${pct}%)`; }
 function showPlayIcon() { document.getElementById('iconPlay').style.display = 'block'; document.getElementById('iconPause').style.display = 'none'; }
 function showPauseIcon() { document.getElementById('iconPlay').style.display = 'none'; document.getElementById('iconPause').style.display = 'block'; }
 
@@ -1526,13 +1677,37 @@ progressEl.addEventListener('input', () => {
 });
 progressEl.addEventListener('change', () => { if (audioEl.src) audioEl.currentTime = progressEl.value; isSeeking = false; });
 
+let quiereSonar = false;
 function setupAudioButton(cardData) {
+  quiereSonar = false;
   audioEl.pause(); audioEl.src = actual.base + cardData.audio;
   showPlayIcon(); progressEl.value = 0; progressEl.max = 100; paintProgress(0); timeEl.textContent = '0:00 / 0:00';
+  try {
+    if ('mediaSession' in navigator && window.MediaMetadata) navigator.mediaSession.metadata = new MediaMetadata({
+      title: document.getElementById('cardTitle').textContent, artist: actual.nombre, album: 'Oráculos del Dharma',
+      artwork: [{ src: new URL(imagenDe(actual), location.href).href, sizes: '512x512', type: 'image/webp' }]
+    });
+  } catch (e) {}
 }
-document.getElementById('audioBtn').addEventListener('click', () => {
+function avisarAudio() {
+  avisar(navigator.onLine ? 'No se pudo cargar el audio. Vuelve a pulsar para intentarlo.'
+                          : 'Este audio no está guardado. Conéctate a internet o usa «Guardar sin conexión» para escucharlo sin red.');
+}
+const audioBtn = document.getElementById('audioBtn');
+audioBtn.addEventListener('click', () => {
   if (!audioEl.src) return;
-  if (audioEl.paused) { audioEl.play().catch(() => {}); showPauseIcon(); } else { audioEl.pause(); showPlayIcon(); }
+  if (!audioEl.paused) { audioEl.pause(); return; }
+  quiereSonar = true;
+  audioBtn.classList.add('cargando');
+  const p = audioEl.play();
+  if (p && p.catch) p.catch(() => { audioBtn.classList.remove('cargando'); showPlayIcon(); if (quiereSonar) avisarAudio(); quiereSonar = false; });
+});
+audioEl.addEventListener('playing', () => { audioBtn.classList.remove('cargando'); showPauseIcon(); audioBtn.setAttribute('aria-label', 'Pausar audio'); });
+audioEl.addEventListener('pause', () => { audioBtn.classList.remove('cargando'); showPlayIcon(); audioBtn.setAttribute('aria-label', 'Reproducir audio'); });
+audioEl.addEventListener('error', () => {
+  audioBtn.classList.remove('cargando'); showPlayIcon();
+  if (quiereSonar) avisarAudio();
+  quiereSonar = false;
 });
 
 /* --- Consultar --- */
@@ -1558,10 +1733,21 @@ function consultOracle() {
   }
 
   if (activeCard) {
-    magicSound.currentTime = 0;
-    magicSound.play().catch(() => {});
+    if (consultOracle.ocupado) return;
     const originalIndex = document.getElementById(`wrapper-${currentIndex}`).getAttribute('data-original-index');
     const cardData = cartas[originalIndex];
+    // La cara de la carta se carga ahora (antes no, para ahorrar memoria); se espera como mucho 1,2 s
+    const cara = activeCard.querySelector('.card-front img');
+    cara.alt = cardData.title.replace(/<[^>]*>/g, '');
+    if (cara.dataset.src && !cara.getAttribute('src')) {
+      cara.src = cara.dataset.src;
+      consultOracle.ocupado = true;
+      const listo = cara.decode ? cara.decode().catch(() => {}) : Promise.resolve();
+      Promise.race([listo, new Promise(r => setTimeout(r, 1200))]).then(() => { consultOracle.ocupado = false; consultOracle(); });
+      return;
+    }
+    magicSound.currentTime = 0;
+    magicSound.play().catch(() => {});
     if (acceso === 'muestra') { sacadas[actual.id]++; pintarEstadoAcceso(); }
     document.getElementById('cardTitle').innerHTML = cardData.title;
     const cita = document.getElementById('cardCita');
@@ -1578,7 +1764,17 @@ function consultOracle() {
     btn.innerText = 'Elegir otra carta'; btn.classList.add('otra');
     document.getElementById('mainInstruction').style.opacity = '0';
     textPanel.hidden = false;
+    // Con el mensaje al lado (pantallas anchas) la ventana de la carta cambia de ancho: se recentra
+    requestAnimationFrame(() => updateTrackPosition(true));
     setTimeout(() => textPanel.classList.add('visible'), 300);
+    // Que el mensaje quede a la vista sin buscarlo
+    const ancho = window.innerWidth >= 768;
+    setTimeout(() => {
+      if (!isFlipped) return;
+      const destino = ancho ? document.querySelector('.oracle-layout') : textPanel;
+      const r = destino.getBoundingClientRect();
+      if (r.top > window.innerHeight * (ancho ? 0.25 : 0.6) || r.top < 58) destino.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    }, ancho ? 350 : 1100);
   }
 }
 
@@ -1623,6 +1819,16 @@ function startMomentum() {
   }
   rafId = requestAnimationFrame(step);
 }
+windowEl.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+    if (isFlipped) return;
+    e.preventDefault();
+    currentIndex += e.key === 'ArrowRight' ? 1 : -1;
+    trackX = positionForIndex(currentIndex); wrapIfNeeded();
+    currentIndex = Math.round(indexForPosition(trackX)); trackX = positionForIndex(currentIndex);
+    applyTrackPosition(true);
+  } else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); consultOracle(); }
+});
 function snapToNearest() { currentIndex = Math.round(indexForPosition(trackX)); trackX = positionForIndex(currentIndex); applyTrackPosition(true); }
 window.addEventListener('resize', () => { if (actual) { ajustarFondo(); trackX = positionForIndex(currentIndex); applyTrackPosition(false); } });
 
@@ -1671,7 +1877,7 @@ function abrirMuestra(o) {
   document.getElementById('muestraTitulo').textContent = o.nombre;
   document.getElementById('muestraLema').textContent = pr.lema || o.subtitulo || '';
   document.getElementById('muestraTexto').innerHTML = (pr.texto || []).map(t => `<p>${t}</p>`).join('');
-  document.getElementById('muestraComprar').href = o.payhip || '#';
+  document.getElementById('muestraComprar').href = enlaceCompra(o, 'muestra');
   document.getElementById('muestraPrecio').textContent = o.precio || PRECIO_ORACULO;
   const cartasM = (o.muestras || []).map(id => o.cartas.find(c => c.img === id + '.webp' || c.img === id + '-2.webp')).filter(Boolean).slice(0, 2);
   document.getElementById('muestraCartas').innerHTML = cartasM.map(c => `
@@ -1692,6 +1898,7 @@ function abrirMuestra(o) {
   pararMuestra();
   document.getElementById('vista-catalogo').hidden = true;
   vista.hidden = false;
+  videoCabecera(false);
   document.title = `${o.nombre} · Oráculos del Dharma`;
   window.scrollTo(0, 0);
   ajustarFondoMuestra(o);
@@ -1701,6 +1908,7 @@ function cerrarMuestra() {
   document.getElementById('vista-muestra').hidden = true;
   document.getElementById('vista-catalogo').hidden = false;
   document.title = 'Oráculos del Dharma';
+  videoCabecera(true);
 }
 document.getElementById('muestraCartas').addEventListener('click', e => {
   const pista = e.target.closest('.pista');
@@ -1730,14 +1938,19 @@ window.addEventListener('resize', () => { if (!document.getElementById('vista-mu
    ===================================================================== */
 const ENLACE_APP = location.origin + location.pathname.replace(/index\.html$/, '');
 function abrirAyuda(titulo, html) {
+  const antesFoco = document.activeElement;
   const velo = document.createElement('div');
   velo.className = 'ayuda-velo';
   velo.setAttribute('role', 'dialog'); velo.setAttribute('aria-modal', 'true'); velo.setAttribute('aria-label', titulo);
   velo.innerHTML = `<div class="ayuda-panel"><div class="ayuda-barra"><button type="button" class="ayuda-volver" data-cerrar>← Volver a la app</button><button type="button" class="ayuda-x" data-cerrar aria-label="Cerrar">✕</button></div><div class="ayuda-scroll">${html}<div class="ayuda-pie"><button type="button" class="btn-oro" data-cerrar>← Volver a la app</button></div></div></div>`;
   document.body.appendChild(velo);
   const antes = document.body.style.overflow; document.body.style.overflow = 'hidden';
-  function cerrar() { document.removeEventListener('keydown', tecla); document.body.style.overflow = antes; velo.remove(); }
-  function tecla(e) { if (e.key === 'Escape') cerrar(); }
+  function cerrar() {
+    document.removeEventListener('keydown', tecla); document.body.style.overflow = antes; velo.remove();
+    if (antesFoco && document.contains(antesFoco)) { try { antesFoco.focus(); } catch (e) {} }
+  }
+  function tecla(e) { if (e.key === 'Escape') cerrar(); else atraparFoco(velo, e); }
+  setTimeout(() => { const t = velo.querySelector('.ayuda-titulo'); if (t) { t.setAttribute('tabindex', '-1'); t.focus(); } }, 60);
   document.addEventListener('keydown', tecla);
   velo.addEventListener('click', e => { if (e.target === velo || e.target.closest('[data-cerrar]')) cerrar(); });
   return { velo, cerrar };
@@ -1755,8 +1968,10 @@ const TUTORIAL_USO = `
     <li><strong>Lee y escucha su mensaje</strong>Junto a la carta aparece su mensaje. Pulsa el botón dorado para escuchar el audio.</li>
     <li><strong>Otra consulta</strong>Con «Elegir otra carta» vuelves a la baraja; con «Volver», a la pantalla principal.</li>
     <li><strong>Úsala sin internet</strong>Dentro de cada oráculo, «Guardar sin conexión» guarda sus cartas y audios en tu dispositivo.</li>
-    <li><strong>Tu colección</strong>Al comprar un oráculo recibirás una licencia por correo. Pulsa «Activar», escribe tu correo, pega la licencia y el oráculo quedará abierto en «Tu colección».</li>
-  </ol>`;
+    <li><strong>Tu colección</strong>Al comprar un oráculo recibirás una licencia por correo. Pulsa «Activar», escribe tu correo, pega la licencia y el oráculo quedará abierto en «Tu colección». Cada licencia vale para 2 dispositivos.</li>
+  </ol>
+  <p class="ayuda-nota">En iPhone y iPad, instala primero la app en tu pantalla de inicio y activa la licencia dentro de ella: Safari y la app instalada guardan sus datos por separado.</p>
+  <p class="ayuda-nota">Los oráculos son una herramienta de reflexión e inspiración. No predicen el futuro ni sustituyen el consejo médico, psicológico, legal o financiero.</p>`;
 function tutorialInstalar(os) {
   const ios = `<ol class="pasos">
       <li><strong>Abre la app en Safari</strong>En iPhone y iPad la instalación se hace desde Safari.</li>
@@ -1889,6 +2104,14 @@ document.getElementById('btn-compartir').addEventListener('click', () => {
   const p = v.play(); if (p && p.catch) p.catch(() => {});
 })();
 
+function videoCabecera(reproducir) {
+  const v = document.getElementById('video-cabecera');
+  if (!v || !v.querySelector('source')) return;
+  if (reproducir && !document.hidden && !document.getElementById('vista-catalogo').hidden) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+  else v.pause();
+}
+document.addEventListener('visibilitychange', () => videoCabecera(!document.hidden));
+
 activarArrastre(document.getElementById('fila-todos'));
 activarArrastre(document.getElementById('fila-coleccion'));
 pintar();   // al instante se pinta lo que está abierto para todos
@@ -1900,8 +2123,9 @@ pintar();   // al instante se pinta lo que está abierto para todos
   await verificarColeccion();
   pintar();
   if (validas.size) pedirPersistencia();
+  Store.limpiarCookiesViejas();
   await licenciaDesdeEnlace();
-  recuperarDelServidor();
+  await sincronizarConServidor(false);
   recomprobarLicencias();
 })();
 </script>
@@ -1912,6 +2136,17 @@ pintar();   // al instante se pinta lo que está abierto para todos
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
     try { navigator.serviceWorker.register('sw.js').catch(function () {}); } catch (e) {}
+  });
+  /* Si llega una versión nueva mientras la app está abierta, se ofrece cargarla (sin interrumpir) */
+  var teniaControlador = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', function () {
+    if (!teniaControlador) { teniaControlador = true; return; }
+    if (document.getElementById('aviso-version')) return;
+    var b = document.createElement('button');
+    b.type = 'button'; b.id = 'aviso-version'; b.className = 'aviso-version';
+    b.textContent = 'Hay una versión nueva · Toca para actualizar';
+    b.addEventListener('click', function () { location.reload(); });
+    document.body.appendChild(b);
   });
 }
 </script>

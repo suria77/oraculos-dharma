@@ -13,12 +13,20 @@ conectado a este repositorio.
 
 ## Cómo se protege la colección
 
-1. **Payhip**: licencia activa y correo del comprador.
-2. **2 dispositivos por licencia**, con opción de liberar el más antiguo (Upstash).
-3. **Firma digital**: cada oráculo abierto lleva una firma ligada al dispositivo; escribir a mano en la memoria del móvil no abre nada.
-4. **Guardado triple** en el móvil (localStorage + cookie + IndexedDB) que se autocura, más `navigator.storage.persist()`.
-5. **Copia en el servidor** (cookie HttpOnly de 1 año, `/api/sesion`): si el móvil lo borra todo, la colección se recupera sola.
-6. **Revisión semanal** silenciosa: si hay reembolso o se libera el dispositivo, el oráculo se cierra.
+1. **Puerta en el servidor** (`functions/oraculos/[[path]].js`): las cartas, audios y textos (`cartas.json`) de las barajas de pago solo se entregan con un **permiso de acceso** (cookie `od_acc`, HttpOnly, firmada, caduca a los 30 días y se renueva sola). Sin él, el servidor responde 401. Lo de la página de muestra (portada, fondo, dorso, miniaturas y las 2 cartas de muestra) es público.
+2. **Payhip**: licencia activa y correo del comprador (respuesta recordada unos minutos en Upstash).
+3. **2 dispositivos por licencia**, con opción de liberar el más antiguo **una vez cada 30 días**.
+4. **Falla en cerrado**: si Upstash no responde, no se activa nada (el límite nunca se salta).
+5. **Límite de peticiones** por IP en `/api/*`.
+6. **Firma digital** de cada oráculo ligada al dispositivo (la comprueba la app).
+7. **Sesión de respaldo** en el servidor (cookie `od_sess`, HttpOnly, 1 año): recupera la colección, renueva el permiso y quita lo reembolsado o liberado.
+8. **Cabeceras de seguridad** en `_headers` (CSP, anti-incrustación…).
+
+Si se añade una baraja de pago nueva: añadir su código de Payhip en `PRODUCTO_PAYHIP` y sus 2 cartas de muestra en `BARAJAS_PAGO` (`lib/comun.js`), su ruta en `_routes.json`, y sacar sus textos a `oraculos/<id>/cartas.json` (en `index.html` solo van título e imagen).
+
+Diagnóstico: `/api/estado` solo dice si está listo. Para ver el detalle, añade la variable `ESTADO_CLAVE` en Cloudflare y abre `/api/estado?clave=<esa palabra>`.
+
+Herramienta de pruebas («Quitar de este dispositivo», 5 toques en «Tu colección»): abre la app una vez con `?pruebas=1` (se quita con `?pruebas=0`).
 
 ## Uso sin conexión
 
