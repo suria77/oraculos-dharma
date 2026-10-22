@@ -1772,7 +1772,7 @@ function tutorialInstalar(os) {
   return `<div class="ayuda-seg"><button type="button" data-os="ios" aria-pressed="${os === 'ios'}">iPhone / iPad</button><button type="button" data-os="android" aria-pressed="${os === 'android'}">Android</button></div>
     ${os === 'ios' ? ios : android}
     <h3 class="guia-tit">Míralo paso a paso</h3>
-    ${[1, 2, 3, 4].map(n => `<img class="guia-img" loading="lazy" src="img/instalar/${os === 'ios' ? 'ios' : 'android'}-${n}-b.webp" alt="Instalación en ${os === 'ios' ? 'iPhone o iPad' : 'Android'}, paso ${n}">`).join('')}
+    ${[1, 2, 3, 4].map(n => `<img class="guia-img" loading="lazy" src="img/instalar/${os === 'ios' ? 'ios' : 'android'}-${n}${os === 'ios' && n === 1 ? '-c' : '-b'}.webp" alt="Instalación en ${os === 'ios' ? 'iPhone o iPad' : 'Android'}, paso ${n}">`).join('')}
     ${avisoInstalar && os === 'android' ? '<div class="ayuda-accion"><button type="button" class="btn-oro" data-instalar>Instalar ahora</button></div>' : ''}
     <p class="ayuda-nota">Una vez instalada se abre a pantalla completa y funciona aunque no tengas conexión.</p>`;
 }
