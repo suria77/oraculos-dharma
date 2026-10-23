@@ -249,7 +249,7 @@
   }
   .btn-pie:hover { background: rgba(192,132,252,.18); border-color: var(--lila); }
   .btn-pie svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .pie-nota { text-align: center; margin: 0; }
+  .pie-nota { text-align: center; margin: 14px 0 0; }
   /* Enlaces legales: casi invisibles, en el último renglón del pie */
   .pie-legal { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 14px; margin: 36px 0 0; }
   .pie-legal button { background: none; border: 0; padding: 8px 4px; min-height: 36px; font: inherit; font-size: 11.5px; letter-spacing: .02em; color: var(--texto-suave); opacity: .55; cursor: pointer; text-decoration: none; transition: opacity .2s; }
@@ -964,7 +964,6 @@ const ORACULOS = [
   {
     id: 'anandamayi-ma', nombre: 'El Oráculo de Anandamayi Ma', subtitulo: 'La Madre colmada de dicha', estado: 'disponible',
     abiertoParaTodos: false,
-    pruebaEnColeccion: true,   // ← PROVISIONAL: abierta en «Tu colección» para revisarla. Quitar al cerrarla.
     base: 'oraculos/anandamayi-ma/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
     colorFondo: '#2a0a1c', colorBarra: '#340c22', proporcion: 3 / 4, zonaTitulo: 0.222,
     payhip: 'https://payhip.com/b/xrboc', muestras: ['01', '17'],

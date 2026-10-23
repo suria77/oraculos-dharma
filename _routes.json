@@ -1,5 +1,5 @@
 {
   "version": 1,
-  "include": ["/api/*", "/oraculos/rumi/*", "/oraculos/guru/*", "/oraculos/dioses-india/*"],
+  "include": ["/api/*", "/oraculos/rumi/*", "/oraculos/guru/*", "/oraculos/dioses-india/*", "/oraculos/anandamayi-ma/*"],
   "exclude": []
 }
