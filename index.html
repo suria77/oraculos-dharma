@@ -866,6 +866,50 @@ const CARTAS_INDIA = [
   {"title":"SITA","img":"sita.webp"},
   {"title":"VISHNU","img":"vishnu.webp"}
 ];
+// Solo títulos e imágenes (para la página de muestra). Los textos completos están en
+// oraculos/anandamayi-ma/cartas.json, que el servidor solo entrega con licencia.
+const CARTAS_ANANDAMAYI = [
+  {"title": "LA MADRE DE TODOS", "cita": "Soy lo que fui, lo que soy y lo que seré", "audio": "01.mp3", "img": "01.webp"},
+  {"title": "KHEYAL, LA VOLUNTAD ESPONTÁNEA", "img": "02.webp"},
+  {"title": "LO QUE TENGA QUE SER", "img": "03.webp"},
+  {"title": "EL NOMBRE COMO REFUGIO", "img": "04.webp"},
+  {"title": "MÁS CERCA QUE TU RESPIRACIÓN", "img": "05.webp"},
+  {"title": "LA COMPAÑÍA DE LA VERDAD", "img": "06.webp"},
+  {"title": "EL SILENCIO QUE HABLA", "img": "07.webp"},
+  {"title": "SERVIR ES ADORAR", "img": "08.webp"},
+  {"title": "TODO ES UNO", "img": "09.webp"},
+  {"title": "LA GOTA QUE REPITE", "img": "10.webp"},
+  {"title": "LA PACIENCIA DEL ÁRBOL", "img": "11.webp"},
+  {"title": "CADA UNO SU CAMINO", "img": "12.webp"},
+  {"title": "¿QUIÉN ERES?", "img": "13.webp"},
+  {"title": "ENTREGARSE", "img": "14.webp"},
+  {"title": "EL DOLOR MAESTRO", "img": "15.webp"},
+  {"title": "CADA ACTO, UNA OFRENDA", "img": "16.webp"},
+  {"title": "LA ALEGRÍA PRIMORDIAL", "cita": "Ananda: la dicha es tu naturaleza", "audio": "17.mp3", "img": "17.webp"},
+  {"title": "GRATITUD SILENCIOSA", "img": "18.webp"},
+  {"title": "SOLTAR PARA VOLAR", "img": "19.webp"},
+  {"title": "EL MUNDO COMO ESPEJO", "img": "20.webp"},
+  {"title": "ESTE INSTANTE", "img": "21.webp"},
+  {"title": "LA VOZ INTERIOR", "img": "22.webp"},
+  {"title": "COMPASIÓN SIN FRONTERAS", "img": "23.webp"},
+  {"title": "PERDONAR ES LIBERARSE", "img": "24.webp"},
+  {"title": "EL CUERPO, TEMPLO VIVO", "img": "25.webp"},
+  {"title": "EL FUEGO DE LA DISCIPLINA", "img": "26.webp"},
+  {"title": "LA FE QUE SOSTIENE", "img": "27.webp"},
+  {"title": "LA HUMILDAD DEL PEQUEÑO", "img": "28.webp"},
+  {"title": "LA PLENITUD", "img": "29.webp"},
+  {"title": "EL GURU COMO PUERTA", "img": "30.webp"},
+  {"title": "LA SENCILLEZ", "img": "31.webp"},
+  {"title": "REVERENCIA A LA MADRE", "img": "32.webp"},
+  {"title": "EL CORAZÓN DE NIÑO", "img": "33.webp"},
+  {"title": "EL CANTO QUE ELEVA", "img": "34.webp"},
+  {"title": "ESPERAR CONFIANDO", "img": "35.webp"},
+  {"title": "PALABRAS QUE BENDICEN", "img": "36.webp"},
+  {"title": "LA NATURALEZA SAGRADA", "img": "37.webp"},
+  {"title": "LO ETERNO EN TI", "img": "38.webp"},
+  {"title": "EL BUSCADOR ES EL BUSCADO", "img": "39.webp"},
+  {"title": "LA GRACIA", "img": "40.webp"}
+];
 /*@@FIN_CARTAS_NUEVAS@@*/
 
 const ORACULOS = [
@@ -916,6 +960,20 @@ const ORACULOS = [
               'Qué te pide hoy la vida y qué paso puedes dar: eso es lo que escucharás en cada carta. Aquí tienes dos para que conozcas el oráculo antes de llevártelo.']
     },
     cartas: CARTAS_INDIA
+  },
+  {
+    id: 'anandamayi-ma', nombre: 'El Oráculo de Anandamayi Ma', subtitulo: 'La Madre colmada de dicha', estado: 'disponible',
+    abiertoParaTodos: false,
+    pruebaEnColeccion: true,   // ← PROVISIONAL: abierta en «Tu colección» para revisarla. Quitar al cerrarla.
+    base: 'oraculos/anandamayi-ma/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
+    colorFondo: '#2a0a1c', colorBarra: '#340c22', proporcion: 3 / 4, zonaTitulo: 0.222,
+    payhip: '', muestras: ['01', '17'],   // ← falta el enlace de Payhip
+    presentacion: {
+      lema: '40 enseñanzas de la Madre colmada de dicha para tu camino interior',
+      texto: ['Anandamayi Ma fue una de las grandes santas de la India del siglo XX: sin libros ni doctrinas, solo con su presencia, su alegría y palabras sencillas que llegaban directas al corazón. Este oráculo reúne 40 de sus enseñanzas: la entrega, el Nombre, el silencio, el servicio, la dicha que ya eres.',
+              'Cada carta trae una de sus frases, lo que quiso transmitir con ella y una forma sencilla de llevarla a tu día, con su voz en audio. Aquí tienes dos cartas para que sientas su calidez antes de llevártelo.']
+    },
+    cartas: CARTAS_ANANDAMAYI
   }
 ];
 
@@ -1062,6 +1120,7 @@ function sello(o, enColeccion) {
   if (o.gratis) return enColeccion ? `<span class="sello sello-coleccion">${ICONO_OK} Tuyo</span>` : '<span class="sello sello-abierto">Abierto</span>';
   if (loTiene(o.id)) return `<span class="sello sello-coleccion">${ICONO_OK} Tuyo</span>`;
   if (o.abiertoParaTodos) return '<span class="sello sello-abierto">Abierto</span>';
+  if (o.pruebaEnColeccion && enColeccion) return '<span class="sello sello-abierto">Abierto</span>';
   return `<span class="sello sello-muestra">${ICONO_CANDADO} Muestra</span>`;
 }
 
@@ -1089,8 +1148,8 @@ function huecoHTML(o) {
 function ordenColeccion() {
   // La gratis (Atman) no entra aquí. Lo comprado sale como baraja; lo demás, como hueco con COMPRAR y ACTIVAR.
   const fecha = o => coleccion[o.id]?.d || 0;
-  const mios = ORACULOS.filter(o => o.gratis || loTiene(o.id)).sort((x, y) => (x.gratis ? -1 : 0) - (y.gratis ? -1 : 0) || fecha(x) - fecha(y));
-  const vacios = ORACULOS.filter(o => !o.gratis && !loTiene(o.id));
+  const mios = ORACULOS.filter(o => o.gratis || o.pruebaEnColeccion || loTiene(o.id)).sort((x, y) => (x.gratis ? -1 : 0) - (y.gratis ? -1 : 0) || fecha(x) - fecha(y));
+  const vacios = ORACULOS.filter(o => !o.gratis && !o.pruebaEnColeccion && !loTiene(o.id));
   return { mios, vacios };
 }
 
@@ -1142,16 +1201,19 @@ document.querySelectorAll('.flecha').forEach(b => b.addEventListener('click', ()
 window.addEventListener('resize', actualizarFlechas);
 
 document.addEventListener('click', e => {
+  const sinEnlace = e.target.closest('a[href="#"][target="_blank"]');
+  if (sinEnlace) { e.preventDefault(); avisar('Muy pronto a la venta'); return; }
   if (e.target.closest('[data-accion="licencia"]')) { abrirVentanaLicencia(); return; }
   if (e.target.closest('[data-accion="condiciones"]')) { abrirCondiciones(); return; }
   const t = e.target.closest('.tarjeta');
-  if (t) { pulsarOraculo(t.dataset.id); return; }
+  if (t) { pulsarOraculo(t.dataset.id, !!t.closest('#fila-coleccion')); return; }
   if (e.target.closest('[data-accion="cerrar"]')) cerrarVentana();
 });
 
 let abriendo = false;
-async function pulsarOraculo(id) {
+async function pulsarOraculo(id, desdeColeccion) {
   const o = oraculo(id);
+  const prueba = !!(o.pruebaEnColeccion && desdeColeccion);
   if (abriendo) return;
   if (o.estado === 'proximamente') {
     abrirVentana(`<h3 id="ventana-titulo">${o.nombre}</h3>
@@ -1159,12 +1221,12 @@ async function pulsarOraculo(id) {
       <div class="acciones"><button class="btn-secundario" data-accion="cerrar">Entendido</button></div>`);
     return;
   }
-  if (!abierto(o)) { abrirMuestra(o); return; }
+  if (!abierto(o) && !prueba) { abrirMuestra(o); return; }
   if (!o.gratis) {
     abriendo = true;
     try { if (!await cargarCartasCompletas(o)) return; } finally { abriendo = false; }
   }
-  abrirLectura(o);
+  abrirLectura(o, prueba);
 }
 
 /* =====================================================================
@@ -1491,9 +1553,9 @@ let cardWidth = 300;   // ancho de carta + márgenes (se ajusta si la pantalla e
 let totalCards = 0, currentIndex = 0, isFlipped = false, trackX = 0;
 let magicSound = new Audio();
 
-function abrirLectura(o) {
+function abrirLectura(o, prueba) {
   actual = o;
-  acceso = (loTiene(o.id) || o.abiertoParaTodos) ? 'completo' : 'muestra';
+  acceso = (prueba || loTiene(o.id) || o.abiertoParaTodos) ? 'completo' : 'muestra';
   sacadas[o.id] = sacadas[o.id] || 0;
 
   document.title = `${o.nombre} · Oráculos del Dharma`;

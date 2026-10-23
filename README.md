@@ -24,6 +24,8 @@ conectado a este repositorio.
 
 Si se añade una baraja de pago nueva: añadir su código de Payhip en `PRODUCTO_PAYHIP` y sus 2 cartas de muestra en `BARAJAS_PAGO` (`lib/comun.js`), su ruta en `_routes.json`, y sacar sus textos a `oraculos/<id>/cartas.json` (en `index.html` solo van título e imagen).
 
+**Anandamayi Ma (provisional, en pruebas):** arriba sale como MUESTRA y en «Tu colección» está ABIERTA (`pruebaEnColeccion: true`). Sus archivos aún son públicos. Para cerrarla: poner su enlace en `payhip` (index.html), quitar `pruebaEnColeccion`, añadir `'anandamayi-ma'` a `PRODUCTO_PAYHIP` y `BARAJAS_PAGO` (muestras `['01', '17']`) en `lib/comun.js`, añadir `/oraculos/anandamayi-ma/*` a `_routes.json` y crear la variable `PAYHIP_SECRET_ANANDAMAYI_MA` en Cloudflare.
+
 Diagnóstico: `/api/estado` solo dice si está listo. Para ver el detalle, añade la variable `ESTADO_CLAVE` en Cloudflare y abre `/api/estado?clave=<esa palabra>`.
 
 Herramienta de pruebas («Quitar de este dispositivo», 5 toques en «Tu colección»): aparece sola en los dispositivos donde se ha activado una licencia con el correo del dueño (también con `?pruebas=1`).
