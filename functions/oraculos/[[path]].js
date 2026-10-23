@@ -5,15 +5,17 @@
 // firmada por el servidor tras comprobar la licencia). Sin permiso responde 401.
 //
 // Siempre públicos: la baraja gratis (Atman) y, de las de pago, lo que enseña la página de muestra
-// (portada, fondo, dorso, sonido, miniaturas y las 2 cartas de muestra con su audio).
+// (portada, fondo, dorso, sonido, miniaturas, las 2 cartas de muestra y sus audios recortados de muestra/).
 
 import { BARAJAS_PAGO, leerPermiso } from '../../lib/comun.js';
 
-const PUBLICO = /^(portada\.webp|fondo[^/]*\.webp|dorso\.webp|sonido-giro\.mp3|mini\/[^/]+\.webp)$/;
+const PUBLICO = /^(portada\.webp|fondo[^/]*\.webp|dorso\.webp|sonido-giro\.mp3|mini\/[^/]+\.webp|muestra\/[^/]+\.mp3)$/;
 
 function esPublico(id, resto) {
   if (PUBLICO.test(resto)) return true;
-  const m = resto.match(/^([a-z0-9-]+)\.(webp|mp3)$/);
+  // Solo las imágenes de las 2 cartas de muestra son públicas; los audios completos van con licencia
+  // (el audio de muestra, recortado, está en muestra/).
+  const m = resto.match(/^([a-z0-9-]+)\.webp$/);
   if (!m) return false;
   const base = m[1].replace(/-2$/, '');
   return BARAJAS_PAGO[id].indexOf(base) !== -1;

@@ -2013,7 +2013,7 @@ function abrirMuestra(o) {
       <h3>${c.title}</h3>
       ${c.cita ? `<p class="sub">«${c.cita}»</p>` : c.sub ? `<p class="sub">${c.sub}</p>` : ''}
       <div class="mini-player">
-        <button type="button" data-audio="${o.base}${c.audio}" aria-label="Escuchar la carta ${c.title}">${ICO_PLAY}</button>
+        <button type="button" data-audio="${o.base}muestra/${c.audio}" aria-label="Escuchar la carta ${c.title}">${ICO_PLAY}</button>
         <div class="barra"><div class="pista"><i></i></div><span class="tiempo">Escuchar</span></div>
       </div>
     </article>`).join('');

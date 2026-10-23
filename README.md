@@ -13,7 +13,7 @@ conectado a este repositorio.
 
 ## Cómo se protege la colección
 
-1. **Puerta en el servidor** (`functions/oraculos/[[path]].js`): las cartas, audios y textos (`cartas.json`) de las barajas de pago solo se entregan con un **permiso de acceso** (cookie `od_acc`, HttpOnly, firmada, caduca a los 30 días y se renueva sola). Sin él, el servidor responde 401. Lo de la página de muestra (portada, fondo, dorso, miniaturas y las 2 cartas de muestra) es público.
+1. **Puerta en el servidor** (`functions/oraculos/[[path]].js`): las cartas, audios y textos (`cartas.json`) de las barajas de pago solo se entregan con un **permiso de acceso** (cookie `od_acc`, HttpOnly, firmada, caduca a los 30 días y se renueva sola). Sin él, el servidor responde 401. Lo de la página de muestra (portada, fondo, dorso, miniaturas, las 2 cartas de muestra y sus audios recortados al 2/3 con fundido, en `oraculos/<id>/muestra/`) es público; los audios completos, no.
 2. **Payhip**: licencia activa y correo del comprador (respuesta recordada unos minutos en Upstash).
 3. **2 dispositivos por licencia**, con opción de liberar el más antiguo **una vez cada 30 días**.
 4. **Falla en cerrado**: si Upstash no responde, no se activa nada (el límite nunca se salta).

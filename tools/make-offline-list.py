@@ -18,7 +18,7 @@ import hashlib, json, os
 from urllib.parse import quote
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-VERSION = 'v23'          # súbelo (v2, v3...) para obligar a todos los móviles a bajar la interfaz de nuevo
+VERSION = 'v24'          # súbelo (v2, v3...) para obligar a todos los móviles a bajar la interfaz de nuevo
 IMG_EXT = {'.png', '.webp', '.jpg', '.jpeg', '.svg', '.gif', '.ico', '.avif'}
 FONT_EXT = {'.ttf', '.otf', '.woff', '.woff2'}
 AUDIO_EXT = {'.mp3', '.m4a', '.wav', '.ogg', '.aac'}
@@ -50,7 +50,7 @@ for oid in sorted(os.listdir(base)) if os.path.isdir(base) else []:
         continue
     o = {'images': [], 'imagesSz': [], 'audio': [], 'audioSz': []}
     for dirpath, dirnames, filenames in os.walk(d):
-        dirnames[:] = sorted(x for x in dirnames if x != 'mini')
+        dirnames[:] = sorted(x for x in dirnames if x not in ('mini', 'muestra'))
         for fn in sorted(filenames):
             ext = os.path.splitext(fn)[1].lower()
             ruta = os.path.join(dirpath, fn)
