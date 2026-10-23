@@ -7,7 +7,7 @@ conectado a este repositorio.
 
 | Nombre | Qué es |
 |---|---|
-| `PAYHIP_SECRET_ATMAN`, `PAYHIP_SECRET_RUMI`, `PAYHIP_SECRET_GURU`, `PAYHIP_SECRET_DIOSES_INDIA` | Product secret key de cada oráculo en Payhip. Lo que va detrás de `PAYHIP_SECRET_` es el `id` del oráculo en `index.html` (los guiones se escriben como `_`). |
+| `PAYHIP_SECRET_ATMAN`, `PAYHIP_SECRET_RUMI`, `PAYHIP_SECRET_GURU`, `PAYHIP_SECRET_DIOSES_INDIA`, `PAYHIP_SECRET_ANANDAMAYI_MA` | Product secret key de cada oráculo en Payhip. Lo que va detrás de `PAYHIP_SECRET_` es el `id` del oráculo en `index.html` (los guiones se escriben como `_`). |
 | `OD_CLAVE_FIRMA` | Clave privada para firmar las licencias (tipo *Secret*). Nunca se sube al repositorio. |
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Las mismas de Japa-Móvil (límite de 2 dispositivos y sesión de respaldo). |
 
@@ -24,7 +24,7 @@ conectado a este repositorio.
 
 Si se añade una baraja de pago nueva: añadir su código de Payhip en `PRODUCTO_PAYHIP` y sus 2 cartas de muestra en `BARAJAS_PAGO` (`lib/comun.js`), su ruta en `_routes.json`, y sacar sus textos a `oraculos/<id>/cartas.json` (en `index.html` solo van título e imagen).
 
-**Anandamayi Ma (provisional, en pruebas):** arriba sale como MUESTRA y en «Tu colección» está ABIERTA (`pruebaEnColeccion: true`). Sus archivos aún son públicos. Para cerrarla: poner su enlace en `payhip` (index.html), quitar `pruebaEnColeccion`, añadir `'anandamayi-ma'` a `PRODUCTO_PAYHIP` y `BARAJAS_PAGO` (muestras `['01', '17']`) en `lib/comun.js`, añadir `/oraculos/anandamayi-ma/*` a `_routes.json` y crear la variable `PAYHIP_SECRET_ANANDAMAYI_MA` en Cloudflare.
+**Anandamayi Ma (provisional, en pruebas):** arriba sale como MUESTRA y en «Tu colección» está ABIERTA (`pruebaEnColeccion: true`). Sus archivos aún son públicos. Su enlace de Payhip (`xrboc`) ya está puesto y su licencia ya se puede activar (variable `PAYHIP_SECRET_ANANDAMAYI_MA` en Cloudflare). Para cerrarla: quitar `pruebaEnColeccion` (index.html), añadir `'anandamayi-ma': ['01', '17']` a `BARAJAS_PAGO` en `lib/comun.js` y `/oraculos/anandamayi-ma/*` a `_routes.json`.
 
 Diagnóstico: `/api/estado` solo dice si está listo. Para ver el detalle, añade la variable `ESTADO_CLAVE` en Cloudflare y abre `/api/estado?clave=<esa palabra>`.
 
