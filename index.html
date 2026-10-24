@@ -1398,6 +1398,31 @@ function avisar(texto) {
   clearTimeout(avisar.t); avisar.t = setTimeout(() => a.hidden = true, 3200);
 }
 
+// Mensaje que se queda en pantalla (para el progreso) hasta que se sustituye con avisar()
+function avisoFijo(texto) {
+  const a = document.getElementById('avisoFlotante');
+  a.textContent = texto; a.hidden = false; clearTimeout(avisar.t);
+}
+// Al activar una licencia, el oráculo se guarda solo en el dispositivo: así funciona sin conexión
+// y no depende del servidor (por ejemplo, en horas de partidos de fútbol).
+async function guardarAutomatico(id) {
+  const off = window.ODOffline;
+  if (!off || descargando) return;
+  try { if (navigator.connection && navigator.connection.saveData) return; } catch (e) {}
+  const nombre = oraculo(id).nombre;
+  descargando = id;
+  avisoFijo(`Guardando ${nombre} en tu dispositivo para usarlo sin conexión… 0 %`);
+  let r;
+  try { r = await off.descargar(id, pct => { if (descargando === id) avisoFijo(`Guardando ${nombre} en tu dispositivo… ${pct} %`); }); }
+  catch (e) { r = { fallos: 1 }; }
+  descargando = null;
+  if (r.sinRed) avisar('Cuando tengas conexión, pulsa «Guardar sin conexión» dentro del oráculo.');
+  else if (r.sinEspacio) avisar('No hay espacio para guardarlo en el dispositivo.');
+  else if (r.fallos || r.parado) avisar('No se guardó todo. Dentro del oráculo, pulsa «Guardar sin conexión» para terminar.');
+  else avisar(`✓ ${nombre} ya funciona sin conexión`);
+  if (actual && actual.id === id) pintarBotonOffline();
+}
+
 function abrirVentanaLicencia(textoArriba) {
   abrirVentana(`<h3 id="ventana-titulo">Activar licencia</h3>
     <p id="ventana-intro"></p>
@@ -1440,6 +1465,7 @@ function abrirVentanaLicencia(textoArriba) {
       pintar(r.oraculo);
       avisar(`${oraculo(r.oraculo).nombre} ya está en tu colección`);
       document.getElementById('t-coleccion').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => guardarAutomatico(r.oraculo), 1800);
       return;
     }
     msj.className = 'mensaje error'; msj.textContent = r.error;
@@ -1458,11 +1484,15 @@ function abrirVentanaLicencia(textoArriba) {
    LICENCIAS
    ===================================================================== */
 async function llamarServidor(cuerpo) {
-  const res = await fetch(API_LICENCIAS, {
-    method: 'POST', credentials: 'same-origin', cache: 'no-store',
-    headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cuerpo)
-  });
-  return res.json();
+  // Si el servidor no responde en 15 s se corta (así la pantalla no se queda esperando para siempre)
+  const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 15000);
+  try {
+    const res = await fetch(API_LICENCIAS, {
+      method: 'POST', credentials: 'same-origin', cache: 'no-store', signal: ctl.signal,
+      headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cuerpo)
+    });
+    return await res.json();
+  } finally { clearTimeout(t); }
 }
 
 async function activarLicencia(email, texto, liberar) {
@@ -1497,7 +1527,7 @@ async function activarLicencia(email, texto, liberar) {
     return { ok: false, error: d.error || 'No encontramos esa licencia. Revisa que esté completa, con sus guiones.', necesitaLiberar: !!d.necesitaLiberar };
   } catch (err) {
     return { ok: false, error: navigator.onLine
-      ? 'No pudimos contactar con el servidor de licencias. Inténtalo de nuevo en unos minutos.'
+      ? 'No hemos podido contactar con el servidor. No es un fallo de tu licencia ni de la app: a veces la conexión con el servidor se corta (por ejemplo, en horas de partidos de fútbol, por bloqueos de algunos operadores). Tu licencia sigue siendo válida. Inténtalo en unos minutos o con otra conexión (datos móviles o wifi).'
       : 'No tienes conexión a internet. Conéctate para activar tu licencia.' };
   }
 }
@@ -1562,7 +1592,7 @@ async function cargarCartasCompletas(o) {
     if (e && e.l) document.getElementById('campo-licencia').value = e.l;
     return null;
   }
-  avisar(navigator.onLine ? 'No se pudo abrir el oráculo. Inténtalo de nuevo.' : 'Conéctate a internet para abrir este oráculo la primera vez.');
+  avisar(navigator.onLine ? 'No se pudo abrir el oráculo: el servidor no responde ahora mismo (a veces pasa en horas de partidos). Inténtalo en unos minutos.' : 'Conéctate a internet para abrir este oráculo la primera vez.');
   return null;
 }
 

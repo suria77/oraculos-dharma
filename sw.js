@@ -17,7 +17,7 @@ var CN = CFG.caches || { shell: 'od-shell-v1', assets: 'od-assets-v1', media: 'o
 var SHELL = CN.shell, ASSETS = CN.assets, MEDIA = CN.media, META = 'od-meta';
 var SCOPE = self.registration.scope;
 var MAX_AUDIO = 60 * 1024 * 1024;
-var ESPERA_RED_MS = 3500;
+var ESPERA_RED_MS = 1800;
 
 var PRECACHE = [SCOPE, SCOPE + 'manifest.webmanifest', SCOPE + 'offline.js', SCOPE + 'offline-files.js',
                 SCOPE + 'img/icon.png', SCOPE + 'img/cabecera-poster.jpg', SCOPE + 'img/logo-dharma.png',
