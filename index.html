@@ -963,6 +963,50 @@ const CARTAS_ANANDAMAYI = [
   {"title": "EL BUSCADOR ES EL BUSCADO", "img": "39.webp"},
   {"title": "LA GRACIA", "img": "40.webp"}
 ];
+// Solo títulos e imágenes (para la página de muestra). Los textos completos están en
+// oraculos/ramana-maharshi/cartas.json.
+const CARTAS_RAMANA = [
+  {"title": "LA FELICIDAD ES TU NATURALEZA", "cita": "La felicidad es la naturaleza misma del Ser; la felicidad y el Ser no son diferentes", "audio": "01.mp3", "img": "01.webp"},
+  {"title": "EL PODER DE LA INDAGACIÓN", "img": "02.webp"},
+  {"title": "EL SILENCIO ELOCUENTE", "img": "03.webp"},
+  {"title": "LA ENTREGA RADICAL", "img": "04.webp"},
+  {"title": "LA PANTALLA DE LA CONCIENCIA", "img": "05.webp"},
+  {"title": "EL TEMPLO DEL CORAZÓN", "img": "06.webp"},
+  {"title": "EL ESPEJISMO DEL EGO", "img": "07.webp"},
+  {"title": "LA PRESENCIA DE LA GRACIA", "img": "08.webp"},
+  {"title": "EL ESTADO NATURAL (SAHAJA)", "img": "09.webp"},
+  {"title": "LA UNIDAD INDIVISIBLE", "img": "10.webp"},
+  {"title": "EL VEEDOR INMUTABLE", "img": "11.webp"},
+  {"title": "EL SUEÑO DE LA VIGILIA", "img": "12.webp"},
+  {"title": "EL LIENZO DEL MUNDO", "img": "13.webp"},
+  {"title": "EL SECRETO DEL BUSCADOR", "img": "14.webp"},
+  {"title": "EL RITMO DEL ALIENTO", "img": "15.webp"},
+  {"title": "LA LUZ QUE ILUMINA", "img": "16.webp"},
+  {"title": "EL ACTOR DESAPEGADO", "img": "17.webp"},
+  {"title": "EL ESPEJO DE LA EXISTENCIA", "img": "18.webp"},
+  {"title": "LA PAZ DEL SUEÑO PROFUNDO", "img": "19.webp"},
+  {"title": "LA RAÍZ DEL PENSAMIENTO", "img": "20.webp"},
+  {"title": "EL AHORA ETERNO", "img": "21.webp"},
+  {"title": "LA RENUNCIA INTERNA", "img": "22.webp"},
+  {"title": "LA CONFIANZA EN EL TREN", "img": "23.webp"},
+  {"title": "EL SER NONATO", "img": "24.webp"},
+  {"title": "EL PELIGRO DEL COCODRILO", "img": "25.webp"},
+  {"title": "MEDITACIÓN SIN ESFUERZO", "img": "26.webp"},
+  {"title": "EL BUCEADOR DE PERLAS", "img": "27.webp"},
+  {"title": "LA MEDICINA DE LA RECORDACIÓN", "img": "28.webp"},
+  {"title": "LA FLORACIÓN POR LA GRACIA", "img": "29.webp"},
+  {"title": "EN LAS FAUCES DEL TIGRE", "img": "30.webp"},
+  {"title": "LA PAZ ES TU HERENCIA", "img": "31.webp"},
+  {"title": "LA CUERDA Y LA SERPIENTE", "cita": "Ves la serpiente donde solo hay una cuerda; conoce la cuerda y el miedo desaparecerá", "audio": "32.mp3", "img": "32.webp"},
+  {"title": "SER PURO (SAT)", "img": "33.webp"},
+  {"title": "CONCIENCIA CLARA (CHIT)", "img": "34.webp"},
+  {"title": "DICHA INMANENTE (ANANDA)", "img": "35.webp"},
+  {"title": "EL TESTIGO INMÓVIL", "img": "36.webp"},
+  {"title": "EL CUARTO ESTADO (TURIYA)", "img": "37.webp"},
+  {"title": "EL FIN DEL TIEMPO", "img": "38.webp"},
+  {"title": "LA DEVOCIÓN MÁS ELEVADA", "img": "39.webp"},
+  {"title": "EL ORIGEN DEL \"YO\"", "img": "40.webp"}
+];
 /*@@FIN_CARTAS_NUEVAS@@*/
 
 const ORACULOS = [
@@ -1026,6 +1070,20 @@ const ORACULOS = [
               'Cada carta trae una de sus frases, lo que quiso transmitir con ella y una forma sencilla de llevarla a tu día, con su voz en audio. Aquí tienes dos cartas para que sientas su calidez antes de llevártelo.']
     },
     cartas: CARTAS_ANANDAMAYI
+  },
+  {
+    id: 'ramana-maharshi', nombre: 'El Oráculo de Ramana Maharshi', subtitulo: 'Quién soy yo', estado: 'disponible',
+    abiertoParaTodos: false,
+    pruebaEnColeccion: true,   // ← PROVISIONAL: abierto en «Tu colección» para revisarlo. Quitar esta línea al cerrarlo.
+    base: 'oraculos/ramana-maharshi/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
+    colorFondo: '#311217', colorBarra: '#3a161c', proporcion: 3 / 4, zonaTitulo: 0.222,
+    payhip: '', muestras: ['01', '32'],
+    presentacion: {
+      lema: '40 enseñanzas del sabio de Arunachala para volver a quien eres',
+      texto: ['Ramana Maharshi no escribió grandes tratados: invitó, con pocas palabras y mucho silencio, a preguntarse «¿Quién soy yo?». Este oráculo reúne 40 de sus enseñanzas: la indagación, la entrega, el Corazón, la Gracia, la paz que ya eres.',
+              'Cada carta trae una de sus frases, lo que quiso transmitir con ella y una forma sencilla de llevarla a tu día, con su voz en audio. Aquí tienes dos cartas para que sientas su quietud antes de llevártelo.']
+    },
+    cartas: CARTAS_RAMANA
   }
 ];
 
