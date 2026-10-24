@@ -1,5 +1,36 @@
 {
   "version": 1,
-  "include": ["/api/*", "/oraculos/rumi/*", "/oraculos/guru/*", "/oraculos/dioses-india/*", "/oraculos/anandamayi-ma/*"],
-  "exclude": []
+  "include": [
+    "/api/*",
+    "/oraculos/rumi/*",
+    "/oraculos/guru/*",
+    "/oraculos/dioses-india/*",
+    "/oraculos/anandamayi-ma/*"
+  ],
+  "exclude": [
+    "/oraculos/rumi/muestra/*",
+    "/oraculos/rumi/mini/*",
+    "/oraculos/rumi/dorso.webp",
+    "/oraculos/rumi/fondo-3.webp",
+    "/oraculos/rumi/portada.webp",
+    "/oraculos/rumi/sonido-giro.mp3",
+    "/oraculos/guru/muestra/*",
+    "/oraculos/guru/mini/*",
+    "/oraculos/guru/dorso.webp",
+    "/oraculos/guru/fondo-2.webp",
+    "/oraculos/guru/portada.webp",
+    "/oraculos/guru/sonido-giro.mp3",
+    "/oraculos/dioses-india/muestra/*",
+    "/oraculos/dioses-india/mini/*",
+    "/oraculos/dioses-india/dorso.webp",
+    "/oraculos/dioses-india/fondo.webp",
+    "/oraculos/dioses-india/portada.webp",
+    "/oraculos/dioses-india/sonido-giro.mp3",
+    "/oraculos/anandamayi-ma/muestra/*",
+    "/oraculos/anandamayi-ma/mini/*",
+    "/oraculos/anandamayi-ma/dorso.webp",
+    "/oraculos/anandamayi-ma/fondo.webp",
+    "/oraculos/anandamayi-ma/portada.webp",
+    "/oraculos/anandamayi-ma/sonido-giro.mp3"
+  ]
 }
