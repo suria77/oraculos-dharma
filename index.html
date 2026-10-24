@@ -566,6 +566,16 @@
 .tienda-flecha[hidden] { display: none; }
 }
 @media (max-width: 480px) { .tienda-item, .tienda-img { width: 100px; } .tienda-img { height: 150px; } .tienda-item.cuadrado .tienda-img { height: 100px; } }
+
+/* --- Reproductor de muestras de los discos (se abre encima de la app) --- */
+button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; -webkit-appearance: none; appearance: none; }
+.tienda-grupo-tit small { margin-left: 12px; font: italic 400 16px var(--f-lirica); letter-spacing: .01em; text-transform: none; color: var(--texto-suave); opacity: .85; }
+.disco-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(8,2,16,.9); }
+.disco-modal-cont { position: relative; width: 100%; height: 100%; max-width: 1180px; max-height: 900px; }
+.disco-modal-cont iframe { width: 100%; height: 100%; display: block; border: 0; border-radius: 12px; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,.6); }
+.disco-cerrar { position: absolute; top: 12px; left: 12px; z-index: 5; display: flex; align-items: center; gap: 6px; padding: 9px 18px 9px 12px; border-radius: 999px; border: 0; background: #6B21A8; color: #fff; font: 700 14px var(--f-display); letter-spacing: .02em; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,.45); }
+.disco-cerrar span { font-size: 20px; line-height: 1; }
+@media (max-width: 700px) { .disco-modal { padding: 0; } .disco-modal-cont { max-width: 100%; max-height: 100%; } .disco-modal-cont iframe { border-radius: 0; } }
 </style>
 
 </head>
@@ -2404,18 +2414,22 @@ if ('serviceWorker' in navigator) {
 (function () {
 try {
 var GRUPOS = [["Música",[{"n":"Cd Krishna Prema","l":"https://dharmaeterno.com/musica/cds-enteros-2/","i":"img/tienda/CD-Krishna-Prema.webp","s":1},{"n":"Rumi \"Todo Amor\"","l":"https://payhip.com/b/DR1LZ","i":"img/tienda/IMG_3906.jpeg","s":1},{"n":"Rumi 2 \"Versos de Luz\"","l":"https://payhip.com/b/7mcqR","i":"img/tienda/IMG_3907.jpeg","s":1},{"n":"Rumi 3 \"Sol de Tabriz\"","l":"https://cd-rumi-3.dharmaeterno.com/","i":"img/tienda/CD-Sol-de-Tabriz.webp","s":1},{"n":"Selección de Mantras","l":"https://seleccion-mantras.dharmaeterno.com/","i":"img/tienda/Seleccion-Mantras.webp","s":1}]],["Audiolibros",[{"n":"Dhammapada","l":"https://payhip.com/b/u9xyl","i":"img/tienda/IMG_3925.jpeg","s":1},{"n":"Cuentos espirituales","l":"https://cuentos-espirituales.dharmaeterno.com/","i":"img/tienda/Audio-Cuentos-Espirituales.webp","s":1},{"n":"Tao te Ching","l":"https://payhip.com/b/OhRa5","i":"img/tienda/IMG_3904.png","s":1},{"n":"Mitos de la India","l":"https://mitos-india.dharmaeterno.com/","i":"img/tienda/Audio-Mitos-India.webp","s":1},{"n":"Mitos de Egipto","l":"https://mitos-egipto.dharmaeterno.com/","i":"img/tienda/Audio-Mitos-Egipto.webp","s":1},{"n":"Cuentos del mundo","l":"https://cuentos-mundo.dharmaeterno.com/","i":"img/tienda/Audio-Cuentos-Mundo.webp","s":1},{"n":"El Principito","l":"https://el-principito.dharmaeterno.com/","i":"img/tienda/Audio-El-Principito.webp","s":1},{"n":"Mitos Nórdicos","l":"https://mitos-nordicos.dharmaeterno.com/","i":"img/tienda/Audio-Mitos-Nordicos.webp","s":1}]],["Libros",[{"n":"Mantra Yoga","l":"https://www.amazon.com/-/es/MANTRA-YOGA-Poder-Palabra-Spanish/dp/B09X4XDT96","i":"img/tienda/Mantras.webp","a":1},{"n":"El yoga del corazón","l":"https://www.amazon.es/dp/B0BYRKHQG6","i":"img/tienda/IMG_3901.jpeg","a":1},{"n":"Mitos de India","l":"https://www.amazon.es/dp/B0BNTZ2ZNR","i":"img/tienda/IMG_3898-1.jpeg","a":1},{"n":"Ramayana","l":"https://www.amazon.es/dp/B0BYRPWFJ3","i":"img/tienda/IMG_3899.jpeg","a":1}]],["Packs",[{"n":"Ganesha","l":"https://dharmaeterno-wbaa7e.subscribepage.io/","i":"img/tienda/Ganesha.webp"},{"n":"Lakshmi","l":"https://dharmaeterno-osga2e.subscribepage.io/","i":"img/tienda/Lakshmi.webp"},{"n":"Shiva","l":"https://dharmaeterno-vjioxg.subscribepage.io/","i":"img/tienda/Shiva.webp"},{"n":"Krishna","l":"https://dharmaeterno-iu1jpe.subscribepage.io/","i":"img/tienda/Krishna.webp"},{"n":"Durga","l":"https://dharmaeterno-n2t1up.subscribepage.io/","i":"img/tienda/Durga.webp"},{"n":"Hanuman","l":"https://dharmaeterno-bey52m.subscribepage.io/","i":"img/tienda/Hanuman.webp"},{"n":"Kali","l":"https://dharmaeterno-ec8pog.subscribepage.io/","i":"img/tienda/Kali.jpg"},{"n":"Mantras sanadores","l":"https://payhip.com/b/KqaUi","i":"img/tienda/Mantras-Sanadores.webp"},{"n":"Anandamayi Ma","l":"https://dharmaeterno-bsjf8o.subscribepage.io/","i":"img/tienda/File-2026-09-17-13-59-38.jpeg"}]]];
+var DISCOS = { 'Cd Krishna Prema': 'krishnaPrema', 'Rumi "Todo Amor"': 'rumiTodoAmor', 'Rumi 2 "Versos de Luz"': 'versosDeLuz', 'Dhammapada': 'dhammapada', 'Tao te Ching': 'taoTeChing' };
 var cont = document.getElementById('tienda-grupos');
 if (!cont) return;
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
 cont.innerHTML = GRUPOS.map(function (g) {
 var items = g[1].map(function (it) {
-return '<a class="tienda-item' + (it.s ? ' cuadrado' : '') + '" href="' + esc(it.l) + '" target="_blank" rel="noopener noreferrer">' +
+var d = DISCOS[it.n];
+var cls = 'tienda-item' + (it.s ? ' cuadrado' : '');
+var abre = d ? '<button type="button" class="' + cls + '" data-disco="' + d + '">' : '<a class="' + cls + '" href="' + esc(it.l) + '" target="_blank" rel="noopener noreferrer">';
+return abre +
 '<img class="tienda-img" src="' + esc(it.i) + '" alt="" loading="lazy" decoding="async">' +
 '<span class="tienda-nombre">' + esc(it.n) + '</span>' +
 (it.a ? '<img class="tienda-amazon" src="img/tienda/amazon.webp" alt="Amazon" loading="lazy">' : '') +
-'</a>';
+(d ? '</button>' : '</a>');
 }).join('');
-return '<div class="tienda-grupo"><h3 class="tienda-grupo-tit">' + esc(g[0]) + '</h3>' +
+return '<div class="tienda-grupo"><h3 class="tienda-grupo-tit">' + esc(g[0]) + (g[0] === 'Música' || g[0] === 'Audiolibros' ? '<small>Escucha las muestras</small>' : '') + '</h3>' +
 '<div class="tienda-scroller"><button type="button" class="tienda-flecha ant" aria-label="Anteriores" hidden>&#8249;</button>' +
 '<div class="tienda-fila">' + items + '</div>' +
 '<button type="button" class="tienda-flecha sig" aria-label="Siguientes">&#8250;</button></div></div>';
@@ -2430,6 +2444,36 @@ window.addEventListener('resize', upd);
 setTimeout(upd, 300);
 });
 } catch (e) { /* la tienda es opcional */ }
+})();
+</script>
+<script>
+/* Reproductor de muestras: abre la página del disco (con sus audios) encima de la app. */
+(function () {
+var PAGINAS = { taoTeChing: 'discos/tao-te-ching.html', dhammapada: 'discos/dhammapada.html', krishnaPrema: 'discos/krishna-prema.html', rumiTodoAmor: 'discos/rumi-todo-amor.html', versosDeLuz: 'discos/versos-de-luz.html' };
+document.addEventListener('click', function (e) {
+var btn = e.target.closest ? e.target.closest('[data-disco]') : null;
+if (!btn) return;
+var url = PAGINAS[btn.getAttribute('data-disco')];
+if (!url) return;
+e.preventDefault();
+var ov = document.createElement('div');
+ov.className = 'disco-modal';
+ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', 'Reproductor de muestras');
+ov.innerHTML = '<div class="disco-modal-cont"><button type="button" class="disco-cerrar" id="disco-cerrar"><span aria-hidden="true">&times;</span> Cerrar</button><iframe title="Reproductor de muestras"></iframe></div>';
+document.body.appendChild(ov);
+var fr = ov.querySelector('iframe');
+fetch(url).then(function (r) { if (!r.ok) throw new Error('http'); return r.text(); })
+.then(function (html) { fr.srcdoc = html; })
+.catch(function () { fr.src = url; });
+var antes = document.body.style.overflow;
+document.body.style.overflow = 'hidden';
+function cerrar() { document.removeEventListener('keydown', onKey); ov.remove(); document.body.style.overflow = antes; try { btn.focus(); } catch (x) {} }
+function onKey(ev) { if (ev.key === 'Escape') cerrar(); }
+document.addEventListener('keydown', onKey);
+ov.addEventListener('click', function (ev) { if (ev.target === ov) cerrar(); });
+ov.querySelector('#disco-cerrar').addEventListener('click', cerrar);
+setTimeout(function () { var c = ov.querySelector('#disco-cerrar'); if (c) c.focus(); }, 0);
+});
 })();
 </script>
 </body>
