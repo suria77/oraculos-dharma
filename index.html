@@ -540,6 +540,32 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   }
+
+/* ================= OTROS RECURSOS (tienda sutil, debajo de las colecciones) ================= */
+.tienda { position: relative; margin-top: clamp(34px, 7vw, 84px); padding-top: 40px; }
+.tienda::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: min(240px, 56%); height: 1px; background: linear-gradient(90deg, transparent, rgba(244,212,124,.6), transparent); }
+.tienda-cab { text-align: center; margin: 0 0 14px; }
+.tienda-tit { margin: 0; font: 700 13.5px var(--f-display); letter-spacing: .34em; text-transform: uppercase; color: var(--oro); opacity: .9; }
+.tienda-sub { margin: 8px 0 0; font: italic 400 19px var(--f-lirica); color: var(--texto-suave); opacity: .85; }
+.tienda-grupo { margin-top: 26px; padding: 16px 16px 6px; border-radius: 18px; background: rgba(255,255,255,.035); border: 1px solid rgba(205,176,255,.14); }
+.tienda-grupo-tit { margin: 0 0 4px; font: 700 13px var(--f-display); letter-spacing: .2em; text-transform: uppercase; color: var(--lila); }
+.tienda-scroller { position: relative; }
+.tienda-fila { display: flex; gap: 18px; overflow-x: auto; padding: 10px 4px 16px; margin: 0 -4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; align-items: flex-end; }
+.tienda-fila::-webkit-scrollbar { display: none; }
+.tienda-item { flex: 0 0 auto; width: 112px; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; gap: 9px; color: inherit; text-decoration: none; opacity: .9; transition: opacity .2s, transform .25s; }
+.tienda-item:hover, .tienda-item:focus-visible { opacity: 1; transform: translateY(-4px); }
+.tienda-img { width: 112px; height: 168px; object-fit: contain; border-radius: 10px; background: rgba(255,255,255,.04); box-shadow: 0 8px 18px rgba(10,2,24,.45); }
+.tienda-item.cuadrado .tienda-img { height: 112px; }
+.tienda-nombre { font: 600 14px/1.3 var(--f-display); color: var(--texto); text-align: center; text-wrap: balance; }
+.tienda-amazon { width: 34px; height: auto; opacity: .85; }
+.tienda-flecha { display: none; }
+@media (hover: hover) and (pointer: fine) {
+.tienda-flecha { display: grid; place-items: center; position: absolute; top: 50%; transform: translateY(-60%); width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(244,212,124,.5); background: rgba(29,8,56,.88); color: var(--oro); font-size: 24px; line-height: 1; cursor: pointer; z-index: 2; }
+.tienda-flecha:hover { background: var(--oro); color: var(--morado-hondo); }
+.tienda-flecha.ant { left: -8px; } .tienda-flecha.sig { right: -8px; }
+.tienda-flecha[hidden] { display: none; }
+}
+@media (max-width: 480px) { .tienda-item, .tienda-img { width: 100px; } .tienda-img { height: 150px; } .tienda-item.cuadrado .tienda-img { height: 100px; } }
 </style>
 
 </head>
@@ -578,7 +604,15 @@
         <div class="carrusel" id="fila-coleccion"></div>
       </section>
 
-      <footer class="pie">
+      <section class="tienda" aria-labelledby="t-tienda">
+<div class="tienda-cab">
+<h2 class="tienda-tit" id="t-tienda">Otros recursos</h2>
+<p class="tienda-sub">Música, audiolibros, libros y packs de Dharma Eterno</p>
+</div>
+<div id="tienda-grupos"></div>
+</section>
+
+<footer class="pie">
         <div class="pie-fila">
           <img src="img/logo-dharma.png" alt="Dharma Eterno">
           <div class="pie-botones">
@@ -2365,5 +2399,38 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
+<script>
+/* Otros recursos: carruseles de la tienda (enlaces externos). Si algo falla, el resto de la app no se ve afectado. */
+(function () {
+try {
+var GRUPOS = [["Música",[{"n":"Cd Krishna Prema","l":"https://dharmaeterno.com/musica/cds-enteros-2/","i":"img/tienda/CD-Krishna-Prema.webp","s":1},{"n":"Rumi \"Todo Amor\"","l":"https://payhip.com/b/DR1LZ","i":"img/tienda/IMG_3906.jpeg","s":1},{"n":"Rumi 2 \"Versos de Luz\"","l":"https://payhip.com/b/7mcqR","i":"img/tienda/IMG_3907.jpeg","s":1},{"n":"Rumi 3 \"Sol de Tabriz\"","l":"https://cd-rumi-3.dharmaeterno.com/","i":"img/tienda/CD-Sol-de-Tabriz.webp","s":1},{"n":"Selección de Mantras","l":"https://seleccion-mantras.dharmaeterno.com/","i":"img/tienda/Seleccion-Mantras.webp","s":1}]],["Audiolibros",[{"n":"Dhammapada","l":"https://payhip.com/b/u9xyl","i":"img/tienda/IMG_3925.jpeg","s":1},{"n":"Cuentos espirituales","l":"https://cuentos-espirituales.dharmaeterno.com/","i":"img/tienda/Audio-Cuentos-Espirituales.webp","s":1},{"n":"Tao te Ching","l":"https://payhip.com/b/OhRa5","i":"img/tienda/IMG_3904.png","s":1},{"n":"Mitos de la India","l":"https://mitos-india.dharmaeterno.com/","i":"img/tienda/Audio-Mitos-India.webp","s":1},{"n":"Mitos de Egipto","l":"https://mitos-egipto.dharmaeterno.com/","i":"img/tienda/Audio-Mitos-Egipto.webp","s":1},{"n":"Cuentos del mundo","l":"https://cuentos-mundo.dharmaeterno.com/","i":"img/tienda/Audio-Cuentos-Mundo.webp","s":1},{"n":"El Principito","l":"https://el-principito.dharmaeterno.com/","i":"img/tienda/Audio-El-Principito.webp","s":1},{"n":"Mitos Nórdicos","l":"https://mitos-nordicos.dharmaeterno.com/","i":"img/tienda/Audio-Mitos-Nordicos.webp","s":1}]],["Libros",[{"n":"Mantra Yoga","l":"https://www.amazon.com/-/es/MANTRA-YOGA-Poder-Palabra-Spanish/dp/B09X4XDT96","i":"img/tienda/Mantras.webp","a":1},{"n":"El yoga del corazón","l":"https://www.amazon.es/dp/B0BYRKHQG6","i":"img/tienda/IMG_3901.jpeg","a":1},{"n":"Mitos de India","l":"https://www.amazon.es/dp/B0BNTZ2ZNR","i":"img/tienda/IMG_3898-1.jpeg","a":1},{"n":"Ramayana","l":"https://www.amazon.es/dp/B0BYRPWFJ3","i":"img/tienda/IMG_3899.jpeg","a":1}]],["Packs",[{"n":"Ganesha","l":"https://dharmaeterno-wbaa7e.subscribepage.io/","i":"img/tienda/Ganesha.webp"},{"n":"Lakshmi","l":"https://dharmaeterno-osga2e.subscribepage.io/","i":"img/tienda/Lakshmi.webp"},{"n":"Shiva","l":"https://dharmaeterno-vjioxg.subscribepage.io/","i":"img/tienda/Shiva.webp"},{"n":"Krishna","l":"https://dharmaeterno-iu1jpe.subscribepage.io/","i":"img/tienda/Krishna.webp"},{"n":"Durga","l":"https://dharmaeterno-n2t1up.subscribepage.io/","i":"img/tienda/Durga.webp"},{"n":"Hanuman","l":"https://dharmaeterno-bey52m.subscribepage.io/","i":"img/tienda/Hanuman.webp"},{"n":"Kali","l":"https://dharmaeterno-ec8pog.subscribepage.io/","i":"img/tienda/Kali.jpg"},{"n":"Mantras sanadores","l":"https://payhip.com/b/KqaUi","i":"img/tienda/Mantras-Sanadores.webp"},{"n":"Anandamayi Ma","l":"https://dharmaeterno-bsjf8o.subscribepage.io/","i":"img/tienda/File-2026-09-17-13-59-38.jpeg"}]]];
+var cont = document.getElementById('tienda-grupos');
+if (!cont) return;
+function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+cont.innerHTML = GRUPOS.map(function (g) {
+var items = g[1].map(function (it) {
+return '<a class="tienda-item' + (it.s ? ' cuadrado' : '') + '" href="' + esc(it.l) + '" target="_blank" rel="noopener noreferrer">' +
+'<img class="tienda-img" src="' + esc(it.i) + '" alt="" loading="lazy" decoding="async">' +
+'<span class="tienda-nombre">' + esc(it.n) + '</span>' +
+(it.a ? '<img class="tienda-amazon" src="img/tienda/amazon.webp" alt="Amazon" loading="lazy">' : '') +
+'</a>';
+}).join('');
+return '<div class="tienda-grupo"><h3 class="tienda-grupo-tit">' + esc(g[0]) + '</h3>' +
+'<div class="tienda-scroller"><button type="button" class="tienda-flecha ant" aria-label="Anteriores" hidden>&#8249;</button>' +
+'<div class="tienda-fila">' + items + '</div>' +
+'<button type="button" class="tienda-flecha sig" aria-label="Siguientes">&#8250;</button></div></div>';
+}).join('');
+cont.querySelectorAll('.tienda-scroller').forEach(function (w) {
+var fila = w.querySelector('.tienda-fila'), a = w.querySelector('.ant'), s = w.querySelector('.sig');
+function upd() { a.hidden = fila.scrollLeft < 8; s.hidden = fila.scrollLeft + fila.clientWidth >= fila.scrollWidth - 8; }
+a.addEventListener('click', function () { fila.scrollBy({ left: -fila.clientWidth * 0.8, behavior: 'smooth' }); });
+s.addEventListener('click', function () { fila.scrollBy({ left: fila.clientWidth * 0.8, behavior: 'smooth' }); });
+fila.addEventListener('scroll', upd, { passive: true });
+window.addEventListener('resize', upd);
+setTimeout(upd, 300);
+});
+} catch (e) { /* la tienda es opcional */ }
+})();
+</script>
 </body>
 </html>
