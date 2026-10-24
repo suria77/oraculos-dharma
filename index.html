@@ -570,6 +570,26 @@
 /* --- Reproductor de muestras de los discos (se abre encima de la app) --- */
 button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; -webkit-appearance: none; appearance: none; }
 .tienda-grupo-tit small { margin-left: 12px; font: italic 400 16px var(--f-lirica); letter-spacing: .01em; text-transform: none; color: var(--texto-suave); opacity: .85; }
+
+/* --- Franja de la tienda: corte claro (lila) bajo el logo, para separarla de los oráculos --- */
+.cierre-oraculos { display: flex; justify-content: center; margin-top: clamp(26px, 6vw, 60px); }
+.cierre-oraculos img { height: clamp(52px, 11vw, 74px); width: auto; opacity: .95; }
+.pie-fila { justify-content: center; }
+.tienda { margin-top: clamp(22px, 4vw, 40px); margin-inline: calc(50% - 50vw); padding: clamp(40px, 7vw, 68px) calc(50vw - 50%) clamp(40px, 7vw, 64px);
+  background: linear-gradient(180deg, #e6d9fb 0%, #f3ecff 55%, #ebe0fc 100%); color: #2c0f4e; box-shadow: 0 -1px 0 rgba(244,212,124,.55), 0 1px 0 rgba(244,212,124,.55); }
+.tienda::before { display: none; }
+.tienda-tit { font: 700 15px var(--f-display); letter-spacing: .3em; color: #4b1d7a; opacity: 1; }
+.tienda-sub { font-size: 22px; color: #5a3f80; opacity: 1; }
+.tienda-grupo { background: rgba(255,255,255,.72); border: 1px solid #d6c2f5; box-shadow: 0 6px 22px rgba(75,29,122,.10); }
+.tienda-grupo-tit { font-size: 14px; color: #4b1d7a; }
+.tienda-grupo-tit small { font-size: 18px; color: #5a3f80; opacity: 1; }
+.tienda-item { opacity: 1; }
+.tienda-img { background: #fff; box-shadow: 0 8px 18px rgba(75,29,122,.22); }
+.tienda-nombre { font-size: 15px; color: #2c0f4e; }
+@media (hover: hover) and (pointer: fine) {
+.tienda-flecha { border-color: #b99be6; background: #fff; color: #4b1d7a; }
+.tienda-flecha:hover { background: #4b1d7a; color: #fff; }
+}
 .disco-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(8,2,16,.9); }
 .disco-modal-cont { position: relative; width: 100%; height: 100%; max-width: 1180px; max-height: 900px; }
 .disco-modal-cont iframe { width: 100%; height: 100%; display: block; border: 0; border-radius: 12px; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,.6); }
@@ -614,17 +634,18 @@ button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cur
         <div class="carrusel" id="fila-coleccion"></div>
       </section>
 
+      <div class="cierre-oraculos"><img src="img/logo-dharma.png" alt="Dharma Eterno"></div>
+
       <section class="tienda" aria-labelledby="t-tienda">
 <div class="tienda-cab">
-<h2 class="tienda-tit" id="t-tienda">Otros recursos</h2>
-<p class="tienda-sub">Música, audiolibros, libros y packs de Dharma Eterno</p>
+<h2 class="tienda-tit" id="t-tienda">Para seguir profundizando</h2>
+<p class="tienda-sub">Música y audiolibros de Dharma Eterno</p>
 </div>
 <div id="tienda-grupos"></div>
 </section>
 
 <footer class="pie">
         <div class="pie-fila">
-          <img src="img/logo-dharma.png" alt="Dharma Eterno">
           <div class="pie-botones">
             <button type="button" class="btn-pie" id="btn-tutorial"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17.2h.01"/></svg>Tutorial</button>
             <button type="button" class="btn-pie" id="btn-compartir"><svg viewBox="0 0 24 24"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1"/></svg>Compartir</button>
@@ -2473,6 +2494,7 @@ if ('serviceWorker' in navigator) {
 try {
 var GRUPOS = [["Música",[{"n":"Cd Krishna Prema","l":"https://dharmaeterno.com/musica/cds-enteros-2/","i":"img/tienda/CD-Krishna-Prema.webp","s":1},{"n":"Rumi \"Todo Amor\"","l":"https://payhip.com/b/DR1LZ","i":"img/tienda/IMG_3906.jpeg","s":1},{"n":"Rumi 2 \"Versos de Luz\"","l":"https://payhip.com/b/7mcqR","i":"img/tienda/IMG_3907.jpeg","s":1},{"n":"Rumi 3 \"Sol de Tabriz\"","l":"https://cd-rumi-3.dharmaeterno.com/","i":"img/tienda/CD-Sol-de-Tabriz.webp","s":1},{"n":"Selección de Mantras","l":"https://seleccion-mantras.dharmaeterno.com/","i":"img/tienda/Seleccion-Mantras.webp","s":1}]],["Audiolibros",[{"n":"Dhammapada","l":"https://payhip.com/b/u9xyl","i":"img/tienda/IMG_3925.jpeg","s":1},{"n":"Cuentos espirituales","l":"https://cuentos-espirituales.dharmaeterno.com/","i":"img/tienda/Audio-Cuentos-Espirituales.webp","s":1},{"n":"Tao te Ching","l":"https://payhip.com/b/OhRa5","i":"img/tienda/IMG_3904.png","s":1},{"n":"Mitos de la India","l":"https://mitos-india.dharmaeterno.com/","i":"img/tienda/Audio-Mitos-India.webp","s":1},{"n":"Mitos de Egipto","l":"https://mitos-egipto.dharmaeterno.com/","i":"img/tienda/Audio-Mitos-Egipto.webp","s":1},{"n":"Cuentos del mundo","l":"https://cuentos-mundo.dharmaeterno.com/","i":"img/tienda/Audio-Cuentos-Mundo.webp","s":1},{"n":"El Principito","l":"https://el-principito.dharmaeterno.com/","i":"img/tienda/Audio-El-Principito.webp","s":1},{"n":"Mitos Nórdicos","l":"https://mitos-nordicos.dharmaeterno.com/","i":"img/tienda/Audio-Mitos-Nordicos.webp","s":1}]],["Libros",[{"n":"Mantra Yoga","l":"https://www.amazon.com/-/es/MANTRA-YOGA-Poder-Palabra-Spanish/dp/B09X4XDT96","i":"img/tienda/Mantras.webp","a":1},{"n":"El yoga del corazón","l":"https://www.amazon.es/dp/B0BYRKHQG6","i":"img/tienda/IMG_3901.jpeg","a":1},{"n":"Mitos de India","l":"https://www.amazon.es/dp/B0BNTZ2ZNR","i":"img/tienda/IMG_3898-1.jpeg","a":1},{"n":"Ramayana","l":"https://www.amazon.es/dp/B0BYRPWFJ3","i":"img/tienda/IMG_3899.jpeg","a":1}]],["Packs",[{"n":"Ganesha","l":"https://dharmaeterno-wbaa7e.subscribepage.io/","i":"img/tienda/Ganesha.webp"},{"n":"Lakshmi","l":"https://dharmaeterno-osga2e.subscribepage.io/","i":"img/tienda/Lakshmi.webp"},{"n":"Shiva","l":"https://dharmaeterno-vjioxg.subscribepage.io/","i":"img/tienda/Shiva.webp"},{"n":"Krishna","l":"https://dharmaeterno-iu1jpe.subscribepage.io/","i":"img/tienda/Krishna.webp"},{"n":"Durga","l":"https://dharmaeterno-n2t1up.subscribepage.io/","i":"img/tienda/Durga.webp"},{"n":"Hanuman","l":"https://dharmaeterno-bey52m.subscribepage.io/","i":"img/tienda/Hanuman.webp"},{"n":"Kali","l":"https://dharmaeterno-ec8pog.subscribepage.io/","i":"img/tienda/Kali.jpg"},{"n":"Mantras sanadores","l":"https://payhip.com/b/KqaUi","i":"img/tienda/Mantras-Sanadores.webp"},{"n":"Anandamayi Ma","l":"https://dharmaeterno-bsjf8o.subscribepage.io/","i":"img/tienda/File-2026-09-17-13-59-38.jpeg"}]]];
 var DISCOS = { 'Cd Krishna Prema': 'krishnaPrema', 'Rumi "Todo Amor"': 'rumiTodoAmor', 'Rumi 2 "Versos de Luz"': 'versosDeLuz', 'Dhammapada': 'dhammapada', 'Tao te Ching': 'taoTeChing' };
+GRUPOS = GRUPOS.filter(function (g) { return g[0] === 'Música' || g[0] === 'Audiolibros'; });   // tienda corta: solo dos carruseles
 var cont = document.getElementById('tienda-grupos');
 if (!cont) return;
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
