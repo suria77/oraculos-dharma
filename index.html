@@ -478,9 +478,10 @@
   @media (min-width: 900px) {
     .muestra-rejilla { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: start; }
     .muestra-intro { grid-column: 1; grid-row: 1; }
-    .muestra-cta { grid-column: 1; grid-row: 2; }
-    .muestra-cartas { grid-column: 2; grid-row: 1 / span 2; }
-    .muestra-todas { grid-column: 1 / -1; grid-row: 3; }
+    .muestra-regalo { grid-column: 1; grid-row: 2; }
+    .muestra-cta { grid-column: 1; grid-row: 3; }
+    .muestra-cartas { grid-column: 2; grid-row: 1 / span 3; }
+    .muestra-todas { grid-column: 1 / -1; grid-row: 4; }
   }
   @media (max-width: 420px) {
     .muestra-cartas { gap: 10px; }
@@ -488,6 +489,34 @@
     .muestra-carta .sub { font-size: 15px; }
     .mini-player button { width: 40px; height: 40px; }
   }
+
+  /* ================= REGALO CON CADA ORÁCULO ================= */
+  .muestra-regalo { position: relative; overflow: hidden; text-align: center; border: 1px solid rgba(244,212,124,.75);
+    background: radial-gradient(120% 90% at 50% 0%, rgba(244,212,124,.20), rgba(13,8,24,.93) 62%), rgba(13,8,24,.93);
+    box-shadow: 0 0 0 1px rgba(244,212,124,.18), 0 16px 40px rgba(0,0,0,.5), 0 0 38px rgba(244,212,124,.12); }
+  .regalo-icono { width: 58px; height: 58px; margin: 0 auto 10px; border-radius: 50%; display: grid; place-items: center;
+    background: linear-gradient(135deg, #ffd94d 0%, #fff6b0 35%, #ffcb1f 65%, #e6a800 100%); box-shadow: 0 6px 18px rgba(255,200,0,.4); }
+  .regalo-icono svg { width: 30px; height: 30px; fill: none; stroke: #2a1405; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .regalo-etiqueta { display: inline-block; font-size: 12.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: #fcf6ba; border: 1px solid rgba(244,212,124,.6); border-radius: 999px; padding: 5px 14px; }
+  .regalo-titulo { margin: 12px 0 6px; font: 600 clamp(26px, 5vw, 32px)/1.12 var(--f-lirica); color: #fcf6ba; text-wrap: balance; }
+  .regalo-texto { margin: 0 auto 16px; max-width: 44ch; font-size: 17px; line-height: 1.6; color: #f1e9fb; }
+  .regalo-escucha { margin: 0 0 8px; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #e9dcff; }
+  .regalo-reproductor { max-width: 380px; margin: 0 auto; padding: 12px 14px; border-radius: 14px; background: rgba(255,255,255,.06); border: 1px solid rgba(244,212,124,.35); }
+  .regalo-reproductor .mini-player { margin-top: 0; }
+  .regalo-nota { margin: 14px 0 0; font-size: 14px; color: #d8cbe9; }
+  .comic-tira { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; max-width: 460px; margin: 0 auto; }
+  .comic-miniatura { padding: 0; border: 0; background: none; cursor: pointer; border-radius: 6px; transition: transform .2s ease; -webkit-appearance: none; appearance: none; }
+  .comic-miniatura:nth-child(odd) { transform: rotate(-1.6deg); } .comic-miniatura:nth-child(even) { transform: rotate(1.6deg) translateY(4px); }
+  .comic-miniatura:hover, .comic-miniatura:focus-visible { transform: translateY(-4px) scale(1.04); }
+  .comic-miniatura img { width: 100%; height: auto; display: block; border-radius: 5px; border: 2px solid rgba(244,212,124,.7); box-shadow: 0 8px 18px rgba(0,0,0,.55); }
+  .comic-aviso { margin: 12px 0 0; font-size: 14px; font-weight: 700; color: #fcf6ba; }
+  .comic-visor { position: fixed; inset: 0; z-index: 2100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 14px; background: rgba(8,2,16,.94); }
+  .comic-visor[hidden] { display: none; }
+  .comic-visor img { max-width: min(94vw, 640px); max-height: calc(100dvh - 130px); width: auto; height: auto; border-radius: 6px; border: 2px solid rgba(244,212,124,.7); box-shadow: 0 14px 40px rgba(0,0,0,.7); touch-action: pan-y; }
+  .comic-barra { display: flex; align-items: center; gap: 14px; color: #fcf6ba; font: 700 16px var(--f-display); }
+  .comic-barra button, .comic-cerrar { border: 1px solid rgba(244,212,124,.6); background: rgba(29,8,56,.9); color: #fcf6ba; border-radius: 999px; min-width: 46px; height: 46px; padding: 0 18px; font: 700 15px var(--f-display); cursor: pointer; }
+  .comic-barra button[disabled] { opacity: .35; cursor: default; }
+  .comic-cerrar { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 12px; }
   /* ================= TUTORIAL Y COMPARTIR (ventanas claras) ================= */
   .ayuda-velo { position: fixed; inset: 0; z-index: 1200; display: flex; align-items: center; justify-content: center;
     padding: max(14px, env(safe-area-inset-top, 0px)) 14px max(14px, env(safe-area-inset-bottom, 0px));
@@ -571,25 +600,17 @@
 button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; -webkit-appearance: none; appearance: none; }
 .tienda-grupo-tit small { margin-left: 12px; font: italic 400 16px var(--f-lirica); letter-spacing: .01em; text-transform: none; color: var(--texto-suave); opacity: .85; }
 
-/* --- Franja de la tienda: corte claro (lila) bajo el logo, para separarla de los oráculos --- */
-.cierre-oraculos { display: flex; justify-content: center; margin-top: clamp(26px, 6vw, 60px); }
-.cierre-oraculos img { height: clamp(52px, 11vw, 74px); width: auto; opacity: .95; }
-.pie-fila { justify-content: center; }
-.tienda { margin-top: clamp(22px, 4vw, 40px); margin-inline: calc(50% - 50vw); padding: clamp(40px, 7vw, 68px) calc(50vw - 50%) clamp(40px, 7vw, 64px);
-  background: linear-gradient(180deg, #e6d9fb 0%, #f3ecff 55%, #ebe0fc 100%); color: #2c0f4e; box-shadow: 0 -1px 0 rgba(244,212,124,.55), 0 1px 0 rgba(244,212,124,.55); }
-.tienda::before { display: none; }
-.tienda-tit { font: 700 15px var(--f-display); letter-spacing: .3em; color: #4b1d7a; opacity: 1; }
-.tienda-sub { font-size: 22px; color: #5a3f80; opacity: 1; }
-.tienda-grupo { background: rgba(255,255,255,.72); border: 1px solid #d6c2f5; box-shadow: 0 6px 22px rgba(75,29,122,.10); }
-.tienda-grupo-tit { font-size: 14px; color: #4b1d7a; }
-.tienda-grupo-tit small { font-size: 18px; color: #5a3f80; opacity: 1; }
-.tienda-item { opacity: 1; }
-.tienda-img { background: #fff; box-shadow: 0 8px 18px rgba(75,29,122,.22); }
-.tienda-nombre { font-size: 15px; color: #2c0f4e; }
-@media (hover: hover) and (pointer: fine) {
-.tienda-flecha { border-color: #b99be6; background: #fff; color: #4b1d7a; }
-.tienda-flecha:hover { background: #4b1d7a; color: #fff; }
-}
+/* --- Separador con detalle, herramientas y tienda (discreta, más abajo) --- */
+.separador-ornamento { display: flex; align-items: center; gap: 18px; margin-top: clamp(30px, 6vw, 64px); }
+.separador-ornamento::before, .separador-ornamento::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(244,212,124,.65)); }
+.separador-ornamento::after { background: linear-gradient(270deg, transparent, rgba(244,212,124,.65)); }
+.separador-ornamento svg { width: 38px; height: 38px; fill: none; stroke: var(--oro); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
+.pie-fila.herramientas { margin-top: 4px; padding: 6px 0 2px; }
+.pie-fila.herramientas img { height: 46px; opacity: .95; }
+.tienda { margin-top: clamp(40px, 8vw, 84px); padding-top: 46px; }
+.tienda::before { width: min(300px, 70%); background: linear-gradient(90deg, transparent, rgba(205,176,255,.55), transparent); }
+.tienda-tit { color: var(--lila); }
+.tienda-sub { font-size: 20px; }
 .disco-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(8,2,16,.9); }
 .disco-modal-cont { position: relative; width: 100%; height: 100%; max-width: 1180px; max-height: 900px; }
 .disco-modal-cont iframe { width: 100%; height: 100%; display: block; border: 0; border-radius: 12px; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,.6); }
@@ -634,8 +655,14 @@ button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cur
         <div class="carrusel" id="fila-coleccion"></div>
       </section>
 
-      <div class="cierre-oraculos"><img src="img/logo-dharma.png" alt="Dharma Eterno"></div>
-
+      <div class="separador-ornamento" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 8c4 5 6 10 6 15s-2 9-6 13c-4-4-6-8-6-13s2-10 6-15z"/><path d="M24 36c-6-1-12-5-15-12 6-1 11 1 15 5"/><path d="M24 36c6-1 12-5 15-12-6-1-11 1-15 5"/><path d="M10 40h28"/></svg></div>
+      <div class="pie-fila herramientas">
+          <img src="img/logo-dharma.png" alt="Dharma Eterno">
+          <div class="pie-botones">
+            <button type="button" class="btn-pie" id="btn-tutorial"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17.2h.01"/></svg>Tutorial</button>
+            <button type="button" class="btn-pie" id="btn-compartir"><svg viewBox="0 0 24 24"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1"/></svg>Compartir</button>
+          </div>
+        </div>
       <section class="tienda" aria-labelledby="t-tienda">
 <div class="tienda-cab">
 <h2 class="tienda-tit" id="t-tienda">Para seguir profundizando</h2>
@@ -645,12 +672,6 @@ button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cur
 </section>
 
 <footer class="pie">
-        <div class="pie-fila">
-          <div class="pie-botones">
-            <button type="button" class="btn-pie" id="btn-tutorial"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><path d="M12 17.2h.01"/></svg>Tutorial</button>
-            <button type="button" class="btn-pie" id="btn-compartir"><svg viewBox="0 0 24 24"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1"/></svg>Compartir</button>
-          </div>
-        </div>
         <p class="pie-nota">Tus oráculos se guardan en este dispositivo. Si cambias de móvil o tablet, vuelve a pegar tu licencia.</p>
         <nav class="pie-legal" aria-label="Información legal"><button type="button" id="btn-aviso-legal">Aviso legal y contacto</button><button type="button" id="btn-privacidad">Política de privacidad</button><button type="button" id="btn-condiciones">Condiciones de compra</button></nav>
       </footer>
@@ -714,6 +735,7 @@ button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cur
         </ul>
       </section>
       <div class="muestra-cartas" id="muestraCartas"></div>
+      <section class="muestra-panel muestra-regalo" id="muestraRegalo" hidden></section>
       <section class="muestra-panel muestra-cta">
         <h2>Llévate el oráculo completo</h2>
         <p>Las 40 cartas con sus audios, en tu móvil o tablet, para consultarlas siempre que lo necesites.</p>
@@ -739,6 +761,11 @@ button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cur
 <div class="visor" id="visor" role="dialog" aria-modal="true" aria-label="Carta en grande" hidden>
   <button type="button" class="visor-cerrar" id="visorCerrar" aria-label="Cerrar la carta en grande"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>Cerrar</button>
   <img id="visorImg" alt="" draggable="false">
+</div>
+<div class="comic-visor" id="comicVisor" role="dialog" aria-modal="true" aria-label="Páginas del cómic" hidden>
+  <button type="button" class="comic-cerrar" id="comicCerrar">Cerrar</button>
+  <img id="comicImg" alt="" draggable="false">
+  <div class="comic-barra"><button type="button" id="comicAnt" aria-label="Página anterior">‹</button><span id="comicPag"></span><button type="button" id="comicSig" aria-label="Página siguiente">›</button></div>
 </div>
 <div class="aviso-flotante" id="avisoFlotante" role="status" aria-live="polite" hidden></div>
 
@@ -1107,6 +1134,19 @@ const ORACULOS = [
     cartas: CARTAS_RAMANA
   }
 ];
+
+// Regalo que acompaña a cada oráculo (se enseña en la página de muestra). Los archivos de muestra están
+// en oraculos/<id>/muestra/ (públicos).
+const REGALOS = {
+  'rumi': { tipo: 'comic', titulo: 'Un cómic de regalo: «Rumi, Vida del Amante infinito»',
+    texto: 'Con tu oráculo de Rumi recibes además un cómic ilustrado sobre la vida del poeta, en PDF. Échale un vistazo: aquí tienes cuatro páginas.',
+    paginas: ['comic-1', 'comic-2', 'comic-3', 'comic-4'] },
+  'guru': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' },
+  'dioses-india': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' },
+  'anandamayi-ma': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' },
+  'ramana-maharshi': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' }
+};
+ORACULOS.forEach(o => { if (REGALOS[o.id]) o.regalo = REGALOS[o.id]; });
 
 /* =====================================================================
    COLECCIÓN — guardada por triplicado y firmada (sistema de Japa-Móvil, reforzado)
@@ -2188,6 +2228,7 @@ function abrirMuestra(o) {
         <div class="barra"><div class="pista"><i></i></div><span class="tiempo">Escuchar</span></div>
       </div>
     </article>`).join('');
+  pintarRegalo(o);
   const idsMuestra = cartasM.map(c => c.img);
   const minis = document.getElementById('muestraMinis');
   minis.style.setProperty('--mini-prop', String(o.proporcion || 2 / 3));
@@ -2201,6 +2242,63 @@ function abrirMuestra(o) {
   window.scrollTo(0, 0);
   ajustarFondoMuestra(o);
 }
+const ICO_REGALO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="9" width="17" height="11.5" rx="1.5"/><path d="M2.5 6.5h19V9h-19zM12 6.5v14"/><path d="M12 6.5C10.5 3 7 3 7 5.2c0 1.4 2 1.3 5 1.3zM12 6.5c1.5-3.5 5-3.5 5-1.3 0 1.4-2 1.3-5 1.3z"/></svg>';
+function pintarRegalo(o) {
+  const cont = document.getElementById('muestraRegalo'), g = o.regalo;
+  if (!g) { cont.hidden = true; cont.innerHTML = ''; return; }
+  let cuerpo = '';
+  if (g.tipo === 'audio') {
+    cuerpo = `<p class="regalo-escucha">Escucha una muestra del regalo</p>
+      <div class="regalo-reproductor"><div class="mini-player">
+        <button type="button" data-audio="${o.base}muestra/${g.audio}" aria-label="Escuchar una muestra del audio de regalo">${ICO_PLAY}</button>
+        <div class="barra"><div class="pista"><i></i></div><span class="tiempo">Escuchar</span></div>
+      </div></div>`;
+  } else {
+    cuerpo = `<div class="comic-tira">${g.paginas.map((p, i) => `<button type="button" class="comic-miniatura" data-comic="${i}" aria-label="Ver la página ${i + 1} de ${g.paginas.length}"><img src="${o.base}muestra/${p}-t.webp" alt="Página ${i + 1} del cómic" loading="lazy" decoding="async"></button>`).join('')}</div>
+      <p class="comic-aviso">Toca una página para verla en grande</p>`;
+  }
+  cont.innerHTML = `<div class="regalo-icono">${ICO_REGALO}</div>
+    <span class="regalo-etiqueta">Regalo incluido con tu compra</span>
+    <h2 class="regalo-titulo">${g.titulo}</h2>
+    <p class="regalo-texto">${g.texto}</p>${cuerpo}
+    <p class="regalo-nota">Lo recibes junto a tu oráculo, sin pagar nada más.</p>`;
+  cont.hidden = false;
+}
+/* Visor de las páginas de muestra del cómic */
+const comicVisor = document.getElementById('comicVisor');
+let comicI = 0, comicLista = [];
+function mostrarComic() {
+  document.getElementById('comicImg').src = comicLista[comicI];
+  document.getElementById('comicImg').alt = `Página ${comicI + 1} del cómic`;
+  document.getElementById('comicPag').textContent = `${comicI + 1} / ${comicLista.length}`;
+  document.getElementById('comicAnt').disabled = comicI === 0;
+  document.getElementById('comicSig').disabled = comicI === comicLista.length - 1;
+}
+function abrirComic(i) {
+  const g = actual && actual.regalo; if (!g || g.tipo !== 'comic') return;
+  comicLista = g.paginas.map(p => `${actual.base}muestra/${p}.webp`); comicI = i; mostrarComic();
+  comicVisor.hidden = false; document.getElementById('comicCerrar').focus();
+}
+function cerrarComic() { comicVisor.hidden = true; }
+document.getElementById('muestraRegalo').addEventListener('click', e => { const b = e.target.closest('[data-comic]'); if (b) abrirComic(Number(b.dataset.comic)); });
+document.getElementById('comicCerrar').addEventListener('click', cerrarComic);
+document.getElementById('comicAnt').addEventListener('click', () => { if (comicI > 0) { comicI--; mostrarComic(); } });
+document.getElementById('comicSig').addEventListener('click', () => { if (comicI < comicLista.length - 1) { comicI++; mostrarComic(); } });
+comicVisor.addEventListener('click', e => { if (e.target === comicVisor) cerrarComic(); });
+document.addEventListener('keydown', e => {
+  if (comicVisor.hidden) return;
+  if (e.key === 'Escape') cerrarComic();
+  else if (e.key === 'ArrowLeft' && comicI > 0) { comicI--; mostrarComic(); }
+  else if (e.key === 'ArrowRight' && comicI < comicLista.length - 1) { comicI++; mostrarComic(); }
+});
+let comicX = null;
+comicVisor.addEventListener('touchstart', e => { comicX = e.touches[0].clientX; }, { passive: true });
+comicVisor.addEventListener('touchend', e => {
+  if (comicX === null) return; const dx = e.changedTouches[0].clientX - comicX; comicX = null;
+  if (Math.abs(dx) < 50) return;
+  if (dx < 0 && comicI < comicLista.length - 1) { comicI++; mostrarComic(); } else if (dx > 0 && comicI > 0) { comicI--; mostrarComic(); }
+}, { passive: true });
+
 function cerrarMuestra() {
   pararMuestra();
   document.getElementById('vista-muestra').hidden = true;
@@ -2208,7 +2306,7 @@ function cerrarMuestra() {
   document.title = 'Oráculos del Dharma';
   videoCabecera(true);
 }
-document.getElementById('muestraCartas').addEventListener('click', e => {
+function clickMuestra(e) {
   const pista = e.target.closest('.pista');
   if (pista && botonSonando && pista.closest('.mini-player') === botonSonando.closest('.mini-player') && audioMuestra.duration) {
     const r = pista.getBoundingClientRect(); audioMuestra.currentTime = (e.clientX - r.left) / r.width * audioMuestra.duration; return;
@@ -2226,7 +2324,8 @@ document.getElementById('muestraCartas').addEventListener('click', e => {
   b.innerHTML = ICO_PAUSA;
   const pr = audioMuestra.play();
   if (pr && pr.catch) pr.catch(() => { if (botonSonando === b) { b.innerHTML = ICO_PLAY; avisar('No se pudo reproducir el audio. Vuelve a pulsar.'); } });
-});
+}
+['muestraCartas', 'muestraRegalo'].forEach(id => document.getElementById(id).addEventListener('click', clickMuestra));
 document.getElementById('muestra-volver').addEventListener('click', () => { cerrarMuestra(); pintar(); });
 document.getElementById('muestra-activar').addEventListener('click', () => abrirVentanaLicencia());
 window.addEventListener('resize', () => { if (!document.getElementById('vista-muestra').hidden && actual) ajustarFondoMuestra(actual); });

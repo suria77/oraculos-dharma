@@ -9,7 +9,7 @@
 
 import { BARAJAS_PAGO, leerPermiso } from '../../lib/comun.js';
 
-const PUBLICO = /^(portada\.webp|fondo[^/]*\.webp|dorso\.webp|sonido-giro\.mp3|mini\/[^/]+\.webp|muestra\/[^/]+\.mp3)$/;
+const PUBLICO = /^(portada\.webp|fondo[^/]*\.webp|dorso\.webp|sonido-giro\.mp3|mini\/[^/]+\.webp|muestra\/[^/]+\.(mp3|webp))$/;
 
 function esPublico(id, resto) {
   if (PUBLICO.test(resto)) return true;
