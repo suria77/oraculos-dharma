@@ -538,6 +538,12 @@
   .regalo-reproductor { max-width: 380px; margin: 0 auto; padding: 12px 14px; border-radius: 14px; background: rgba(255,255,255,.06); border: 1px solid rgba(244,212,124,.35); }
   .regalo-reproductor .mini-player { margin-top: 0; }
   .regalo-nota { margin: 14px 0 0; font-size: 14px; color: #d8cbe9; }
+  .regalo-extra { margin-top: 24px; padding-top: 22px; border-top: 1px solid rgba(244,212,124,.35); }
+  .regalo-extra-titulo { margin: 12px 0 6px; font: 600 clamp(22px, 4.4vw, 27px)/1.15 var(--f-lirica); color: #fcf6ba; text-wrap: balance; }
+  .regalo-muestras { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 640px; margin: 0 auto; }
+  .regalo-muestras .regalo-reproductor { max-width: none; margin: 0; text-align: left; }
+  .regalo-muestras .regalo-escucha { margin-bottom: 6px; }
+  @media (max-width: 520px) { .regalo-muestras { grid-template-columns: 1fr; } }
   .comic-tira { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; max-width: 460px; margin: 0 auto; }
   .comic-miniatura { padding: 0; border: 0; background: none; cursor: pointer; border-radius: 6px; transition: transform .2s ease; -webkit-appearance: none; appearance: none; }
   .comic-miniatura:nth-child(odd) { transform: rotate(-1.6deg); } .comic-miniatura:nth-child(even) { transform: rotate(1.6deg) translateY(4px); }
@@ -1135,7 +1141,24 @@ const ORACULOS = [
     abiertoParaTodos: false,
     base: 'oraculos/guru/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo-2.webp', sonido: 'sonido-giro.mp3',
     colorFondo: '#722859', colorBarra: '#6d2554', proporcion: 2 / 3,
-    payhip: 'https://payhip.com/b/hzDlq', muestras: ['buda', 'ramana-maharshi'],
+    // Tres niveles de compra (cada uno es un producto de Payhip; los tres abren esta baraja en la app).
+    // Los extras (guía, mantra, audiolibro) se descargan desde Payhip al comprar.
+    payhip: 'https://payhip.com/b/3Z8DG', precio: 'desde 4,99 €', muestras: ['buda', 'ramana-maharshi'],
+    opciones: [
+      { nombre: 'Meditación', precio: '4,99 €', payhip: 'https://payhip.com/b/hzDlq',
+        lema: 'El oráculo, para consultarlo cada día',
+        incluye: ['Las <b>40 cartas</b> de grandes maestros, con su retrato y su frase', 'El <b>audio narrado</b> de cada carta', 'Consulta cuando quieras en tu móvil, tablet u ordenador, <b>también sin conexión</b>'] },
+      { nombre: 'Éxtasis', precio: '7,99 €', destacada: true, cinta: 'La más elegida', payhip: 'https://payhip.com/b/3Z8DG',
+        lema: 'Consulta, comprende y medita',
+        previo: 'Todo lo de Meditación, y además',
+        incluye: ['<b>Guía Premium del oráculo</b>: un PDF a todo color para comprender y consultar las cartas', '<b>Mantra Gayatri para Moksha</b>: profundamente meditativo, 28 minutos de audio'] },
+      { nombre: 'Nirvana', precio: '11,99 €', cinta: 'La experiencia completa', payhip: 'https://payhip.com/b/s5ryQ',
+        lema: 'Sumérgete en la voz de los maestros',
+        previo: 'Todo lo de Éxtasis, y además',
+        incluye: ['<b>Audiolibro</b> con lecturas meditativas de textos de Anandamayi Ma, Ramana Maharshi, Nisargadatta y Siddharameshwar Maharaj'] }
+    ],
+    ctaTitulo: 'Elige tu camino',
+    ctaTexto: 'Tres niveles de un mismo oráculo. Cada uno incluye todo lo del anterior: tú decides hasta dónde llegar.',
     presentacion: {
       lema: '40 grandes maestros de Oriente y Occidente responden a tu pregunta',
       texto: ['Buda, Ramana Maharshi, Lao Tse, Santa Teresa, Rumi, Platón… Este oráculo reúne a 40 sabios de todas las tradiciones. Cada carta muestra su retrato, una palabra clave y una de sus frases más poderosas.',
@@ -1226,7 +1249,14 @@ const REGALOS = {
     texto: 'Con tu oráculo de Rumi recibes además un cómic ilustrado sobre la vida del poeta, en PDF. Échale un vistazo: aquí tienes cuatro páginas.',
     nota: 'Lo descargas desde Payhip junto a tu compra de Éxtasis o Nirvana.',
     paginas: ['comic-1', 'comic-2', 'comic-3', 'comic-4'] },
-  'guru': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' },
+  'guru': { tipo: 'audio', icono: 'loto', etiqueta: 'Incluido en Éxtasis y Nirvana',
+    titulo: 'Mantra Gayatri para Moksha',
+    texto: '28 minutos de mantra, profundamente meditativo, para acompañar tu silencio. Escucha un fragmento.',
+    escucha: 'Escucha un fragmento del mantra', audio: 'regalo.mp3',
+    nota: 'Lo descargas desde Payhip junto a tu compra de Éxtasis o Nirvana.',
+    extra: { etiqueta: 'Solo en Nirvana', titulo: 'Audiolibro de lecturas meditativas',
+      texto: 'Textos de Anandamayi Ma, Ramana Maharshi, Nisargadatta y Siddharameshwar Maharaj, leídos para meditar. Escucha dos muestras.',
+      muestras: [{ nombre: 'Anandamayi Ma', audio: 'audiolibro-anandamayi-ma.mp3' }, { nombre: 'Ramana Maharshi', audio: 'audiolibro-ramana-maharshi.mp3' }] } },
   'dioses-india': { tipo: 'audio', icono: 'loto', etiqueta: 'Incluido en Éxtasis y Nirvana',
     titulo: 'Canción con el mantra «Surya Namaskar»',
     texto: '8 minutos de música con el mantra al Sol para abrir tu día con luz. Escucha un fragmento.',
@@ -2405,6 +2435,19 @@ function elegirNivel(i, enfocar) {
 })();
 
 const ICO_REGALO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="9" width="17" height="11.5" rx="1.5"/><path d="M2.5 6.5h19V9h-19zM12 6.5v14"/><path d="M12 6.5C10.5 3 7 3 7 5.2c0 1.4 2 1.3 5 1.3zM12 6.5c1.5-3.5 5-3.5 5-1.3 0 1.4-2 1.3-5 1.3z"/></svg>';
+// Segundo bloque del panel de regalo (p. ej. el audiolibro que solo trae el nivel más alto), con reproductores pequeños.
+function extraRegalo(o, x) {
+  if (!x) return '';
+  return `<div class="regalo-extra">
+    <span class="regalo-etiqueta">${x.etiqueta}</span>
+    <h3 class="regalo-extra-titulo">${x.titulo}</h3>
+    <p class="regalo-texto">${x.texto}</p>
+    <div class="regalo-muestras">${x.muestras.map(m => `<div class="regalo-reproductor"><p class="regalo-escucha">${m.nombre}</p><div class="mini-player">
+      <button type="button" data-audio="${o.base}muestra/${m.audio}" aria-label="Escuchar una muestra: ${m.nombre}">${ICO_PLAY}</button>
+      <div class="barra"><div class="pista"><i></i></div><span class="tiempo">Escuchar</span></div>
+    </div></div>`).join('')}</div>
+  </div>`;
+}
 function pintarRegalo(o) {
   const cont = document.getElementById('muestraRegalo'), g = o.regalo;
   if (!g) { cont.hidden = true; cont.innerHTML = ''; return; }
@@ -2423,7 +2466,7 @@ function pintarRegalo(o) {
     <span class="regalo-etiqueta">${g.etiqueta || 'Regalo incluido con tu compra'}</span>
     <h2 class="regalo-titulo">${g.titulo}</h2>
     <p class="regalo-texto">${g.texto}</p>${cuerpo}
-    <p class="regalo-nota">${g.nota || 'Lo recibes junto a tu oráculo, sin pagar nada más.'}</p>`;
+    <p class="regalo-nota">${g.nota || 'Lo recibes junto a tu oráculo, sin pagar nada más.'}</p>${extraRegalo(o, g.extra)}`;
   cont.hidden = false;
 }
 /* Visor de las páginas de muestra del cómic */
