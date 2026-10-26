@@ -1201,7 +1201,24 @@ const ORACULOS = [
     abiertoParaTodos: false,
     base: 'oraculos/anandamayi-ma/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
     colorFondo: '#2a0a1c', colorBarra: '#340c22', proporcion: 3 / 4, zonaTitulo: 0.222,
-    payhip: 'https://payhip.com/b/xrboc', muestras: ['01', '17'],
+    // Tres niveles de compra (cada uno es un producto de Payhip; los tres abren esta baraja en la app).
+    // Los extras (guía, mantra, recitación, PDF, podcast) se descargan desde Payhip al comprar.
+    payhip: 'https://payhip.com/b/0ADIi', precio: 'desde 4,99 €', muestras: ['01', '17'],
+    opciones: [
+      { nombre: 'Meditación', precio: '4,99 €', payhip: 'https://payhip.com/b/xrboc',
+        lema: 'El oráculo, para consultarlo cada día',
+        incluye: ['Las <b>40 cartas</b> con las enseñanzas de Anandamayi Ma', 'Su <b>voz en audio</b> en cada carta', 'Consulta cuando quieras en tu móvil, tablet u ordenador, <b>también sin conexión</b>'] },
+      { nombre: 'Éxtasis', precio: '7,99 €', destacada: true, cinta: 'La más elegida', payhip: 'https://payhip.com/b/0ADIi',
+        lema: 'Consulta, comprende y medita',
+        previo: 'Todo lo de Meditación, y además',
+        incluye: ['<b>Guía Premium del oráculo</b>: un PDF a todo color para comprender y consultar las cartas', '<b>Mantra de Anandamayi Ma</b>: profundamente meditativo, 22 minutos de audio'] },
+      { nombre: 'Nirvana', precio: '11,99 €', cinta: 'La experiencia completa', payhip: 'https://payhip.com/b/XhPLA',
+        lema: 'Sumérgete en el Nombre de la Madre',
+        previo: 'Todo lo de Éxtasis, y además',
+        incluye: ['<b>Recitación de los 108 nombres</b> de Anandamayi Ma: 90 minutos de audio', '<b>PDF Premium con los 108 nombres</b>', '<b>Podcast</b> «La esencia encarnada de la religión»'] }
+    ],
+    ctaTitulo: 'Elige tu camino',
+    ctaTexto: 'Tres niveles de un mismo oráculo. Cada uno incluye todo lo del anterior: tú decides hasta dónde llegar.',
     presentacion: {
       lema: '40 enseñanzas de la Madre colmada de dicha para tu camino interior',
       texto: ['Anandamayi Ma fue una de las grandes santas de la India del siglo XX: sin libros ni doctrinas, solo con su presencia, su alegría y palabras sencillas que llegaban directas al corazón. Este oráculo reúne 40 de sus enseñanzas: la entrega, el Nombre, el silencio, el servicio, la dicha que ya eres.',
@@ -1262,7 +1279,11 @@ const REGALOS = {
     texto: '8 minutos de música con el mantra al Sol para abrir tu día con luz. Escucha un fragmento.',
     escucha: 'Escucha un fragmento de la canción', audio: 'regalo.mp3',
     nota: 'La descargas desde Payhip junto a tu compra de Éxtasis o Nirvana.' },
-  'anandamayi-ma': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' },
+  'anandamayi-ma': { tipo: 'audio', icono: 'loto', etiqueta: 'Incluido en Éxtasis y Nirvana',
+    titulo: 'El mantra de Anandamayi Ma',
+    texto: '22 minutos de mantra, profundamente meditativo, para sentarte con la Madre en silencio. Escucha un fragmento.',
+    escucha: 'Escucha un fragmento del mantra', audio: 'regalo.mp3',
+    nota: 'Lo descargas desde Payhip junto a tu compra de Éxtasis o Nirvana.' },
   'ramana-maharshi': { tipo: 'audio', icono: 'loto', etiqueta: 'Incluido en Éxtasis y Nirvana',
     titulo: 'El mantra de Ramana Maharshi para meditar',
     texto: '29 minutos de mantra para acompañar tu meditación, sin esfuerzo y sin prisa. Escucha un fragmento.',
