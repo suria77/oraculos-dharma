@@ -5,7 +5,8 @@
     "/oraculos/rumi/*",
     "/oraculos/guru/*",
     "/oraculos/dioses-india/*",
-    "/oraculos/anandamayi-ma/*"
+    "/oraculos/anandamayi-ma/*",
+    "/oraculos/ramana-maharshi/*"
   ],
   "exclude": [
     "/oraculos/rumi/muestra/*",
@@ -31,6 +32,12 @@
     "/oraculos/anandamayi-ma/dorso.webp",
     "/oraculos/anandamayi-ma/fondo.webp",
     "/oraculos/anandamayi-ma/portada.webp",
-    "/oraculos/anandamayi-ma/sonido-giro.mp3"
+    "/oraculos/anandamayi-ma/sonido-giro.mp3",
+    "/oraculos/ramana-maharshi/muestra/*",
+    "/oraculos/ramana-maharshi/mini/*",
+    "/oraculos/ramana-maharshi/dorso.webp",
+    "/oraculos/ramana-maharshi/fondo.webp",
+    "/oraculos/ramana-maharshi/portada.webp",
+    "/oraculos/ramana-maharshi/sonido-giro.mp3"
   ]
 }
