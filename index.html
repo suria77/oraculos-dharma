@@ -1131,7 +1131,24 @@ const ORACULOS = [
     abiertoParaTodos: false,
     base: 'oraculos/dioses-india/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
     colorFondo: '#2e0406', colorBarra: '#39060a', proporcion: 3 / 4, zonaTitulo: 0.222,
-    payhip: 'https://payhip.com/b/MOAE9', muestras: ['ganesha', 'lakshmi'],
+    // Tres niveles de compra (cada uno es un producto de Payhip; los tres abren esta baraja en la app).
+    // Los extras (guía, canción, audiolibro) se descargan desde Payhip al comprar.
+    payhip: 'https://payhip.com/b/qpt7U', precio: 'desde 4,99 €', muestras: ['ganesha', 'lakshmi'],
+    opciones: [
+      { nombre: 'Meditación', precio: '4,99 €', payhip: 'https://payhip.com/b/MOAE9',
+        lema: 'El oráculo, para consultarlo cada día',
+        incluye: ['Las <b>40 cartas</b> ilustradas de los dioses de la India', 'El <b>audio narrado</b> de cada carta', 'Consulta cuando quieras en tu móvil, tablet u ordenador, <b>también sin conexión</b>'] },
+      { nombre: 'Éxtasis', precio: '7,99 €', destacada: true, cinta: 'La más elegida', payhip: 'https://payhip.com/b/qpt7U',
+        lema: 'Consulta, comprende y canta',
+        previo: 'Todo lo de Meditación, y además',
+        incluye: ['<b>Guía Premium del oráculo</b>: un PDF a todo color para comprender y consultar las cartas', '<b>Canción con el mantra «Surya Namaskar»</b>: 8 minutos de música para abrir el día'] },
+      { nombre: 'Nirvana', precio: '14,99 €', cinta: 'La experiencia completa', payhip: 'https://payhip.com/b/TdGkw',
+        lema: 'Entra en el universo de los mitos',
+        previo: 'Todo lo de Éxtasis, y además',
+        incluye: ['<b>Audiolibro «Mitos de la India»</b>: producción premium con 18 narraciones grabadas en estudio por una actriz profesional y efectos de sonido cinemáticos'] }
+    ],
+    ctaTitulo: 'Elige tu camino',
+    ctaTexto: 'Tres niveles de un mismo oráculo. Cada uno incluye todo lo del anterior: tú decides hasta dónde llegar.',
     presentacion: {
       lema: '40 deidades de la India con un mensaje para tu momento presente',
       texto: ['Ganesha abre los caminos, Shiva transforma en silencio, Lakshmi trae la abundancia, Durga protege… Cada carta te acerca a una deidad de la tradición hindú, con sus atributos de siempre y un mensaje breve y claro.',
@@ -1192,7 +1209,11 @@ const REGALOS = {
     texto: 'Con tu oráculo de Rumi recibes además un cómic ilustrado sobre la vida del poeta, en PDF. Échale un vistazo: aquí tienes cuatro páginas.',
     paginas: ['comic-1', 'comic-2', 'comic-3', 'comic-4'] },
   'guru': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' },
-  'dioses-india': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' },
+  'dioses-india': { tipo: 'audio', icono: 'loto', etiqueta: 'Incluido en Éxtasis y Nirvana',
+    titulo: 'Canción con el mantra «Surya Namaskar»',
+    texto: '8 minutos de música con el mantra al Sol para abrir tu día con luz. Escucha un fragmento.',
+    escucha: 'Escucha un fragmento de la canción', audio: 'regalo.mp3',
+    nota: 'La descargas desde Payhip junto a tu compra de Éxtasis o Nirvana.' },
   'anandamayi-ma': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' },
   'ramana-maharshi': { tipo: 'audio', icono: 'loto', etiqueta: 'Incluido en Éxtasis y Nirvana',
     titulo: 'El mantra de Ramana Maharshi para meditar',
