@@ -1105,7 +1105,24 @@ const ORACULOS = [
     abiertoParaTodos: false,
     base: 'oraculos/rumi/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo-3.webp', sonido: 'sonido-giro.mp3',
     colorFondo: '#c7bca8', colorBarra: '#d4ccbb', fondoClaro: true, zonaTitulo: 0.285, proporcion: 3 / 4,
-    payhip: 'https://payhip.com/b/lXgpS', muestras: ['01', '27'],
+    // Tres niveles de compra (cada uno es un producto de Payhip; los tres abren esta baraja en la app).
+    // Los extras (guía, cómic, música) se descargan desde Payhip al comprar.
+    payhip: 'https://payhip.com/b/Kva0t', precio: 'desde 4,99 €', muestras: ['01', '27'],
+    opciones: [
+      { nombre: 'Meditación', precio: '4,99 €', payhip: 'https://payhip.com/b/lXgpS',
+        lema: 'El oráculo, para consultarlo cada día',
+        incluye: ['Las <b>40 cartas</b> ilustradas con versos de Rumi', 'El <b>audio narrado</b> de cada carta', 'Consulta cuando quieras en tu móvil, tablet u ordenador, <b>también sin conexión</b>'] },
+      { nombre: 'Éxtasis', precio: '7,99 €', destacada: true, cinta: 'La más elegida', payhip: 'https://payhip.com/b/Kva0t',
+        lema: 'Consulta, comprende y déjate llevar',
+        previo: 'Todo lo de Meditación, y además',
+        incluye: ['<b>Guía Premium del oráculo</b>: su vida, las palabras clave de su mundo y seis enseñanzas a fondo, en un PDF a todo color', '<b>Cómic «Rumi, Vida del Amante infinito»</b>: su historia ilustrada, en PDF'] },
+      { nombre: 'Nirvana', precio: '16,99 €', cinta: 'La experiencia completa', payhip: 'https://payhip.com/b/0HTUA',
+        lema: 'Que sus poemas también te suenen',
+        previo: 'Todo lo de Éxtasis, y además',
+        incluye: ['<b>CD «Todo Amor»</b>: música para poemas de Rumi (puedes escuchar muestras en la sección «Tienda»)'] }
+    ],
+    ctaTitulo: 'Elige tu camino',
+    ctaTexto: 'Tres niveles de un mismo oráculo. Cada uno incluye todo lo del anterior: tú decides hasta dónde llegar.',
     presentacion: {
       lema: '40 versos del gran poeta sufí para escuchar con el corazón',
       texto: ['Rumi escribió sobre el amor, el anhelo y el regreso a casa como pocos lo han hecho. Este oráculo convierte su sabiduría en 40 cartas: cada una lleva uno de sus versos, lo que quiso transmitir con él y una forma sencilla de llevarlo a tu vida.',
@@ -1205,8 +1222,9 @@ const ORACULOS = [
 // Regalo que acompaña a cada oráculo (se enseña en la página de muestra). Los archivos de muestra están
 // en oraculos/<id>/muestra/ (públicos).
 const REGALOS = {
-  'rumi': { tipo: 'comic', titulo: 'Un cómic de regalo: «Rumi, Vida del Amante infinito»',
+  'rumi': { tipo: 'comic', etiqueta: 'Incluido en Éxtasis y Nirvana', titulo: 'Un cómic de regalo: «Rumi, Vida del Amante infinito»',
     texto: 'Con tu oráculo de Rumi recibes además un cómic ilustrado sobre la vida del poeta, en PDF. Échale un vistazo: aquí tienes cuatro páginas.',
+    nota: 'Lo descargas desde Payhip junto a tu compra de Éxtasis o Nirvana.',
     paginas: ['comic-1', 'comic-2', 'comic-3', 'comic-4'] },
   'guru': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' },
   'dioses-india': { tipo: 'audio', icono: 'loto', etiqueta: 'Incluido en Éxtasis y Nirvana',
