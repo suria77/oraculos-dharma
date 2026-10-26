@@ -22,6 +22,11 @@ conectado a este repositorio.
 7. **Sesión de respaldo** en el servidor (cookie `od_sess`, HttpOnly, 1 año): recupera la colección, renueva el permiso y quita lo reembolsado o liberado.
 8. **Cabeceras de seguridad** en `_headers` (CSP, anti-incrustación…).
 
+**Barajas con varios niveles de venta** (p. ej. Ramana Maharshi: Meditación, Éxtasis y Nirvana). Cada nivel es un producto distinto en Payhip y todos abren la misma baraja:
+1. En `lib/comun.js`, en `PRODUCTO_PAYHIP`, la baraja lleva una lista de códigos en vez de uno solo (`'ramana-maharshi': ['Z1mgj', 'VFl5Y', '0XFry']`).
+2. En Cloudflare se añade **una variable `PAYHIP_SECRET_…` por cada producto nuevo** (la clave secreta de ese producto; lo que va detrás del prefijo es libre, p. ej. `PAYHIP_SECRET_RAMANA_EXTASIS`). Sin ella, esa licencia no se puede comprobar.
+3. En `index.html`, la baraja lleva `opciones: [...]` (nombre, precio, enlace de Payhip, qué incluye; `destacada: true` marca el nivel que sale elegido). La página de muestra pinta el selector y un único botón de compra.
+
 Si se añade una baraja de pago nueva: añadir su código de Payhip en `PRODUCTO_PAYHIP` y sus 2 cartas de muestra en `BARAJAS_PAGO` (`lib/comun.js`), su ruta en `_routes.json`, y sacar sus textos a `oraculos/<id>/cartas.json` (en `index.html` solo van título e imagen).
 
 Diagnóstico: `/api/estado` solo dice si está listo. Para ver el detalle, añade la variable `ESTADO_CLAVE` en Cloudflare y abre `/api/estado?clave=<esa palabra>`.

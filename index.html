@@ -490,6 +490,40 @@
     .mini-player button { width: 40px; height: 40px; }
   }
 
+  /* ================= NIVELES DE COMPRA (Meditación · Éxtasis · Nirvana) ================= */
+  .niveles { width: 100%; display: grid; gap: 16px; margin: 6px 0 4px; text-align: left; }
+  .nivel { position: relative; border: 1px solid rgba(244,212,124,.3); border-radius: 18px; padding: 16px 16px 16px; background: rgba(255,255,255,.04);
+    cursor: pointer; outline: none; transition: border-color .2s, background .2s, box-shadow .2s, transform .2s; -webkit-tap-highlight-color: transparent; }
+  .nivel:hover { border-color: rgba(244,212,124,.65); transform: translateY(-1px); }
+  .nivel:focus-visible { box-shadow: 0 0 0 3px rgba(244,212,124,.6); }
+  .nivel[aria-checked="true"] { border-color: #f4d47c; background: linear-gradient(160deg, rgba(244,212,124,.2), rgba(244,212,124,.06));
+    box-shadow: 0 0 0 1px rgba(244,212,124,.6), 0 12px 30px rgba(0,0,0,.45), 0 0 26px rgba(244,212,124,.12); }
+  .nivel-cinta { position: absolute; top: -11px; right: 16px; font: 800 11px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: #2a1405;
+    background: linear-gradient(135deg, #f7e2a0, #d9a93a); padding: 5px 11px; border-radius: 999px; box-shadow: 0 4px 12px rgba(0,0,0,.35); }
+  .nivel-cab { display: flex; align-items: center; gap: 12px; }
+  .nivel-radio { flex: 0 0 22px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid rgba(244,212,124,.75); display: grid; place-items: center; box-sizing: border-box; }
+  .nivel[aria-checked="true"] .nivel-radio { border-color: #f4d47c; }
+  .nivel[aria-checked="true"] .nivel-radio::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, #fff2b0, #e6a800); }
+  .nivel-nombre { flex: 1; min-width: 0; font: 800 18px/1.1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: #fcf6ba; }
+  .nivel-precio { flex: 0 0 auto; font: 600 30px/1 var(--f-lirica); color: #fff; font-variant-numeric: tabular-nums; }
+  .nivel-lema { margin: 8px 0 0 34px; font: italic 500 19px/1.3 var(--f-lirica); color: #e9dcff; text-wrap: balance; }
+  .nivel-previo { margin: 12px 0 0 34px; font-size: 12.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #cdb0ff; }
+  .nivel-incluye { list-style: none; margin: 10px 0 0 34px; padding: 0; display: grid; gap: 8px; }
+  .nivel-previo + .nivel-incluye { margin-top: 8px; }
+  .nivel-incluye li { position: relative; padding-left: 24px; font-size: 15px; line-height: 1.45; color: #efe8f8; }
+  .nivel-incluye li::before { content: '✓'; position: absolute; left: 0; top: 0; font-weight: 800; color: #f4d47c; }
+  .nivel-incluye li b { color: #fcf6ba; font-weight: 700; }
+  .muestra-comprar.con-niveles { max-width: 100%; box-sizing: border-box; text-align: center; line-height: 1.2; font-size: 17px; padding: 15px 28px; }
+  .niveles-nota { margin: 2px 0 0 !important; font-size: 13.5px !important; color: #cdbfe0 !important; text-align: center; }
+  @media (max-width: 420px) {
+    .nivel { padding: 15px 13px 14px; }
+    .nivel-nombre { font-size: 16px; letter-spacing: .1em; }
+    .nivel-precio { font-size: 27px; }
+    .nivel-lema, .nivel-previo, .nivel-incluye { margin-left: 0; }
+    .nivel-lema { font-size: 18px; }
+    .muestra-comprar.con-niveles { font-size: 15.5px; padding: 14px 18px; letter-spacing: .04em; }
+  }
+
   /* ================= REGALO CON CADA ORÁCULO ================= */
   .muestra-regalo { position: relative; overflow: hidden; text-align: center; border: 1px solid rgba(244,212,124,.75);
     background: radial-gradient(120% 90% at 50% 0%, rgba(244,212,124,.20), rgba(13,8,24,.93) 62%), rgba(13,8,24,.93);
@@ -737,9 +771,11 @@ button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cur
       <div class="muestra-cartas" id="muestraCartas"></div>
       <section class="muestra-panel muestra-regalo" id="muestraRegalo" hidden></section>
       <section class="muestra-panel muestra-cta">
-        <h2>Llévate el oráculo completo</h2>
-        <p>Las 40 cartas con sus audios, en tu móvil o tablet, para consultarlas siempre que lo necesites.</p>
+        <h2 id="muestraCtaTitulo">Llévate el oráculo completo</h2>
+        <p id="muestraCtaTexto">Las 40 cartas con sus audios, en tu móvil o tablet, para consultarlas siempre que lo necesites.</p>
+        <div class="niveles" id="muestraNiveles" role="radiogroup" aria-label="Elige tu nivel" hidden></div>
         <a class="muestra-comprar" id="muestraComprar" href="#" target="_blank" rel="noopener">Comprar&nbsp;·&nbsp;<span id="muestraPrecio"></span></a>
+        <p class="muestra-nota niveles-nota" id="muestraNivelesNota" hidden></p>
         <p class="confianza">Pago seguro con Payhip · Licencia al instante por correo · Válida en 2 dispositivos</p>
         <p class="muestra-nota aviso-compra">Contenido digital de entrega inmediata: al comprar renuncias al derecho de desistimiento. <button type="button" class="enlace-condiciones" data-accion="condiciones">Condiciones de compra</button></p>
         <button type="button" class="muestra-ya" data-accion="licencia">Ya lo compré: activar licencia</button>
@@ -1125,11 +1161,30 @@ const ORACULOS = [
     pruebaEnColeccion: true,   // ← PROVISIONAL: abierto en «Tu colección» para revisarlo. Quitar esta línea al cerrarlo.
     base: 'oraculos/ramana-maharshi/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
     colorFondo: '#311217', colorBarra: '#3a161c', proporcion: 3 / 4, zonaTitulo: 0.222,
-    payhip: '', muestras: ['01', '32'],
+    // Tres niveles de compra (cada uno es un producto de Payhip; los tres abren esta baraja en la app).
+    // Los extras (guía, mantra, libro, lectura, podcast) se descargan desde Payhip al comprar.
+    payhip: 'https://payhip.com/b/VFl5Y', precio: 'desde 4,99 €', muestras: ['01', '32'],
+    opciones: [
+      { nombre: 'Meditación', precio: '4,99 €', payhip: 'https://payhip.com/b/Z1mgj',
+        lema: 'El oráculo, para consultarlo cada día',
+        incluye: ['Las <b>40 cartas</b> ilustradas de Ramana Maharshi', 'El <b>audio narrado</b> de cada carta', 'Consulta cuando quieras en tu móvil, tablet u ordenador, <b>también sin conexión</b>'] },
+      { nombre: 'Éxtasis', precio: '7,99 €', destacada: true, cinta: 'La más elegida', payhip: 'https://payhip.com/b/VFl5Y',
+        lema: 'Consulta, comprende y medita',
+        previo: 'Todo lo de Meditación, y además',
+        incluye: ['<b>Guía Premium del oráculo</b>: su vida, las palabras clave de su mundo y seis enseñanzas a fondo, en un PDF a todo color', '<b>Mantra de Ramana Maharshi para meditar</b>: 29 minutos de audio'] },
+      { nombre: 'Nirvana', precio: '14,99 €', cinta: 'La experiencia completa', payhip: 'https://payhip.com/b/0XFry',
+        lema: 'Sumérgete en toda su enseñanza',
+        previo: 'Todo lo de Éxtasis, y además',
+        incluye: ['<b>Libro en PDF</b> «Vida y enseñanzas de Ramana Maharshi»', '<b>Lectura meditativa</b> de su enseñanza: 36 minutos de audio', '<b>Podcast</b> «La autoindagación»'] }
+    ],
+    ctaTitulo: 'Elige tu camino',
+    ctaTexto: 'Tres niveles de un mismo oráculo. Cada uno incluye todo lo del anterior: tú decides hasta dónde llegar.',
+    notaNiveles: 'La baraja se abre en esta app con tu licencia. La guía, el mantra, el libro y los audios los descargas desde Payhip nada más comprar.',
     presentacion: {
       lema: '40 enseñanzas del sabio de Arunachala para volver a quien eres',
-      texto: ['Ramana Maharshi no escribió grandes tratados: invitó, con pocas palabras y mucho silencio, a preguntarse «¿Quién soy yo?». Este oráculo reúne 40 de sus enseñanzas: la indagación, la entrega, el Corazón, la Gracia, la paz que ya eres.',
-              'Cada carta trae una de sus frases, lo que quiso transmitir con ella y una forma sencilla de llevarla a tu día, con su voz en audio. Aquí tienes dos cartas para que sientas su quietud antes de llevártelo.']
+      texto: ['A los dieciséis años, un muchacho se tendió en el suelo, se preguntó qué quedaba de él cuando el cuerpo ya no estaba… y descubrió lo que no muere. Aquella pregunta, «¿Quién soy yo?», fue toda la enseñanza de Ramana Maharshi, el sabio que pasó años en silencio junto a la colina sagrada de Arunachala.',
+              'Este oráculo reúne 40 de sus enseñanzas en cartas de luz dorada: la indagación, la entrega, el Corazón, la Gracia, la paz que ya eres. Cada una trae su frase, lo que quiso transmitir con ella y un gesto sencillo para llevarla a tu día, con su mensaje en audio.',
+              'Saca una carta cuando el mundo te agite y deja que sea ella quien te devuelva a casa. Aquí tienes dos para que sientas su quietud antes de elegir tu camino.']
     },
     cartas: CARTAS_RAMANA
   }
@@ -1144,7 +1199,11 @@ const REGALOS = {
   'guru': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' },
   'dioses-india': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' },
   'anandamayi-ma': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' },
-  'ramana-maharshi': { tipo: 'audio', titulo: 'Un audio de regalo con tu oráculo', texto: 'Al llevarte este oráculo recibes además un audio exclusivo, pensado para acompañar tu camino. Escucha un fragmento.', audio: 'regalo.mp3' }
+  'ramana-maharshi': { tipo: 'audio', icono: 'loto', etiqueta: 'Incluido en Éxtasis y Nirvana',
+    titulo: 'El mantra de Ramana Maharshi para meditar',
+    texto: '29 minutos de mantra para acompañar tu meditación, sin esfuerzo y sin prisa. Escucha un fragmento.',
+    escucha: 'Escucha un fragmento del mantra', audio: 'regalo.mp3',
+    nota: 'Lo descargas desde Payhip junto a tu compra de Éxtasis o Nirvana.' }
 };
 ORACULOS.forEach(o => { if (REGALOS[o.id]) o.regalo = REGALOS[o.id]; });
 
@@ -1282,7 +1341,15 @@ const LOTO = '<svg viewBox="0 0 48 48"><path d="M24 8c4 5 6 10 6 15s-2 9-6 13c-4
 
 const imagenDe = o => o.base ? o.base + o.portada : o.muestra;
 // Enlace de compra con etiqueta de origen (para saber desde dónde se vende más, sin cookies)
-const enlaceCompra = (o, desde) => o.payhip ? o.payhip + '?utm_source=app&utm_medium=' + desde + '&utm_campaign=' + o.id : '#';
+// Si el oráculo se vende en varios niveles (o.opciones), se enlaza el nivel elegido; si no se ha elegido ninguno, el destacado.
+const opcionDestacada = o => (o.opciones || []).find(x => x.destacada) || (o.opciones || [])[0] || null;
+const etiquetaNivel = op => op.nombre.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+function enlaceCompra(o, desde, op) {
+  op = op || opcionDestacada(o);
+  const url = (op && op.payhip) || o.payhip;
+  if (!url) return '#';
+  return url + '?utm_source=app&utm_medium=' + desde + '&utm_campaign=' + o.id + (op ? '&utm_content=' + etiquetaNivel(op) : '');
+}
 const abierto = o => !!o.abiertoParaTodos || loTiene(o.id);
 
 function sello(o, enColeccion) {
@@ -1306,7 +1373,9 @@ function tarjetaHTML(o, enColeccion) {
 function huecoHTML(o) {
   return `<div class="hueco" data-id="${o.id}">
       <div class="hueco-media">
-        <a class="sello sello-conseguir" href="${enlaceCompra(o, 'coleccion')}" target="_blank" rel="noopener" aria-label="Comprar ${o.nombre}, ${o.precio || PRECIO_ORACULO}">Comprar</a>
+        ${o.opciones
+          ? `<button type="button" class="sello sello-conseguir" data-accion="ver-niveles" data-id="${o.id}" aria-label="Ver los niveles de ${o.nombre}, ${o.precio || PRECIO_ORACULO}">Ver niveles</button>`
+          : `<a class="sello sello-conseguir" href="${enlaceCompra(o, 'coleccion')}" target="_blank" rel="noopener" aria-label="Comprar ${o.nombre}, ${o.precio || PRECIO_ORACULO}">Comprar</a>`}
         <div class="hueco-texto">¿Ya lo compraste?</div>
         <button class="btn-activar" data-accion="licencia" aria-label="Activar la licencia de ${o.nombre}">ACTIVAR</button>
       </div>
@@ -1376,6 +1445,8 @@ document.addEventListener('click', e => {
   if (sinEnlace) { e.preventDefault(); avisar('Muy pronto a la venta'); return; }
   if (e.target.closest('[data-accion="licencia"]')) { abrirVentanaLicencia(); return; }
   if (e.target.closest('[data-accion="condiciones"]')) { abrirCondiciones(); return; }
+  const verNiveles = e.target.closest('[data-accion="ver-niveles"]');
+  if (verNiveles) { pulsarOraculo(verNiveles.dataset.id, false); return; }
   const t = e.target.closest('.tarjeta');
   if (t) { pulsarOraculo(t.dataset.id, !!t.closest('#fila-coleccion')); return; }
   if (e.target.closest('[data-accion="cerrar"]')) cerrarVentana();
@@ -1896,7 +1967,7 @@ function ventanaComprar(motivo) {
     <p>${motivo} Con el oráculo completo tendrás todas las cartas y todos los audios, siempre que quieras.</p>
     <p class="aviso-compra">Contenido digital de entrega inmediata: al comprar renuncias al derecho de desistimiento. <button type="button" class="enlace-condiciones" data-accion="condiciones">Condiciones de compra</button></p>
     <div class="acciones">
-      <a class="btn-comprar" href="${enlaceCompra(o, 'ventana')}" target="_blank" rel="noopener">Comprar en Payhip</a>
+      <a class="btn-comprar" href="${enlaceCompra(o, 'ventana')}" target="_blank" rel="noopener">${opcionDestacada(o) ? `Comprar ${opcionDestacada(o).nombre} · ${opcionDestacada(o).precio}` : 'Comprar en Payhip'}</a>
       <button class="btn-licencia" data-accion="licencia">Ya lo compré: activar licencia</button>
       <button class="btn-secundario" data-accion="cerrar">Seguir mirando</button>
     </div>`);
@@ -2215,8 +2286,7 @@ function abrirMuestra(o) {
   document.getElementById('muestraTitulo').textContent = o.nombre;
   document.getElementById('muestraLema').textContent = pr.lema || o.subtitulo || '';
   document.getElementById('muestraTexto').innerHTML = (pr.texto || []).map(t => `<p>${t}</p>`).join('');
-  document.getElementById('muestraComprar').href = enlaceCompra(o, 'muestra');
-  document.getElementById('muestraPrecio').textContent = o.precio || PRECIO_ORACULO;
+  pintarNiveles(o);
   const cartasM = (o.muestras || []).map(id => o.cartas.find(c => c.img === id + '.webp' || c.img === id + '-2.webp')).filter(Boolean).slice(0, 2);
   document.getElementById('muestraCartas').innerHTML = cartasM.map(c => `
     <article class="muestra-carta">
@@ -2242,13 +2312,72 @@ function abrirMuestra(o) {
   window.scrollTo(0, 0);
   ajustarFondoMuestra(o);
 }
+/* Compra en niveles (Meditación · Éxtasis · Nirvana): un selector y un único botón de compra */
+const ctaTituloEl = document.getElementById('muestraCtaTitulo'), ctaTextoEl = document.getElementById('muestraCtaTexto');
+const CTA_DEFECTO = { titulo: ctaTituloEl.textContent, texto: ctaTextoEl.textContent };
+const nivelElegido = {};   // nivel elegido por oráculo (por defecto, el destacado)
+function pintarNiveles(o) {
+  const cont = document.getElementById('muestraNiveles'), btn = document.getElementById('muestraComprar'), nota = document.getElementById('muestraNivelesNota');
+  const ops = o.opciones;
+  if (!ops || !ops.length) {
+    cont.hidden = true; cont.innerHTML = ''; nota.hidden = true;
+    ctaTituloEl.textContent = CTA_DEFECTO.titulo; ctaTextoEl.textContent = CTA_DEFECTO.texto;
+    btn.className = 'muestra-comprar';
+    btn.innerHTML = 'Comprar&nbsp;·&nbsp;<span id="muestraPrecio"></span>';
+    document.getElementById('muestraPrecio').textContent = o.precio || PRECIO_ORACULO;
+    btn.href = enlaceCompra(o, 'muestra');
+    return;
+  }
+  if (nivelElegido[o.id] === undefined) nivelElegido[o.id] = Math.max(0, ops.indexOf(opcionDestacada(o)));
+  const sel = nivelElegido[o.id];
+  ctaTituloEl.textContent = o.ctaTitulo || 'Elige tu nivel';
+  ctaTextoEl.textContent = o.ctaTexto || '';
+  cont.innerHTML = ops.map((op, i) => `
+    <div class="nivel" role="radio" tabindex="${i === sel ? 0 : -1}" aria-checked="${i === sel}" data-i="${i}">
+      ${op.cinta ? `<span class="nivel-cinta">${op.cinta}</span>` : ''}
+      <div class="nivel-cab"><span class="nivel-radio" aria-hidden="true"></span><span class="nivel-nombre">${op.nombre}</span><span class="nivel-precio">${op.precio}</span></div>
+      <p class="nivel-lema">${op.lema}</p>
+      ${op.previo ? `<p class="nivel-previo">${op.previo}:</p>` : ''}
+      <ul class="nivel-incluye">${op.incluye.map(t => `<li>${t}</li>`).join('')}</ul>
+    </div>`).join('');
+  cont.hidden = false;
+  nota.textContent = o.notaNiveles || ''; nota.hidden = !o.notaNiveles;
+  botonNivel(o);
+}
+function botonNivel(o) {
+  const op = o.opciones[nivelElegido[o.id]], btn = document.getElementById('muestraComprar');
+  btn.className = 'muestra-comprar con-niveles';
+  btn.textContent = `Obtener ${op.nombre} · ${op.precio}`;
+  btn.href = enlaceCompra(o, 'muestra', op);
+}
+function elegirNivel(i, enfocar) {
+  const o = actual; if (!o || !o.opciones || !o.opciones[i]) return;
+  nivelElegido[o.id] = i;
+  document.querySelectorAll('#muestraNiveles .nivel').forEach((el, k) => {
+    el.setAttribute('aria-checked', String(k === i)); el.tabIndex = k === i ? 0 : -1;
+    if (enfocar && k === i) el.focus();
+  });
+  botonNivel(o);
+}
+(function () {
+  const cont = document.getElementById('muestraNiveles');
+  cont.addEventListener('click', e => { const n = e.target.closest('.nivel'); if (n) elegirNivel(Number(n.dataset.i)); });
+  cont.addEventListener('keydown', e => {
+    const n = e.target.closest('.nivel'); if (!n || !actual || !actual.opciones) return;
+    const i = Number(n.dataset.i), total = actual.opciones.length;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); elegirNivel(i); }
+    else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); elegirNivel((i + 1) % total, true); }
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); elegirNivel((i + total - 1) % total, true); }
+  });
+})();
+
 const ICO_REGALO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="9" width="17" height="11.5" rx="1.5"/><path d="M2.5 6.5h19V9h-19zM12 6.5v14"/><path d="M12 6.5C10.5 3 7 3 7 5.2c0 1.4 2 1.3 5 1.3zM12 6.5c1.5-3.5 5-3.5 5-1.3 0 1.4-2 1.3-5 1.3z"/></svg>';
 function pintarRegalo(o) {
   const cont = document.getElementById('muestraRegalo'), g = o.regalo;
   if (!g) { cont.hidden = true; cont.innerHTML = ''; return; }
   let cuerpo = '';
   if (g.tipo === 'audio') {
-    cuerpo = `<p class="regalo-escucha">Escucha una muestra del regalo</p>
+    cuerpo = `<p class="regalo-escucha">${g.escucha || 'Escucha una muestra del regalo'}</p>
       <div class="regalo-reproductor"><div class="mini-player">
         <button type="button" data-audio="${o.base}muestra/${g.audio}" aria-label="Escuchar una muestra del audio de regalo">${ICO_PLAY}</button>
         <div class="barra"><div class="pista"><i></i></div><span class="tiempo">Escuchar</span></div>
@@ -2257,11 +2386,11 @@ function pintarRegalo(o) {
     cuerpo = `<div class="comic-tira">${g.paginas.map((p, i) => `<button type="button" class="comic-miniatura" data-comic="${i}" aria-label="Ver la página ${i + 1} de ${g.paginas.length}"><img src="${o.base}muestra/${p}-t.webp" alt="Página ${i + 1} del cómic" loading="lazy" decoding="async"></button>`).join('')}</div>
       <p class="comic-aviso">Toca una página para verla en grande</p>`;
   }
-  cont.innerHTML = `<div class="regalo-icono">${ICO_REGALO}</div>
-    <span class="regalo-etiqueta">Regalo incluido con tu compra</span>
+  cont.innerHTML = `<div class="regalo-icono">${g.icono === 'loto' ? LOTO : ICO_REGALO}</div>
+    <span class="regalo-etiqueta">${g.etiqueta || 'Regalo incluido con tu compra'}</span>
     <h2 class="regalo-titulo">${g.titulo}</h2>
     <p class="regalo-texto">${g.texto}</p>${cuerpo}
-    <p class="regalo-nota">Lo recibes junto a tu oráculo, sin pagar nada más.</p>`;
+    <p class="regalo-nota">${g.nota || 'Lo recibes junto a tu oráculo, sin pagar nada más.'}</p>`;
   cont.hidden = false;
 }
 /* Visor de las páginas de muestra del cómic */
