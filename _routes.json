@@ -6,7 +6,8 @@
     "/oraculos/guru/*",
     "/oraculos/dioses-india/*",
     "/oraculos/anandamayi-ma/*",
-    "/oraculos/ramana-maharshi/*"
+    "/oraculos/ramana-maharshi/*",
+    "/oraculos/ecos-egipto/*"
   ],
   "exclude": [
     "/oraculos/rumi/muestra/*",
@@ -38,6 +39,12 @@
     "/oraculos/ramana-maharshi/dorso.webp",
     "/oraculos/ramana-maharshi/fondo.webp",
     "/oraculos/ramana-maharshi/portada.webp",
-    "/oraculos/ramana-maharshi/sonido-giro.mp3"
+    "/oraculos/ramana-maharshi/sonido-giro.mp3",
+    "/oraculos/ecos-egipto/muestra/*",
+    "/oraculos/ecos-egipto/mini/*",
+    "/oraculos/ecos-egipto/dorso.webp",
+    "/oraculos/ecos-egipto/fondo.webp",
+    "/oraculos/ecos-egipto/portada.webp",
+    "/oraculos/ecos-egipto/sonido-giro.mp3"
   ]
 }

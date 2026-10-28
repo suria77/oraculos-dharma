@@ -27,6 +27,9 @@
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="preload" href="fonts/montserrat.woff" as="font" type="font/woff" crossorigin>
 <style>
+  /* Cartas e imágenes: sin menú de «guardar imagen», sin arrastrar y sin pulsación larga (disuade la descarga casual) */
+  img, .card-face, .muestra-escena, .oracle-container { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+  img { -webkit-user-drag: none; }
   /* Tipografías servidas desde la propia web (sin Google: no se envía la IP de nadie a terceros
      y funcionan sin conexión). Licencia SIL Open Font License, ver fonts/OFL-*.txt */
   @font-face { font-family: 'Montserrat'; src: url('fonts/montserrat.woff') format('woff'); font-weight: 500 800; font-style: normal; font-display: swap; }
@@ -809,6 +812,13 @@ button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cur
 <div class="aviso-flotante" id="avisoFlotante" role="status" aria-live="polite" hidden></div>
 
 <script>
+// Disuade de guardar las imágenes (clic derecho, pulsación larga en móvil, arrastrar). No es una barrera
+// absoluta —una captura de pantalla siempre es posible—, pero evita la descarga habitual.
+(function () {
+  const protegido = t => t && t.closest && t.closest('img, .card-face, .card-wrapper, .muestra-escena, .oracle-container, .muestra-cartas, .visor');
+  document.addEventListener('contextmenu', e => { if (protegido(e.target)) e.preventDefault(); }, true);
+  document.addEventListener('dragstart', e => { if (e.target && e.target.tagName === 'IMG') e.preventDefault(); }, true);
+})();
 /* =====================================================================
    CONFIGURACIÓN — lo único que tendrás que tocar al añadir oráculos
    ===================================================================== */
@@ -1094,6 +1104,50 @@ const CARTAS_RAMANA = [
   {"title": "LA DEVOCIÓN MÁS ELEVADA", "img": "39.webp"},
   {"title": "EL ORIGEN DEL \"YO\"", "img": "40.webp"}
 ];
+// Solo títulos e imágenes (para la página de muestra). Los textos completos están en
+// oraculos/ecos-egipto/cartas.json.
+const CARTAS_EGIPTO = [
+  {"title": "MAAT", "sub": "Verdad y equilibrio", "audio": "01.mp3", "img": "01.webp"},
+  {"title": "ISIS", "img": "02.webp"},
+  {"title": "OSIRIS", "img": "03.webp"},
+  {"title": "HORUS", "img": "04.webp"},
+  {"title": "THOT", "img": "05.webp"},
+  {"title": "HATHOR", "img": "06.webp"},
+  {"title": "BASTET", "img": "07.webp"},
+  {"title": "SEKHMET", "img": "08.webp"},
+  {"title": "PTAH", "img": "09.webp"},
+  {"title": "NEITH", "img": "10.webp"},
+  {"title": "NUT", "img": "11.webp"},
+  {"title": "GEB", "img": "12.webp"},
+  {"title": "JNUM", "img": "13.webp"},
+  {"title": "SOBEK", "img": "14.webp"},
+  {"title": "SESHAT", "img": "15.webp"},
+  {"title": "NEFTIS", "img": "16.webp"},
+  {"title": "TUERIS", "img": "17.webp"},
+  {"title": "BES", "img": "18.webp"},
+  {"title": "SERKET", "img": "19.webp"},
+  {"title": "WADJET", "img": "20.webp"},
+  {"title": "HAPI", "img": "21.webp"},
+  {"title": "RA", "sub": "La luz de cada día", "audio": "22.mp3", "img": "22.webp"},
+  {"title": "SHU", "img": "23.webp"},
+  {"title": "IMHOTEP", "img": "24.webp"},
+  {"title": "ANKH", "img": "25.webp"},
+  {"title": "DJED", "img": "26.webp"},
+  {"title": "OJO DE HORUS", "img": "27.webp"},
+  {"title": "ESCARABEO", "img": "28.webp"},
+  {"title": "LOTO AZUL", "img": "29.webp"},
+  {"title": "SISTRO", "img": "30.webp"},
+  {"title": "SHEN", "img": "31.webp"},
+  {"title": "TYET", "img": "32.webp"},
+  {"title": "BENBEN", "img": "33.webp"},
+  {"title": "URAEUS", "img": "34.webp"},
+  {"title": "LA CRECIDA DEL NILO", "img": "35.webp"},
+  {"title": "LAS DOS TIERRAS", "img": "36.webp"},
+  {"title": "HEKA", "img": "37.webp"},
+  {"title": "DESHRET", "img": "38.webp"},
+  {"title": "ENSEÑANZA DE PTAHHOTEP", "img": "39.webp"},
+  {"title": "PIRÁMIDE", "img": "40.webp"}
+];
 /*@@FIN_CARTAS_NUEVAS@@*/
 
 const ORACULOS = [
@@ -1256,6 +1310,37 @@ const ORACULOS = [
               'Saca una carta cuando el mundo te agite y deja que sea ella quien te devuelva a casa. Aquí tienes dos para que sientas su quietud antes de elegir tu camino.']
     },
     cartas: CARTAS_RAMANA
+  },
+  {
+    id: 'ecos-egipto', nombre: 'Ecos de Egipto', subtitulo: 'Sabiduría que atraviesa el tiempo', estado: 'disponible',
+    abiertoParaTodos: false,
+    base: 'oraculos/ecos-egipto/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
+    colorFondo: '#d9d1be', colorBarra: '#e2dccc', fondoClaro: true, zonaTitulo: 0.255, proporcion: 3 / 4,
+    // Tres niveles de compra (cada uno es un producto de Payhip; los tres abren esta baraja en la app).
+    // Los extras (guía, música SOMA, audiolibro) se descargan desde Payhip al comprar.
+    payhip: 'https://payhip.com/b/joh2R', precio: 'desde 4,99 €', muestras: ['01', '22'],
+    opciones: [
+      { nombre: 'Meditación', precio: '4,99 €', payhip: 'https://payhip.com/b/bytxq',
+        lema: 'El oráculo, para consultarlo cada día',
+        incluye: ['Las <b>40 cartas</b> ilustradas de Ecos de Egipto', 'El <b>audio narrado</b> de cada carta', 'Consulta cuando quieras en tu móvil, tablet u ordenador, <b>también sin conexión</b>'] },
+      { nombre: 'Éxtasis', precio: '7,99 €', destacada: true, cinta: 'La más elegida', payhip: 'https://payhip.com/b/joh2R',
+        lema: 'Consulta, comprende y medita',
+        previo: 'Todo lo de Meditación, y además',
+        incluye: ['<b>Guía Premium del oráculo</b>: el Egipto de las cartas, las palabras clave de su mundo y enseñanzas a fondo, en un PDF a todo color', '<b>Audio «SOMA»</b>: música creada para la activación de la glándula pineal (16:38 minutos)'] },
+      { nombre: 'Nirvana', precio: '12,99 €', cinta: 'La experiencia completa', payhip: 'https://payhip.com/b/2IiBW',
+        lema: 'Sumérgete en el mundo de Egipto',
+        previo: 'Todo lo de Éxtasis, y además',
+        incluye: ['<b>Audiolibro «Mitos de Egipto»</b>: narrado por una actriz profesional, con efectos de sonido y calidad premium cinemática'] }
+    ],
+    ctaTitulo: 'Elige tu camino',
+    ctaTexto: 'Tres niveles de un mismo oráculo. Cada uno incluye todo lo del anterior: tú decides hasta dónde llegar.',
+    presentacion: {
+      lema: '40 ecos del antiguo Egipto para llevar su sabiduría a tu vida',
+      texto: ['Durante tres mil años, un pueblo vivió pendiente de un río, del sol y de las estrellas, y supo ver lo sagrado en todo: en los dioses, en los símbolos y en la crecida del Nilo. Sus ecos siguen llegando hasta hoy.',
+              'Este oráculo reúne 40 de ellos: dioses y diosas, símbolos y fuerzas de la naturaleza, leídos con una mirada de hoy. Cada carta trae lo que significó para quienes la veneraban, lo que puede decirte ahora y un gesto sencillo para llevarla a tu día, con su mensaje en audio.',
+              'Saca una carta cuando necesites un impulso y deja que el antiguo Egipto te hable. Aquí tienes dos para que sientas su sabiduría antes de elegir tu camino.']
+    },
+    cartas: CARTAS_EGIPTO
   }
 ];
 
@@ -1288,7 +1373,15 @@ const REGALOS = {
     titulo: 'El mantra de Ramana Maharshi para meditar',
     texto: '29 minutos de mantra para acompañar tu meditación, sin esfuerzo y sin prisa. Escucha un fragmento.',
     escucha: 'Escucha un fragmento del mantra', audio: 'regalo.mp3',
-    nota: 'Lo descargas desde Payhip junto a tu compra de Éxtasis o Nirvana.' }
+    nota: 'Lo descargas desde Payhip junto a tu compra de Éxtasis o Nirvana.' },
+  'ecos-egipto': { tipo: 'audio', icono: 'loto', etiqueta: 'Incluido en Éxtasis y Nirvana',
+    titulo: 'SOMA: música para la glándula pineal',
+    texto: '16 minutos de música creada para la activación de la glándula pineal, para cerrar los ojos y dejarte llevar. Escucha un fragmento.',
+    escucha: 'Escucha un fragmento de SOMA', audio: 'regalo.mp3',
+    nota: 'La descargas desde Payhip junto a tu compra de Éxtasis o Nirvana.',
+    extra: { etiqueta: 'Solo en Nirvana', titulo: 'Audiolibro «Mitos de Egipto»',
+      texto: 'Nueve relatos de la mitología egipcia, narrados por una actriz profesional con efectos de sonido y calidad premium cinemática. Escucha dos muestras.',
+      muestras: [{ nombre: 'El nacimiento de Ra', audio: 'audiolibro-nacimiento-de-ra.mp3' }, { nombre: 'Nuy y la Barca Solar', audio: 'audiolibro-nuy-y-la-barca-solar.mp3' }] } }
 };
 ORACULOS.forEach(o => { if (REGALOS[o.id]) o.regalo = REGALOS[o.id]; });
 
