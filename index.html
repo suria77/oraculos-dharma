@@ -1374,14 +1374,11 @@ const REGALOS = {
     texto: '29 minutos de mantra para acompañar tu meditación, sin esfuerzo y sin prisa. Escucha un fragmento.',
     escucha: 'Escucha un fragmento del mantra', audio: 'regalo.mp3',
     nota: 'Lo descargas desde Payhip junto a tu compra de Éxtasis o Nirvana.' },
-  'ecos-egipto': { tipo: 'audio', icono: 'loto', etiqueta: 'Incluido en Éxtasis y Nirvana',
-    titulo: 'SOMA: música para la glándula pineal',
-    texto: '16 minutos de música creada para la activación de la glándula pineal, para cerrar los ojos y dejarte llevar. Escucha un fragmento.',
-    escucha: 'Escucha un fragmento de SOMA', audio: 'regalo.mp3',
-    nota: 'La descargas desde Payhip junto a tu compra de Éxtasis o Nirvana.',
-    extra: { etiqueta: 'Solo en Nirvana', titulo: 'Audiolibro «Mitos de Egipto»',
-      texto: 'Nueve relatos de la mitología egipcia, narrados por una actriz profesional con efectos de sonido y calidad premium cinemática. Escucha dos muestras.',
-      muestras: [{ nombre: 'El nacimiento de Ra', audio: 'audiolibro-nacimiento-de-ra.mp3' }, { nombre: 'Nuy y la Barca Solar', audio: 'audiolibro-nuy-y-la-barca-solar.mp3' }] } }
+  'ecos-egipto': { tipo: 'muestras', icono: 'loto', etiqueta: 'Solo en Nirvana',
+    titulo: 'Audiolibro «Mitos de Egipto»',
+    texto: 'Nueve relatos de la mitología egipcia, narrados por una actriz profesional con efectos de sonido y calidad premium cinemática. Escucha dos muestras.',
+    muestras: [{ nombre: 'El nacimiento de Ra', audio: 'audiolibro-nacimiento-de-ra.mp3' }, { nombre: 'Nuy y la Barca Solar', audio: 'audiolibro-nuy-y-la-barca-solar.mp3' }],
+    nota: 'Lo descargas desde Payhip junto a tu compra de Nirvana.' }
 };
 ORACULOS.forEach(o => { if (REGALOS[o.id]) o.regalo = REGALOS[o.id]; });
 
@@ -2566,7 +2563,12 @@ function pintarRegalo(o) {
   const cont = document.getElementById('muestraRegalo'), g = o.regalo;
   if (!g) { cont.hidden = true; cont.innerHTML = ''; return; }
   let cuerpo = '';
-  if (g.tipo === 'audio') {
+  if (g.tipo === 'muestras') {
+    cuerpo = `<div class="regalo-muestras">${g.muestras.map(m => `<div class="regalo-reproductor"><p class="regalo-escucha">${m.nombre}</p><div class="mini-player">
+      <button type="button" data-audio="${o.base}muestra/${m.audio}" aria-label="Escuchar una muestra: ${m.nombre}">${ICO_PLAY}</button>
+      <div class="barra"><div class="pista"><i></i></div><span class="tiempo">Escuchar</span></div>
+    </div></div>`).join('')}</div>`;
+  } else if (g.tipo === 'audio') {
     cuerpo = `<p class="regalo-escucha">${g.escucha || 'Escucha una muestra del regalo'}</p>
       <div class="regalo-reproductor"><div class="mini-player">
         <button type="button" data-audio="${o.base}muestra/${g.audio}" aria-label="Escuchar una muestra del audio de regalo">${ICO_PLAY}</button>
