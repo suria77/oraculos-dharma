@@ -481,8 +481,8 @@
   @media (min-width: 900px) {
     .muestra-rejilla { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: start; }
     .muestra-intro { grid-column: 1; grid-row: 1; }
-    .muestra-regalo { grid-column: 1; grid-row: 2; }
-    .muestra-cta { grid-column: 1; grid-row: 3; }
+    .muestra-cta { grid-column: 1; grid-row: 2; }
+    .muestra-regalo { grid-column: 1; grid-row: 3; }
     .muestra-cartas { grid-column: 2; grid-row: 1 / span 3; }
     .muestra-todas { grid-column: 1 / -1; grid-row: 4; }
   }
@@ -654,6 +654,16 @@ button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cur
 .tienda::before { width: min(300px, 70%); background: linear-gradient(90deg, transparent, rgba(205,176,255,.55), transparent); }
 .tienda-tit { color: var(--lila); }
 .tienda-sub { font-size: 20px; }
+/* Franja de oro viejo de lado a lado: separa los oráculos de la tienda */
+.tienda { margin-top: clamp(44px, 8vw, 90px); padding-top: 0; }
+.tienda::before { display: none; }
+.tienda-cab { position: relative; margin: 0 calc(50% - 50vw) 8px; padding: clamp(26px, 5vw, 40px) 20px clamp(24px, 4.5vw, 36px); text-align: center;
+  background: url('img/oro-viejo.webp') center / cover no-repeat, #b08634;
+  border-top: 2px solid #5b3f0e; border-bottom: 2px solid #5b3f0e;
+  box-shadow: inset 0 1px 0 rgba(255,236,170,.75), inset 0 -1px 0 rgba(255,236,170,.45), 0 10px 26px rgba(0,0,0,.45); }
+.tienda-lirio { width: 34px; height: 34px; fill: none; stroke: #3a2406; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: .85; margin-bottom: 6px; }
+.tienda .tienda-tit { color: #2b1804; opacity: 1; font-size: clamp(17px, 4.6vw, 24px); letter-spacing: .22em; text-shadow: 0 1px 0 rgba(255,236,170,.7); }
+.tienda .tienda-sub { color: #3a2406; opacity: 1; font-size: clamp(19px, 4.8vw, 24px); font-weight: 500; text-shadow: 0 1px 0 rgba(255,236,170,.55); }
 .disco-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(8,2,16,.9); }
 .disco-modal-cont { position: relative; width: 100%; height: 100%; max-width: 1180px; max-height: 900px; }
 .disco-modal-cont iframe { width: 100%; height: 100%; display: block; border: 0; border-radius: 12px; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,.6); }
@@ -708,6 +718,7 @@ button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cur
         </div>
       <section class="tienda" aria-labelledby="t-tienda">
 <div class="tienda-cab">
+<svg class="tienda-lirio" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8c4 5 6 10 6 15s-2 9-6 13c-4-4-6-8-6-13s2-10 6-15z"/><path d="M24 36c-6-1-12-5-15-12 6-1 11 1 15 5"/><path d="M24 36c6-1 12-5 15-12-6-1-11 1-15 5"/></svg>
 <h2 class="tienda-tit" id="t-tienda">Para seguir profundizando</h2>
 <p class="tienda-sub">Música y audiolibros de Dharma Eterno</p>
 </div>
@@ -778,7 +789,6 @@ button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cur
         </ul>
       </section>
       <div class="muestra-cartas" id="muestraCartas"></div>
-      <section class="muestra-panel muestra-regalo" id="muestraRegalo" hidden></section>
       <section class="muestra-panel muestra-cta">
         <h2 id="muestraCtaTitulo">Llévate el oráculo completo</h2>
         <p id="muestraCtaTexto">Las 40 cartas con sus audios, en tu móvil o tablet, para consultarlas siempre que lo necesites.</p>
@@ -788,6 +798,7 @@ button.tienda-item { background: none; border: 0; padding: 0; font: inherit; cur
         <p class="confianza">Pago seguro con Payhip · Licencia al instante por correo · Válida en 2 dispositivos</p>
         <button type="button" class="muestra-ya" data-accion="licencia">Ya lo compré: activar licencia</button>
       </section>
+      <section class="muestra-panel muestra-regalo" id="muestraRegalo" hidden></section>
       <section class="muestra-panel muestra-todas">
         <h3>Y estas son las demás cartas que te esperan</h3>
         <div class="muestra-minis" id="muestraMinis"></div>
@@ -1549,13 +1560,12 @@ function huecoHTML(o) {
   return `<div class="hueco" data-id="${o.id}">
       <div class="hueco-media">
         ${o.opciones
-          ? `<button type="button" class="sello sello-conseguir" data-accion="ver-niveles" data-id="${o.id}" aria-label="Ver los niveles de ${o.nombre}, ${o.precio || PRECIO_ORACULO}">Ver niveles</button>`
-          : `<a class="sello sello-conseguir" href="${enlaceCompra(o, 'coleccion')}" target="_blank" rel="noopener" aria-label="Comprar ${o.nombre}, ${o.precio || PRECIO_ORACULO}">Comprar</a>`}
+          ? `<button type="button" class="sello sello-conseguir" data-accion="ver-niveles" data-id="${o.id}" aria-label="Comprar ${o.nombre}: ver los niveles">COMPRAR</button>`
+          : `<a class="sello sello-conseguir" href="${enlaceCompra(o, 'coleccion')}" target="_blank" rel="noopener" aria-label="Comprar ${o.nombre}">COMPRAR</a>`}
         <div class="hueco-texto">¿Ya lo compraste?</div>
         <button class="btn-activar" data-accion="licencia" aria-label="Activar la licencia de ${o.nombre}">ACTIVAR</button>
       </div>
       <div class="tarjeta-nombre hueco-nombre-linea">${ICONO_CANDADO.replace('<svg', '<svg class="hueco-candado"')}<span>${o.nombre}</span></div>
-      <div class="hueco-precio">${o.precio || PRECIO_ORACULO}</div>
     </div>`;
 }
 

@@ -61,7 +61,7 @@ export async function onRequestPost({ request, env }) {
     return json(200, { ok: false, error: 'No encontramos esa licencia. Revisa que esté completa, con sus guiones, tal como aparece en tu email de Payhip.' });
   }
   if (encontrada.producto !== undefined) {
-    return json(200, { ok: false, error: 'La licencia es válida, pero ese producto todavía no está disponible en la app. Escríbenos y lo resolvemos enseguida.' });
+    return json(200, { ok: false, error: 'La licencia es válida, pero ese producto todavía no está disponible en la app (código: ' + (encontrada.producto || 'desconocido') + '). Escríbenos y lo resolvemos enseguida.' });
   }
   const { oraculo } = encontrada;
   if (!encontrada.enabled) {
