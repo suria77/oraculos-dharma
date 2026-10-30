@@ -1166,7 +1166,7 @@ const CARTAS_EGIPTO = [
 // Solo títulos e imágenes (para la página de muestra). Los textos completos están en
 // oraculos/espiritus-tierra/cartas.json.
 const CARTAS_ESPIRITUS = [
-  {"title": "MANITOU", "sub": "Lo sagrado en todas las cosas", "audio": "01.mp3", "img": "01.webp"},
+  {"title": "MANITOU", "img": "01.webp"},
   {"title": "PÁJARO DEL TRUENO", "img": "02.webp"},
   {"title": "COYOTE", "img": "03.webp"},
   {"title": "NUNNEHI", "img": "04.webp"},
@@ -1177,7 +1177,7 @@ const CARTAS_ESPIRITUS = [
   {"title": "CHANEQUES", "img": "09.webp"},
   {"title": "APU", "img": "10.webp"},
   {"title": "NGEN", "img": "11.webp"},
-  {"title": "CURUPIRA", "img": "12.webp"},
+  {"title": "CURUPIRA", "sub": "Tomar solo lo necesario", "audio": "12.mp3", "img": "12.webp"},
   {"title": "CHULLACHAQUI", "img": "13.webp"},
   {"title": "YACUMAMA", "img": "14.webp"},
   {"title": "BOITATÁ", "img": "15.webp"},
@@ -1188,7 +1188,7 @@ const CARTAS_ESPIRITUS = [
   {"title": "NOMMO", "img": "20.webp"},
   {"title": "VAZIMBA", "img": "21.webp"},
   {"title": "NYAMI NYAMI", "img": "22.webp"},
-  {"title": "KODAMA", "sub": "El eco del árbol", "audio": "23.mp3", "img": "23.webp"},
+  {"title": "KODAMA", "img": "23.webp"},
   {"title": "KAMUY", "img": "24.webp"},
   {"title": "EEZI", "img": "25.webp"},
   {"title": "DIWATA", "img": "26.webp"},
@@ -1197,7 +1197,7 @@ const CARTAS_ESPIRITUS = [
   {"title": "MIMI", "img": "29.webp"},
   {"title": "TIDDALIK", "img": "30.webp"},
   {"title": "PATUPAIAREHE", "img": "31.webp"},
-  {"title": "TANIWHA", "img": "32.webp"},
+  {"title": "TANIWHA", "sub": "La fuerza tranquila", "audio": "32.mp3", "img": "32.webp"},
   {"title": "AUMAKUA", "img": "33.webp"},
   {"title": "MENEHUNE", "img": "34.webp"},
   {"title": "BASAJAUN", "img": "35.webp"},
@@ -1408,7 +1408,7 @@ const ORACULOS = [
     colorFondo: '#0c2316', colorBarra: '#10291b', proporcion: 3 / 4, zonaTitulo: 0.222,
     // Tres niveles de compra (cada uno es un producto de Payhip; los tres abren esta baraja en la app).
     // Los extras (guía, música chamánica, audiolibro) se descargan desde Payhip al comprar.
-    payhip: 'https://payhip.com/b/wIOc0', precio: 'desde 4,99 €', muestras: ['01', '23'],
+    payhip: 'https://payhip.com/b/wIOc0', precio: 'desde 4,99 €', muestras: ['12', '32'],
     opciones: [
       { nombre: 'Meditación', precio: '4,99 €', payhip: 'https://payhip.com/b/1yIiT',
         lema: 'El oráculo, para consultarlo cada día',
