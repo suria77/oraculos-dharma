@@ -1163,6 +1163,50 @@ const CARTAS_EGIPTO = [
   {"title": "ENSEÑANZA DE PTAHHOTEP", "img": "39.webp"},
   {"title": "PIRÁMIDE", "img": "40.webp"}
 ];
+// Solo títulos e imágenes (para la página de muestra). Los textos completos están en
+// oraculos/espiritus-tierra/cartas.json.
+const CARTAS_ESPIRITUS = [
+  {"title": "MANITOU", "sub": "Lo sagrado en todas las cosas", "audio": "01.mp3", "img": "01.webp"},
+  {"title": "PÁJARO DEL TRUENO", "img": "02.webp"},
+  {"title": "COYOTE", "img": "03.webp"},
+  {"title": "NUNNEHI", "img": "04.webp"},
+  {"title": "LAS 3 HERMANAS", "img": "05.webp"},
+  {"title": "SÁSQ’ETS", "img": "06.webp"},
+  {"title": "SILA", "img": "07.webp"},
+  {"title": "ALUX", "img": "08.webp"},
+  {"title": "CHANEQUES", "img": "09.webp"},
+  {"title": "APU", "img": "10.webp"},
+  {"title": "NGEN", "img": "11.webp"},
+  {"title": "CURUPIRA", "img": "12.webp"},
+  {"title": "CHULLACHAQUI", "img": "13.webp"},
+  {"title": "YACUMAMA", "img": "14.webp"},
+  {"title": "BOITATÁ", "img": "15.webp"},
+  {"title": "POMBERO", "img": "16.webp"},
+  {"title": "AZIZA", "img": "17.webp"},
+  {"title": "MMOATIA", "img": "18.webp"},
+  {"title": "JENGU", "img": "19.webp"},
+  {"title": "NOMMO", "img": "20.webp"},
+  {"title": "VAZIMBA", "img": "21.webp"},
+  {"title": "NYAMI NYAMI", "img": "22.webp"},
+  {"title": "KODAMA", "sub": "El eco del árbol", "audio": "23.mp3", "img": "23.webp"},
+  {"title": "KAMUY", "img": "24.webp"},
+  {"title": "EEZI", "img": "25.webp"},
+  {"title": "DIWATA", "img": "26.webp"},
+  {"title": "BONGA", "img": "27.webp"},
+  {"title": "LU", "img": "28.webp"},
+  {"title": "MIMI", "img": "29.webp"},
+  {"title": "TIDDALIK", "img": "30.webp"},
+  {"title": "PATUPAIAREHE", "img": "31.webp"},
+  {"title": "TANIWHA", "img": "32.webp"},
+  {"title": "AUMAKUA", "img": "33.webp"},
+  {"title": "MENEHUNE", "img": "34.webp"},
+  {"title": "BASAJAUN", "img": "35.webp"},
+  {"title": "XANA", "img": "36.webp"},
+  {"title": "HALTIJA", "img": "37.webp"},
+  {"title": "MEŽAMĀTE", "img": "38.webp"},
+  {"title": "LESHY", "img": "39.webp"},
+  {"title": "WENDIGO", "img": "40.webp"}
+];
 /*@@FIN_CARTAS_NUEVAS@@*/
 
 const ORACULOS = [
@@ -1356,6 +1400,37 @@ const ORACULOS = [
               'Saca una carta cuando necesites un impulso y deja que el antiguo Egipto te hable. Aquí tienes dos para que sientas su sabiduría antes de elegir tu camino.']
     },
     cartas: CARTAS_EGIPTO
+  },
+  {
+    id: 'espiritus-tierra', nombre: 'Espíritus de la Tierra', subtitulo: 'Guardianes de la naturaleza', estado: 'disponible',
+    abiertoParaTodos: false,
+    base: 'oraculos/espiritus-tierra/', portada: 'portada.webp', dorso: 'dorso.webp', fondo: 'fondo.webp', sonido: 'sonido-giro.mp3',
+    colorFondo: '#0c2316', colorBarra: '#10291b', proporcion: 3 / 4, zonaTitulo: 0.222,
+    // Tres niveles de compra (cada uno es un producto de Payhip; los tres abren esta baraja en la app).
+    // Los extras (guía, música chamánica, audiolibro) se descargan desde Payhip al comprar.
+    payhip: 'https://payhip.com/b/wIOc0', precio: 'desde 4,99 €', muestras: ['01', '23'],
+    opciones: [
+      { nombre: 'Meditación', precio: '4,99 €', payhip: 'https://payhip.com/b/1yIiT',
+        lema: 'El oráculo, para consultarlo cada día',
+        incluye: ['Las <b>40 cartas</b> ilustradas de los espíritus de la Tierra', 'El <b>audio narrado</b> de cada carta', 'Consulta cuando quieras en tu móvil, tablet u ordenador, <b>también sin conexión</b>'] },
+      { nombre: 'Éxtasis', precio: '7,99 €', destacada: true, cinta: 'La más elegida', payhip: 'https://payhip.com/b/wIOc0',
+        lema: 'Consulta, comprende y medita',
+        previo: 'Todo lo de Meditación, y además',
+        incluye: ['<b>Guía Premium del oráculo</b>: el trasfondo de cada espíritu en su tradición, sus símbolos y su enseñanza, en un PDF a todo color', '<b>Música chamánica</b>: una profunda meditación inspirada en los cantos ceremoniales de María Sabina'] },
+      { nombre: 'Nirvana', precio: '12,99 €', cinta: 'La experiencia completa', payhip: 'https://payhip.com/b/kv1qD',
+        lema: 'Déjate llevar por los cuentos del espíritu',
+        previo: 'Todo lo de Éxtasis, y además',
+        incluye: ['<b>Audiolibro «Selección de cuentos espirituales»</b>: grabación de estudio con actriz profesional y efectos de sonido cinemáticos'] }
+    ],
+    ctaTitulo: 'Elige tu camino',
+    ctaTexto: 'Tres niveles de un mismo oráculo. Cada uno incluye todo lo del anterior: tú decides hasta dónde llegar.',
+    presentacion: {
+      lema: '40 espíritus de la naturaleza de los cinco continentes con un mensaje para tu día',
+      texto: ['Mucho antes de los templos, los pueblos que vivían cerca de la tierra sabían que el bosque, el río y la montaña tienen alma. Los cheroquis, los mayas, los inuit, los maoríes, los akan o los vascos honraron durante siglos a sus guardianes: espíritus pequeños y grandes, traviesos o protectores, siempre ligados a un lugar.',
+              'Este oráculo reúne 40 de ellos. Cada carta te cuenta quién es el espíritu, en qué pueblo vive su memoria y qué puede enseñarte hoy, con un gesto sencillo para llevarlo a tu día y su mensaje en audio.',
+              'Saca una carta cuando necesites volver a lo esencial y deja que la Tierra te hable. Aquí tienes dos para que sientas su voz antes de elegir tu camino.']
+    },
+    cartas: CARTAS_ESPIRITUS
   }
 ];
 
@@ -1393,6 +1468,11 @@ const REGALOS = {
     titulo: 'Audiolibro «Mitos de Egipto»',
     texto: 'Nueve relatos de la mitología egipcia, narrados por una actriz profesional con efectos de sonido y calidad premium cinemática. Escucha dos muestras.',
     muestras: [{ nombre: 'El nacimiento de Ra', audio: 'audiolibro-nacimiento-de-ra.mp3' }, { nombre: 'Nuy y la Barca Solar', audio: 'audiolibro-nuy-y-la-barca-solar.mp3' }],
+    nota: 'Lo descargas desde Payhip junto a tu compra de Nirvana.' },
+  'espiritus-tierra': { tipo: 'muestras', icono: 'loto', etiqueta: 'Solo en Nirvana',
+    titulo: 'Audiolibro «Selección de cuentos espirituales»',
+    texto: 'Cuentos de sabiduría grabados en estudio por una actriz profesional, con efectos de sonido cinemáticos. Escucha tres muestras.',
+    muestras: [{ nombre: 'La raíz de los sufrimientos', audio: 'audiolibro-la-raiz-de-los-sufrimientos.mp3' }, { nombre: 'Maya, el mundo ilusorio', audio: 'audiolibro-maya-el-mundo-ilusorio.mp3' }, { nombre: 'El maestro de la espada', audio: 'audiolibro-el-maestro-de-la-espada.mp3' }],
     nota: 'Lo descargas desde Payhip junto a tu compra de Nirvana.' }
 };
 ORACULOS.forEach(o => { if (REGALOS[o.id]) o.regalo = REGALOS[o.id]; });
